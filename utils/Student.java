@@ -57,5 +57,14 @@ public class Student {
         this.password = password;
     }
 
+    public Student(int id, String lastName, String firstName, String address, String email, String phoneNumber, String password) {
+        this.id = id;
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.address = address;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.password = password;
 
+    }
 }

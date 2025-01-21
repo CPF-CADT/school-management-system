@@ -40,5 +40,13 @@ public class Assignment {
     public void setScore(float score) {
         this.score = score;
     }
+    public Assignment(int id, int courseId, String title, String description, float score) {
+        this.id = id;
+        this.courseId = courseId;
+        this.title = title;
+        this.description = description;
+        this.score = score;
+
+    }
 
 }

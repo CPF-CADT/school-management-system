@@ -32,5 +32,12 @@ public class Quizz {
     public void setTitle(String title) {
         this.title = title;
     }
+    public Quizz(int id, int courseId, int score, String title) {
+        this.id = id;
+        this.courseId = courseId;
+        this.score = score;
+        this.title = title;
+
+    }
 }
 
