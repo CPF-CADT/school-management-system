@@ -6,6 +6,14 @@ public class Course {
     private float payment;
     private String description;
 
+    public Course(int id, String name, String level, float payment, String description) {
+        this.id = id;
+        this.name = name;
+        this.level = level;
+        this.payment = payment;
+        this.description = description;
+    }
+
     public int getId() {
         return id;
     }
@@ -40,14 +48,5 @@ public class Course {
     public void setDescription(String description) {
         this.description = description;
     }
-    public Course(int id, String name, String level, float payment, String description) {
-        this.id = id;
-        this.name = name;
-        this.level = level;
-        this.payment = payment;
-        this.description = description;
-
-    }
-
 
 }

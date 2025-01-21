@@ -8,7 +8,18 @@ public class Teacher {
     private String phoneNumber;
     private String password;
     private String major;
-
+    
+    public Teacher(int id, String lastName, String firstName, String address, String email, String phoneNumber, String password, String major) {
+        this.id = id;
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.address = address;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.password = password;
+        this.major = major;
+    }
+    
     public int getId() {
         return id;
     }
@@ -63,17 +74,5 @@ public class Teacher {
     }
     public void setMajor(String major) {
         this.major = major;
-    }
-    public Teacher(int id, String lastName, String firstName, String address, String email, String phoneNumber, String password, String major) {
-        this.id = id;
-        this.lastName = lastName;
-        this.firstName = firstName;
-        this.address = address;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.password = password;
-        this.major = major;
-
-
     }
 }
