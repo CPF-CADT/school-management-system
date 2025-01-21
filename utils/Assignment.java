@@ -1,3 +1,4 @@
+package utils;
 public class Assignment {
     private int id;
     private int courseId;

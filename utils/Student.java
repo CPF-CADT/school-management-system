@@ -1,3 +1,4 @@
+package utils;
 public class Student {
     private int id;
     private String lastName;

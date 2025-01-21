@@ -1,3 +1,4 @@
+package utils;
 public class Quizz {
     private int id;
     private int courseId;
