@@ -1,10 +1,13 @@
 package utils;
+
+import java.util.ArrayList;
+
 public class Quizz {
     private int id;
     private int courseId;
     private int score;
     private String title;
-
+    private ArrayList<Question> task;
     public Quizz(int id, int courseId, int score, String title) {
         this.id = id;
         this.courseId = courseId;

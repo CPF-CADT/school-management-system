@@ -3,6 +3,7 @@ public class Student {
     private int id;
     private String lastName;
     private String firstName;
+    private DOB dob = new DOB();
     private String address;
     private String email;
     private String phoneNumber;
