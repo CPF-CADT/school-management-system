@@ -1,23 +1,23 @@
 package utils;
 public class Classroom {
 
-    private String classId;
-    private String className;
+    private String idClass;
+    private String nameClass;
     private String teacher;
     private int capacity;
 
-    public Classroom(String id, String className, String teacher, int capacity){
-        this.classId = className;
-        this.className = className;
+    public Classroom(String idClass, String className, String teacher, int capacity){
+        this.idClass = className;
+        this.nameClass = className;
         this.teacher = teacher;
         this.capacity = capacity;
     }
 
     public String getClassId(){
-        return classId;
+        return idClass;
     }
     public String getClassName(){
-        return className;
+        return nameClass;
     }
     public String getTeacher(){
         return teacher;
@@ -25,12 +25,12 @@ public class Classroom {
     public int getCapacity(){
         return capacity;
     }
-    
-    public void setClassId(String classId){
-        this.classId = classId;
+
+    public void setClassId(String idClass){
+        this.idClass = idClass;
     }
-    public void setClassName(String className){
-        this.className = className;
+    public void setClassName(String nameClass){
+        this.nameClass = nameClass;
     }
     public void setTeacher(String teacher){
         this.teacher = teacher;
