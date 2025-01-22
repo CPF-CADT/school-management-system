@@ -10,6 +10,21 @@ public class Teacher {
     private String password;
     private String major;
     
+    public Teacher() {
+        id = 0;
+        firstName = null;
+        lastName = null;
+        address = null;
+        email = null;
+        phoneNumber = null;
+        password = null;
+        major = null;
+    }
+    public Teacher(String lastName, String firstName, String phoneNumber) {
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.phoneNumber = phoneNumber;
+    }
     public Teacher(int id, String lastName, String firstName, String address, String email, String phoneNumber, String password, String major) {
         this.id = id;
         this.lastName = lastName;

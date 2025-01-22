@@ -8,7 +8,20 @@ public class Student {
     private String email;
     private String phoneNumber;
     private String password;
-
+    public Student() {
+        id = 0;
+        lastName = null;
+        firstName = null;
+        address = null;
+        email = null;
+        phoneNumber = null;
+        password = null;
+    }
+    public Student(String phoneNumber, String lastName, String firstName) {
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.phoneNumber = phoneNumber;
+    }
     public Student(int id, String lastName, String firstName, String address, String email, String phoneNumber, String password) {
         this.id = id;
         this.lastName = lastName;

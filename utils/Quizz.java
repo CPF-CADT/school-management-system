@@ -14,7 +14,6 @@ public class Quizz {
         this.score = score;
         this.title = title;
     }
-    
     public int getId() {
         return id;
     }
