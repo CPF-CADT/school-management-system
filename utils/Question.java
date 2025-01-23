@@ -1,7 +1,6 @@
 package utils;
-
-import java.util.ArrayList;
 import java.util.HashMap;
+
 public class Question {
     private String question;
     private float marks;
@@ -12,4 +11,14 @@ public class Question {
         this.marks = marks;
         this.correctAnswer = correctAnswer;
     }
+    public String getQuestion(){
+        return question;
+    }
+    public float getMark(){
+        return marks;
+    }
+    public int getCorrectAnswer(){
+        return correctAnswer;
+    }
+
 }
