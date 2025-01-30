@@ -1,21 +1,17 @@
 package utils;
+
+import java.util.Date;
+
 public class Student {
     private int id;
     private String lastName;
     private String firstName;
-    private DOB dob = new DOB();
+    private Date dob;
     private String address;
     private String email;
     private String phoneNumber;
     private String password;
     public Student() {
-        id = 0;
-        lastName = null;
-        firstName = null;
-        address = null;
-        email = null;
-        phoneNumber = null;
-        password = null;
     }
     public Student(String phoneNumber, String lastName, String firstName) {
         this.lastName = lastName;

@@ -1,9 +1,13 @@
 package utils;
+
+import java.util.Date;
+
 public class Teacher {
+    static int numberOfTeacher ;
     private int id;
     private String lastName;
     private String firstName;
-    private DOB dob = new DOB();
+    private Date dob ; //
     private String address;
     private String email;
     private String phoneNumber;
@@ -11,22 +15,19 @@ public class Teacher {
     private String major;
     
     public Teacher() {
-        id = 0;
-        firstName = null;
-        lastName = null;
-        address = null;
-        email = null;
-        phoneNumber = null;
-        password = null;
-        major = null;
+        numberOfTeacher++;
+        this.id = numberOfTeacher;
     }
     public Teacher(String lastName, String firstName, String phoneNumber) {
+        numberOfTeacher++;
         this.lastName = lastName;
         this.firstName = firstName;
         this.phoneNumber = phoneNumber;
+        this.id = numberOfTeacher;
     }
     public Teacher(int id, String lastName, String firstName, String address, String email, String phoneNumber, String password, String major) {
-        this.id = id;
+        numberOfTeacher++;
+        this.id = numberOfTeacher;
         this.lastName = lastName;
         this.firstName = firstName;
         this.address = address;
