@@ -3,12 +3,12 @@ package utils;
 import java.util.*;
 
 public class Classroom {
-    private int idClass;
-    private Teacher teacher = new Teacher();
-    private Course course;
-    private ArrayList<Student> student = new ArrayList<Student>();
+    public int idClass;
+    public Teacher teacher;
+    public Course course;
+    public Student[] student ;
 
-    public Classroom(int idClass, Course course, Teacher teacher, ArrayList<Student> student ){
+    public Classroom(int idClass, Course course, Teacher teacher, Student[] student ){
         this.idClass = idClass;
         this.teacher = teacher;
         this.course = course;
