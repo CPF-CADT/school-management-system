@@ -2,23 +2,13 @@ package utils;
 import java.util.HashMap;
 
 public class Question {
-    private String question;
-    private float marks;
-    private HashMap<Integer,String> answer = new HashMap<Integer,String>();
-    private int correctAnswer;
+    public String question;
+    public float marks;
+    public HashMap<Integer,String> answer = new HashMap<Integer,String>();
+    public int correctAnswer;
     Question(String question,float marks,int correctAnswer){
         this.question = question;
         this.marks = marks;
         this.correctAnswer = correctAnswer;
     }
-    public String getQuestion(){
-        return question;
-    }
-    public float getMark(){
-        return marks;
-    }
-    public int getCorrectAnswer(){
-        return correctAnswer;
-    }
-
 }
