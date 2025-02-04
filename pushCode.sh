@@ -1,5 +1,6 @@
 #!/bin/bash
 git add .
-git commit -m "Update"
+read task
+git commit -m "$task"
 git push origin nak
 
