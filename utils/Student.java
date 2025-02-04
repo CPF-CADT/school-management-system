@@ -3,7 +3,7 @@ package utils;
 import java.util.Date;
 
 public class Student {
-    static int id;
+    static int id =0;
     public String lastName;
     public String firstName;
     private Date dob;

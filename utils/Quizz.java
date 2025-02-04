@@ -1,18 +1,14 @@
 package utils;
-
-import java.util.ArrayList;
-
 public class Quizz {
-    public int id;
+    static int id=0;
     public int courseId;
     public float score;
     public String title;
-    private Question[] task; //consider private
+    public Question[] task; 
     public Quizz(int id, int courseId, int score, String title) {
-        this.id = id;
+        id = id+1;
         this.courseId = courseId;
         this.score = score;
         this.title = title;
     }
 }
-
