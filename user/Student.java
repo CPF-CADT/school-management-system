@@ -1,6 +1,7 @@
 package user;
 
 import java.util.Date;
+import java.util.HashSet;
 
 public class Student {
     static int id =0;
@@ -11,7 +12,7 @@ public class Student {
     static String email;
     static String phoneNumber;
     private String password;
-    static HashSet<Student> listOfStudent = new HashSet<Teacher>();
+    static HashSet<Student> listOfStudent = new HashSet<Student>();
 
     public Student(String phoneNumber, String lastName, String firstName) {
         this.lastName = lastName;
@@ -40,9 +41,10 @@ public class Student {
     public static Student FindStudent(Student std){
         for(Student student :listOfStudent){
             if(std.equals(student)){
-                return Student;
+                return student;
             }
         }
         return null;
     }
+    
 }
