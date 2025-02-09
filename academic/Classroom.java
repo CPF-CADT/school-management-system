@@ -1,6 +1,9 @@
-package utils;
+package academic;
 
 import java.util.*;
+
+import user.Student;
+import user.Teacher;
 
 public class Classroom {
     public int idClass;
