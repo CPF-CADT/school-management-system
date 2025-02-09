@@ -14,10 +14,9 @@ public class Student {
     private String password;
     static HashSet<Student> listOfStudent = new HashSet<Student>();
 
-    public Student(String phoneNumber, String lastName, String firstName) {
-        this.lastName = lastName;
-        this.firstName = firstName;
-        this.phoneNumber = phoneNumber;
+    public Student(String email, String password) {
+        this.email = email;
+        this.password = password;
     }
 
     public Student(int id, String lastName, String firstName, String address, String email, String phoneNumber,

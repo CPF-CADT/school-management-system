@@ -1,7 +1,5 @@
-import core.Form;
-import user.Admin;
-import user.Student;
-import user.Teacher;
+import user.*;
+import core.*;
 public class Main {
     public static void main(String[] args) {
         System.out.println("Welcome To School");
@@ -25,25 +23,34 @@ public class Main {
             "123",
             "Mathematics"
         );
-
+        
         Form form = new Form();
+        Feature feature = new Feature();
         Teacher Teacher = new Teacher(null, null);
         Admin Admin = new Admin(null, null);
+
+        // form.register(students, Admin, teachers, 2);
+        // login to user can be admin , student or teacher
         Object user = form.login(null, null);
-        
         if(user!=null){
             if(user.getClass() == Admin.getClass()){
                 System.out.println("Admin Interface");
                 Admin adm = (Admin) user;
-                System.out.println(adm);
+                feature.admin();
             }else if(user.getClass() == Teacher.getClass()){
                 System.out.println("Teacher Interface");
                 Teacher tch = (Teacher) user;
                 System.out.println(tch);
+                switch (feature.teacher()) {
+                    case 1:
+                        
+                        break;
+                    default:
+                        break;
+                }
             }
         }else{
             System.out.println("Incorrect User account");
-            
         }
     }
 }
