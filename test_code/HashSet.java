@@ -25,7 +25,7 @@ public class HashSet {
                 case 2:
                     System.out.println("Phone : ");
                     String phoneNum = input.next();
-                    Person login = new Person(phoneNum);
+                    Person login = new Person(phoneNum, tempName);
                    
                     login = Person.searchPerson(login);
                     System.err.println(login);
