@@ -6,11 +6,13 @@ public class Student {
     static int id =0;
     public String lastName;
     public String firstName;
-    private Date dob;
+    static Date dob;
     private String address;
-    public String email;
-    public String phoneNumber;
+    static String email;
+    static String phoneNumber;
     private String password;
+    static HashSet<Student> listOfStudent = new HashSet<Teacher>();
+
     public Student(String phoneNumber, String lastName, String firstName) {
         this.lastName = lastName;
         this.firstName = firstName;
@@ -29,5 +31,18 @@ public class Student {
     }
     public Student() {
         
+    }
+    public String toString() {
+        return "Student name : " + lastName + " " + firstName + ", address=" + address
+                + ", phoneNumber=" + phoneNumber  ;
+    }
+
+    public static Student FindStudent(Student std){
+        for(Student student :listOfStudent){
+            if(std.equals(student)){
+                return Student;
+            }
+        }
+        return null;
     }
 }
