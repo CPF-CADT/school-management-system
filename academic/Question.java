@@ -1,4 +1,4 @@
-package utils;
+package academic;
 import java.util.HashMap;
 
 public class Question {

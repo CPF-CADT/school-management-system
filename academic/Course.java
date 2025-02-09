@@ -1,4 +1,4 @@
-package utils;
+package academic;
 public class Course {
     static int totalCourse;
     public int id;
