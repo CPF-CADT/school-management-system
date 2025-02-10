@@ -33,12 +33,14 @@ public class Feature {
         for(int i=1;i<=teacherList.length;i++){
             System.out.println(i+". "+teacherList[i-1]);
         }
+        System.out.print("Choose Option : ");
         return input.nextInt();
     }
     public int student(){
         for(int i=1;i<=studentList.length;i++){
             System.out.println(i+". "+studentList[i-1]);
         }
+        System.out.print("Choose Option : ");
         return input.nextInt();
     }
 }

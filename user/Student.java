@@ -16,7 +16,7 @@ public class Student {
 
     public Student(String email, String password) {
         this.email = email;
-        this.password = password;
+        this.password = password;   
     }
 
     public Student(int id, String lastName, String firstName, String address, String email, String phoneNumber,
