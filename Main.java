@@ -34,7 +34,7 @@ public class Main {
             System.out.println(" ======================= Login =======================\n\n");
             Object user = form.login(null, null);
             if (user != null) {
-                if (user.getClass() == Admin.getClass()) {
+                if (user instanceof Admin) {
                     System.out.println("Admin Interface");
                     Admin adm = (Admin) user;
                     int option =0 ;
@@ -68,7 +68,7 @@ public class Main {
                                 break;
                         }
                     }while(option!=0);
-                } else if (user.getClass() == Teacher.getClass()) {
+                } else if (user instanceof Teacher) {
                     System.out.println("Teacher Interface");
                     Teacher tch = (Teacher) user;
                     System.out.println(tch);
