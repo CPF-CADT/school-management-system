@@ -14,8 +14,6 @@ public class Form {
         System.out.print("Password      : ");
         String passsword = input.next();
         if (isValidEmailFormat(email)) {
-            System.out.println(email + " is a valid email address.");
-            System.out.println("Type Of Email ");
             switch (typeOfEmail(email)) {
                 case 1:
                     Admin adm = new Admin(email, passsword);
@@ -41,23 +39,41 @@ public class Form {
         input.close();
         return null;
     }
-    public void register(Object newUser,Student students,Admin admins,Teacher teachers){
-        String lastName, firstName, address, email, phoneNumber, password, major;
+    public void register(Student students,Admin admins,Teacher teachers,int type){
+        String lastName, firstName, address, email, phoneNumber, password, role_major;
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter First Name: ");
-        firstName = scanner.nextLine();
-        System.out.print("Enter Last Name: ");
-        lastName = scanner.nextLine();
-        System.out.print("Enter Address: ");
-        address = scanner.nextLine();
-        System.out.print("Enter Email: ");
-        email = scanner.nextLine();
-        System.out.print("Enter Phone Number: ");
-        phoneNumber = scanner.nextLine();
-        System.out.print("Enter Password: ");
-        password = scanner.nextLine();
-        System.out.print("Enter Major: ");
-        major = scanner.nextLine();
+        System.out.print("First Name   : ");
+        firstName = scanner.next();
+        System.out.print("Last Name    : ");
+        lastName = scanner.next();
+        System.out.print("Address      : ");
+        address = scanner.next();
+        System.out.print("Email        : ");
+        email = scanner.next();
+        System.out.print("Phone Number : ");
+        phoneNumber = scanner.next();
+        System.out.print("Password     : ");
+        password = scanner.next();
+        switch (type) {
+            case 1:
+                //admin
+                System.out.print("Role  : ");
+                role_major = input.next();
+                Admin adm = new Admin(firstName, lastName, address, email, phoneNumber, password, role_major);
+                break;
+            case 2:
+                //teacher
+                System.out.print("Major  : ");
+                role_major = input.next();
+                Teacher teach = new Teacher(lastName, firstName, address, email, phoneNumber, password, role_major);
+                break;
+            case 3:
+                //student
+                break;
+                
+            default:
+                break;
+        }
     }
     public int typeOfEmail(String input) {
         if (input.contains("@adm"))
@@ -74,7 +90,6 @@ public class Form {
                 input.endsWith("@tch.kdc.edu") ||
                 input.endsWith("@stu.kdc.edu");
     }
-
     public boolean isValidPhoneFormat(String input) {
         for(int i=0;i<input.length();i++){
                 if(input.charAt(i) > '9' || input.charAt(i)<'0'){
