@@ -1,30 +1,34 @@
 package user;
 
+import java.lang.classfile.instruction.ThrowInstruction;
 import java.util.Date;
 import java.util.HashSet;
 
 public class Student {
-    static int id =0;
+    public  int id;
+    static int people=0;
     public String lastName;
     public String firstName;
     static Date dob;
     private String address;
-    public  String email;
+    private  String email;
     static String phoneNumber;
     private String password;
+    public  String Course[];
     static HashSet<Student> listOfStudent = new HashSet<Student>();
 
     public Student(String email, String password) {
         this.email = email;
-        this.password = password;   
-    }
+        this.password = password;
 
-    public Student(){
         
     }
-    public Student(int id, String lastName, String firstName, String address, String email, String phoneNumber,
+
+
+    public Student(String lastName, String firstName, String address, String email, String phoneNumber,
     String password) {
-        this.id = id;
+        people+=1;
+        this.id=people;
         this.lastName = lastName;
         this.firstName = firstName;
         this.address = address;
@@ -72,42 +76,92 @@ public class Student {
             return false;
         return true;
     }
+    
 
-    public static int getId() {
-        return id;
-    }
 
-    public String getLastName() {
-        return lastName;
-    }
+    
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public static Date getDob() {
-        return dob;
-    }
+  
 
     public String getAddress() {
         return address;
     }
 
-    public String getEmail() {
-        return email;
-    }
+    
 
-    public static String getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPassword(String curPassword) {
+        if (curPassword.equals(this.password)) {
+            return password;
+        } else {
+            return "Password Invalid";
+        }
+    }
+    public void setPassword(String newPassword, String curPassword) {
+        if (curPassword.equals(this.password)) {
+            this.password = newPassword;
+        } else {
+            System.out.println("Password Invalid");
+        }
+    }
+    public String getEmail(){
+        return  email;
     }
 
     public static HashSet<Student> getListOfStudent() {
         return listOfStudent;
     }
+
+
+    public int getId() {
+        return id;
+    }
+
+
+    public static int getPeople() {
+        return people;
+    }
+    public static Date getDob() {
+        return dob;
+    }
+    public String[] getCourse() {
+        return Course;
+    }
     
     
+
+    /**
+     * @param address the address to set
+     */
+    public void setAddress(String currpassword,String curraddress) {
+        if(currpassword.equals(this.password)){
+
+            this.address = curraddress;
+        } else {
+            System.out.println("Password Invalid");
+        }
+    }
+
+    public static void setPhoneNumber(String phoneNumber) {
+        Student.phoneNumber = phoneNumber;
+    }
+
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+
+    public void setCourse(String[] course) {
+        Course = course;
+    }
+
+
+    public static void setListOfStudent(HashSet<Student> listOfStudent) {
+        Student.listOfStudent = listOfStudent;
+    }
+
 }
