@@ -1,4 +1,4 @@
-package test_code;
+package progress.test_code;
 import user.Teacher;
 public class hashCodeTest {
     

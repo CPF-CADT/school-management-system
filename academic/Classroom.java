@@ -7,14 +7,14 @@ import user.Teacher;
 
 public class Classroom {
     public int idClass;
-    public Teacher teacher;
+    public int teacherId;
     public Course course;
-    public Student[] student ;
+    public HashSet<Integer> listStudentId ;
 
-    public Classroom(int idClass, Course course, Teacher teacher, Student[] student ){
+    public Classroom(int idClass, Course course, int teacherId, HashSet<Integer> listStudentId ){
         this.idClass = idClass;
-        this.teacher = teacher;
+        this.teacherId = teacherId;
         this.course = course;
-        this.student = student;
+        this.listStudentId = listStudentId;
     }
 }

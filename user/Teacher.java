@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.HashSet;
 
 public class Teacher {
-    static int numberOfTeacher = 0;
+    public static int numberOfTeacher = 0;
     public int id = 0;
     public String lastName;
     public String firstName;
@@ -14,7 +14,7 @@ public class Teacher {
     private String phoneNumber;
     private String password;
     public String major;
-    static HashSet<Teacher> listOfTeacher = new HashSet<Teacher>();
+    public static HashSet<Teacher> listOfTeacher = new HashSet<Teacher>();
     public Teacher(){
 
     }
@@ -22,6 +22,15 @@ public class Teacher {
     public Teacher(String email,String password) {
         this.email = email;
         this.password = password;
+    }
+    //test constructor
+    public Teacher(String email,String password,String firstName) {
+        numberOfTeacher+=1;
+        this.id =numberOfTeacher;
+        this.email = email;
+        this.password = password;
+        this.firstName = firstName;
+        listOfTeacher.add(this);
     }
     //register
     public Teacher(String lastName, String firstName, String address, String email, String phoneNumber, String password, String major) {
@@ -34,7 +43,6 @@ public class Teacher {
         this.phoneNumber = phoneNumber;
         this.password = password;
         this.major = major;
-        listOfTeacher.add(this);
     }
 
     @Override

@@ -3,7 +3,10 @@ import core.*;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Welcome To School");
+        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++");
+        System.out.println("+             KHMER DEGITAL CENTER           +");
+        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++");
+
         Admin admin = new Admin(
                 "John",
                 "Doe",
@@ -31,7 +34,7 @@ public class Main {
         // form.register(students, Admin, teachers, 2);
         // login to user can be admin , student or teacher
         do {
-            System.out.println(" ======================= Login =======================\n\n");
+            System.out.println("Login\n");
             Object user = form.login(null, null);
             if (user != null) {
                 if (user instanceof Admin) {

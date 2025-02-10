@@ -44,14 +44,14 @@ public class Form {
         Scanner scanner = new Scanner(System.in);
         System.out.print("First Name   : ");
         firstName = scanner.next();
-        System.out.print("Last Name    : ");
-        lastName = scanner.next();
-        System.out.print("Address      : ");
-        address = scanner.next();
+        // System.out.print("Last Name    : ");
+        // lastName = scanner.next();
+        // System.out.print("Address      : ");
+        // address = scanner.next();
+        // System.out.print("Phone Number : ");
+        // phoneNumber = scanner.next();
         System.out.print("Email        : ");
         email = scanner.next();
-        System.out.print("Phone Number : ");
-        phoneNumber = scanner.next();
         System.out.print("Password     : ");
         password = scanner.next();
         switch (type) {
@@ -59,13 +59,15 @@ public class Form {
                 //admin
                 System.out.print("Role  : ");
                 role_major = input.next();
-                Admin adm = new Admin(firstName, lastName, address, email, phoneNumber, password, role_major);
+                // Admin adm = new Admin(firstName, lastName, address, email, phoneNumber, password, role_major);
                 break;
             case 2:
                 //teacher
-                System.out.print("Major  : ");
-                role_major = input.next();
-                Teacher teach = new Teacher(lastName, firstName, address, email, phoneNumber, password, role_major);
+                // System.out.print("Major  : ");
+                // role_major = input.next();
+                // Teacher teach = new Teacher(lastName, firstName, address, email, phoneNumber, password, role_major);
+                Teacher teach = new Teacher(email,password,firstName);
+                // Teacher.listOfTeacher.add(teach);
                 break;
             case 3:
                 //student
@@ -97,5 +99,8 @@ public class Form {
                 }
         }
         return true;
+    }
+    public String generateEmail(String firstName,String lastName,int id,String domain){
+        return firstName+lastName+ String.valueOf(id)+domain;
     }
 }

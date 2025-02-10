@@ -1,4 +1,4 @@
-package test_code;
+package progress.test_code;
 import java.util.HashSet;
 public class Person {
     static int numberOfPerson = 0;
