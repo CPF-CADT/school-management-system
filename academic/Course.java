@@ -29,7 +29,7 @@ public class Course {
         } else {
             System.out.println("Access denied: You Dont have permission!");
         }
-    }
+    }   
 
     public Assignment getAssignments() {
         return assignments;

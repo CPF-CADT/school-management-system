@@ -3,7 +3,10 @@ import core.*;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Welcome To School");
+        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++");
+        System.out.println("+             KHMER DEGITAL CENTER           +");
+        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++");
+
         Admin admin = new Admin(
                 "John",
                 "Doe",
@@ -28,11 +31,11 @@ public class Main {
         Teacher Teacher = new Teacher(null, null);
         Admin Admin = new Admin(null, null);
 
-        // form.register(students, Admin, teachers, 2);
+        // form.register(2);
         // login to user can be admin , student or teacher
         do {
-            System.out.println(" ======================= Login =======================\n\n");
-            Object user = form.login(null, null);
+            System.out.println("Login\n");
+            Object user = form.login();
             if (user != null) {
                 if (user instanceof Admin) {
                     System.out.println("Admin Interface");
@@ -43,15 +46,15 @@ public class Main {
                         switch (option) {
                             case 1:
                                 System.out.println("------------------ Create Teacher Account ------------------ ");
-                                form.register(students, Admin, teachers, 2);
+                                form.register(2);
                                 break;
                             case 2:
                                 System.out.println("------------------ Create Student Account ------------------ ");
-                                form.register(students, Admin, teachers, 3);
+                                form.register(3);
                                 break;
                             case 3:
                                 System.out.println("------------------ Create Staff Account ------------------ ");
-                                form.register(students, Admin, teachers, 1);
+                                form.register(1);
                                 break;
                             case 4:
                                 System.out.println("------------------ Create Course ------------------ ");

@@ -1,4 +1,4 @@
-package test_code;
+package progress.test_code;
 import java.util.Scanner;
 
 public class EmailFormatChecker {
