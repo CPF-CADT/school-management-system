@@ -25,5 +25,4 @@ public class Quizz {
             System.out.println("Access denied: You Dont have permission!");
         }
     }
-
 }
