@@ -1,4 +1,5 @@
 import user.*;
+import academic.CourseInstance;
 import core.*;
 
 public class Main {
@@ -15,7 +16,6 @@ public class Main {
                 "1234567890",
                 "123",
                 "Administrator");
-        Teacher teachers = new Teacher();
         Student students = new Student();
         Teacher t = new Teacher(
                 "Smith",
@@ -28,12 +28,14 @@ public class Main {
 
         Form form = new Form();
         Feature feature = new Feature();
-        Teacher Teacher = new Teacher(null, null);
+        AcademicControl academicControl = new AcademicControl();
         Admin Admin = new Admin(null, null);
 
         // form.register(2);
+        
         // login to user can be admin , student or teacher
         do {
+            System.out.println(t);
             System.out.println("Login\n");
             Object user = form.login();
             if (user != null) {
@@ -46,6 +48,7 @@ public class Main {
                         switch (option) {
                             case 1:
                                 System.out.println("------------------ Create Teacher Account ------------------ ");
+                                //finish
                                 form.register(2);
                                 break;
                             case 2:
@@ -54,19 +57,26 @@ public class Main {
                                 break;
                             case 3:
                                 System.out.println("------------------ Create Staff Account ------------------ ");
+                                //notyet
                                 form.register(1);
                                 break;
                             case 4:
                                 System.out.println("------------------ Create Course ------------------ ");
-    
+
                                 break;
+                            
                             case 5:
-                                System.out.println("------------------ Assign Student ------------------ ");
-    
+                                System.out.println("------------------ Create Course Insatnce  ------------------ ");
+                                //finish
+                                academicControl.createClass();
+                                // CourseInstance co = new CourseInstance(2025, 2, 1);
+                                // System.out.println(CourseInstance.findCourseInstance(co));
                                 break;
                             case 6:
-                                System.out.println("------------------ Assign Teacher ------------------ ");
+                                System.out.println("------------------ Assign Student ------------------ ");
+                                //do it later
                                 break;
+        
                             default:
                                 break;
                         }

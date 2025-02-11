@@ -9,7 +9,7 @@ public class Feature {
         "Create Student Account",
         "Create Staff Account",
         "Create Course",
-        "Assign Student",
+        "Create Course Instance",
         "Assign Teacher"
     };
     String[] studentList = {

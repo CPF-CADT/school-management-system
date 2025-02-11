@@ -1,6 +1,4 @@
 package user;
-
-import java.lang.classfile.instruction.ThrowInstruction;
 import java.util.Date;
 import java.util.HashSet;
 
@@ -16,6 +14,8 @@ public class Student {
     private String password;
     public  String Course[];
     static HashSet<Student> listOfStudent = new HashSet<Student>();
+    public Student() {
+    }
 
     public Student(String email, String password) {
         this.email = email;

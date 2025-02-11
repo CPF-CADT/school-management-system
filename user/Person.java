@@ -1,10 +1,10 @@
 package user;
 
-import java.util.Date;
-import java.util.HashMap;
+import java.util.Scanner;
 
-public class Admin {
-    static int numberOfAdmins = 0;
+public class Person {
+    static Scanner input = new Scanner(System.in);
+    static int numberOfPerson = 0;
     public int id;
     public String lastName;
     public String firstName;
@@ -13,55 +13,46 @@ public class Admin {
     private String email;
     private String phoneNumber;
     private String password;
-    public String role;
-    static HashMap<Integer,Admin> listOfAdmins = new HashMap<Integer,Admin>();
-    Admin(){
-        
+    public Person(){
+
     }
-    public Admin(String firstName, String lastName, String address, String email, String phoneNumber, String password, String role) {
-        numberOfAdmins++;
-        this.id = numberOfAdmins;
-        this.firstName = firstName;
+    //login
+    public Person( String email,String password){
+        this.email = email;
+        this.password = password;
+    }
+    //register
+    public Person(String lastName, String firstName, String address, String email, String phoneNumber,String password) {
+        numberOfPerson+=1;
+        this.id=numberOfPerson;
         this.lastName = lastName;
-        // this.dob = dob;
+        this.firstName = firstName;
         this.address = address;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.password = password;
-        this.role = role;
-        listOfAdmins.put(id,this);
-    }
-    public Admin(String email,String password) {
-        this.email = email;
-        this.password = password;
     }
     @Override
     public String toString() {
-        return "Admin name : " + lastName + " " + firstName  + ", address=" + address
-                + ", phoneNumber=" + phoneNumber + ", Role = " + role ;
-    }
-    public static Admin login(Admin t){
-        for(Admin adm :listOfAdmins.values()){
-            if(t.equals(adm)){
-                return adm;
-            }
-        }
-        return null;
+        return "ID : " + id + "  name : " + lastName + " " + firstName + ", address=" + address
+                + ", phoneNumber=" + phoneNumber +" ";
     }
     @Override
     public int hashCode() {
         return email.hashCode();
     }
+
     @Override
     public boolean equals(Object obj) {
-        Admin t = (Admin) obj;
-        if(this.email.hashCode() == t.hashCode()){
-            if(this.password.equals(t.password)){
+        Person t = (Person) obj;
+        if (this.email.hashCode() == t.hashCode()) {
+            if (this.password.equals(t.password)) {
                 return true;
             }
         }
         return false;
     }
+
     public String getPassword(String curPassword) {
         if (curPassword.equals(this.password)) {
             return password;
@@ -69,6 +60,7 @@ public class Admin {
             return "Password Invalid";
         }
     }
+
     public void setPassword(String newPassword, String curPassword) {
         if (curPassword.equals(this.password)) {
             this.password = newPassword;
@@ -76,24 +68,31 @@ public class Admin {
             System.out.println("Password Invalid");
         }
     }
+
     public String getEmail() {
         return email;
     }
+
     public String getPhoneNumber() {
         return phoneNumber;
     }
-    public void setEmail(String email,String conPassword) {
+
+    public void setEmail(String email, String conPassword) {
         if (conPassword.equals(this.password)) {
             this.email = email;
         } else {
             System.out.println("Password Invalid");
         }
     }
-    public void setPhoneNumber(String phoneNumber,String conPassword) {
+
+    public void setPhoneNumber(String phoneNumber, String conPassword) {
         if (conPassword.equals(this.password)) {
             this.phoneNumber = phoneNumber;
         } else {
             System.out.println("Password Invalid");
         }
+    }
+    private String generateEmail(String format){
+        return firstName+lastName+String.valueOf(id)+ "@tch.kdc.edu";
     }
 }
