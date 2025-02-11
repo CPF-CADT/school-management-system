@@ -1,5 +1,4 @@
 import user.*;
-import academic.CourseInstance;
 import core.*;
 
 public class Main {
@@ -8,34 +7,29 @@ public class Main {
         System.out.println("+             KHMER DEGITAL CENTER           +");
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++++");
 
+        int incorrectLoginCount = 3;
+
         Admin admin = new Admin(
                 "John",
                 "Doe",
                 "123 Main St, NY",
-                "admin@adm.kdc.edu",
                 "1234567890",
-                "123",
                 "Administrator");
         Student students = new Student();
         Teacher t = new Teacher(
                 "Smith",
                 "Alice",
                 "456 Elm St, CA",
-                "alice@tch.kdc.edu",
                 "9876543210",
-                "123",
                 "Mathematics");
 
         Form form = new Form();
         Feature feature = new Feature();
         AcademicControl academicControl = new AcademicControl();
-        Admin Admin = new Admin(null, null);
 
-        // form.register(2);
-        
         // login to user can be admin , student or teacher
+        
         do {
-            System.out.println(t);
             System.out.println("Login\n");
             Object user = form.login();
             if (user != null) {
@@ -94,7 +88,9 @@ public class Main {
                     }
                 }
             } else {
+                incorrectLoginCount-=1;
                 System.out.println("Incorrect User account");
+                if(incorrectLoginCount==0) break;
             }
         } while (true);
     }
