@@ -1,6 +1,6 @@
 package core;
 
 public interface Authentication {
-    Object login(Object obj);
-    boolean register();
+    Object login();
+    boolean register(int type);
 }

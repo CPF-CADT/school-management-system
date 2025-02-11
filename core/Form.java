@@ -3,13 +3,19 @@ package core;
 import java.util.Scanner;
 
 import user.Admin;
-import user.Student;
+// import user.Student;
 import user.Teacher;
 
-public class Form {
+public class Form implements Authentication{
     Scanner input = new Scanner(System.in);
 
+    @Override
     public Object login() {
+        try {
+            
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
         System.out.print("Email address : ");
         String email = input.next();
         System.out.print("Password      : ");
@@ -18,14 +24,14 @@ public class Form {
             switch (typeOfEmail(email)) {
                 case 1:
                     Admin adm = new Admin(email, passsword);
-                    adm = Admin.FindAdmins(adm);
+                    adm = Admin.login(adm);
                     if (adm != null) {
                         return adm;
                     }
                     break;
                 case 2:
                     Teacher teach = new Teacher(email, passsword);
-                    teach = Teacher.FindTeacher(teach);
+                    teach = Teacher.login(teach);
                     if (teach != null) {
                         return teach;
                     }
@@ -37,52 +43,45 @@ public class Form {
                     break;
             }
         }
-        input.close();
         return null;
     }
 
-    public void register(int type) {
+    @Override
+    public boolean register(int type) {
         String lastName, firstName, address, email, phoneNumber, password, role_major;
         Scanner scanner = new Scanner(System.in);
         System.out.print("First Name   : ");
         firstName = scanner.next();
-        // System.out.print("Last Name : ");
-        // lastName = scanner.next();
-        // System.out.print("Address : ");
-        // address = scanner.next();
-        // System.out.print("Phone Number : ");
-        // phoneNumber = scanner.next();
-        System.out.print("Email        : "); // will auto generate later
-        email = scanner.next();
-        System.out.print("Password     : ");
+        System.out.print("Last Name    : ");
+        lastName = scanner.next();
+        System.out.print("Address      : ");
+        address = scanner.next();
+        System.out.print("Phone Number : ");
+        phoneNumber = scanner.next();
         password = scanner.next();
         switch (type) {
             case 1:
                 // admin
                 System.out.print("Role  : ");
                 role_major = input.next();
-                // Admin adm = new Admin(firstName, lastName, address, email, phoneNumber,
-                // password, role_major);
+                Admin adm = new Admin(firstName, lastName, address, phoneNumber, role_major);
+                if(adm!=null) return true;
                 break;
             case 2:
                 // teacher
-                // System.out.print("Major : ");
-                // role_major = input.next();
-                // Teacher teach = new Teacher(lastName, firstName, address, email, phoneNumber,
-                // password, role_major);
-                Teacher teach = new Teacher(email, password, firstName);
-                // Teacher.listOfTeacher.add(teach);
+                System.out.print("Major : ");
+                role_major = input.next();
+                Teacher teach = new Teacher(lastName, firstName, address, phoneNumber, role_major);
+                if(teach!=null) return true;
                 break;
             case 3:
                 // student
                 break;
-
-            default:
-                break;
         }
+        return false;
     }
 
-    public int typeOfEmail(String input) {
+    private int typeOfEmail(String input) {
         if (input.contains("@adm"))
             return 1;
         if (input.contains("@tch"))
@@ -92,22 +91,18 @@ public class Form {
         return -1;
     }
 
-    public boolean isValidEmailFormat(String input) {
+    private boolean isValidEmailFormat(String input) {
         return input.endsWith("@adm.kdc.edu") ||
                 input.endsWith("@tch.kdc.edu") ||
                 input.endsWith("@stu.kdc.edu");
     }
 
-    public boolean isValidPhoneFormat(String input) {
+    private boolean isValidPhoneFormat(String input) {
         for (int i = 0; i < input.length(); i++) {
             if (input.charAt(i) > '9' || input.charAt(i) < '0') {
                 return false;
             }
         }
         return true;
-    }
-
-    public String generateEmail(String firstName, String lastName, int id, String domain) {
-        return firstName + lastName + String.valueOf(id) + domain;
     }
 }

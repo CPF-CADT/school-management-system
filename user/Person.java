@@ -4,8 +4,8 @@ import java.util.Scanner;
 
 public class Person {
     static Scanner input = new Scanner(System.in);
-    static int numberOfPerson = 0;
-    public int id;
+    public static int numberOfPerson = 0;
+    public int id ;
     public String lastName;
     public String firstName;
     // public Date dob; 
@@ -22,20 +22,20 @@ public class Person {
         this.password = password;
     }
     //register
-    public Person(String lastName, String firstName, String address, String email, String phoneNumber,String password) {
-        numberOfPerson+=1;
+    public Person(String lastName, String firstName, String address, String phoneNumber, String emailFormat) {
+        numberOfPerson++;
         this.id=numberOfPerson;
         this.lastName = lastName;
         this.firstName = firstName;
         this.address = address;
-        this.email = email;
         this.phoneNumber = phoneNumber;
-        this.password = password;
+        this.email = generateEmail(emailFormat).toLowerCase();
+        this.password = "kdc2025"; // defult password
     }
     @Override
     public String toString() {
-        return "ID : " + id + "  name : " + lastName + " " + firstName + ", address=" + address
-                + ", phoneNumber=" + phoneNumber +" ";
+        return "ID : " + id + "  name : " + lastName + " " + firstName + ", address : " + address
+                + ", phoneNumber : " + phoneNumber +" " + "Email : "+email;
     }
     @Override
     public int hashCode() {
@@ -46,7 +46,7 @@ public class Person {
     public boolean equals(Object obj) {
         Person t = (Person) obj;
         if (this.email.hashCode() == t.hashCode()) {
-            if (this.password.equals(t.password)) {
+            if (((Person) obj).checkPassword(this.password)) {
                 return true;
             }
         }
@@ -68,7 +68,14 @@ public class Person {
             System.out.println("Password Invalid");
         }
     }
+    public boolean checkPassword(String password){
+        if(this.password.equals(password)){
+            return true;
+        }else{
+            return false;
+        }
 
+    }   
     public String getEmail() {
         return email;
     }
@@ -93,6 +100,6 @@ public class Person {
         }
     }
     private String generateEmail(String format){
-        return firstName+lastName+String.valueOf(id)+ "@tch.kdc.edu";
+        return firstName+lastName+String.valueOf(id)+ format;
     }
 }
