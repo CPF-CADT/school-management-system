@@ -20,7 +20,4 @@ public class Course {
         return "Course [id=" + id + ", name=" + name + ", level=" + level + ", fee=" + fee + ", description="
                 + description + "]";
     }
-
-
-    
 }
