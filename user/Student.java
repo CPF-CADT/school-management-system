@@ -9,7 +9,7 @@ import java.util.HashMap;
 public class Student  extends User{
 
     public Date dob;
-    // public String role;
+    public String role;
     final static String EMAIL_FORMAT="@std.kdc.edu";
 
     public  Course[] Course;
@@ -21,8 +21,9 @@ public class Student  extends User{
         super(email, password);
     }
     //register
-    public Student(String firstName, String lastName, String address, String phoneNumber) {
+    public Student(String firstName, String lastName, String address, String phoneNumber,String role) {
         super(firstName, lastName, address,phoneNumber, EMAIL_FORMAT);
+        this.role=role;
         listOfStudent.put(id,this);
     }
 
@@ -79,9 +80,7 @@ public class Student  extends User{
     public static int getPeople() {
         return numberOfPerson;
     }
-    public static Date getDob() {
-        return dob;
-    }
+
     public Course[] getCourse() {
         return Course;
     }
@@ -94,6 +93,22 @@ public class Student  extends User{
     public void setCourse(Course[] course) {
         Course = course;
     }
+    public    void remove() {
+        if (Student.listOfStudent.isEmpty()) {
+            System.out.println("List Student ");
+            for (Student std : listOfStudent.values()) {
+                System.out.println(std);
+            }
+            System.out.print("Enter ID : ");
+            int select = input.nextInt();
+             listOfStudent.get(select).remove();
+            System.out.println("Remove successfully");
+        } else {
+            System.out.println("No Student in list");
+            
+        }
+    
+}
 
 
     // public static void setListOfStudent(HashSet<Student> listOfStudent) {
