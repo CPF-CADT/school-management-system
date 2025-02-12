@@ -76,12 +76,6 @@ public class Student {
             return false;
         return true;
     }
-    
-
-
-    
-
-  
 
     public String getAddress() {
         return address;

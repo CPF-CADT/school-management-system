@@ -22,7 +22,7 @@ public class User {
         this.password = password;
     }
     //register
-    public User(String lastName, String firstName, String address, String phoneNumber, String emailFormat) {
+    public User(String firstName,String lastName,  String address, String phoneNumber, String emailFormat) {
         numberOfPerson++;
         this.id=numberOfPerson;
         this.lastName = lastName;
@@ -51,6 +51,21 @@ public class User {
             }
         }
         return false;
+    }
+
+    public void displayUserInfo() {
+        System.out.println("\n====================================");
+        System.out.println("              USER DETAILS      ");
+        System.out.println("====================================");
+        System.out.println("User ID      : " + id);
+        System.out.println("First Name   : " + firstName);
+        System.out.println("Last Name    : " + lastName);
+        System.out.println("Address      : " + address);
+        System.out.println("Phone Number : " + phoneNumber);
+        System.out.println("Email        : " + email);
+        if(password.equals("kdc2025")){
+            System.out.println("Password (Default)  : " + password);
+        }
     }
 
     public String getPassword(String curPassword) {
