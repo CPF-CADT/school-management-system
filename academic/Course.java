@@ -1,7 +1,5 @@
 package academic;
 
-import user.Teacher;
-
 public class Course {
     static int totalCourse;
     public int id;
@@ -17,4 +15,12 @@ public class Course {
         this.fee = fee;
         this.description = description;
     }
+    @Override
+    public String toString() {
+        return "Course [id=" + id + ", name=" + name + ", level=" + level + ", fee=" + fee + ", description="
+                + description + "]";
+    }
+
+
+    
 }
