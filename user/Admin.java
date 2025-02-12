@@ -2,7 +2,7 @@ package user;
 
 import java.util.HashMap;
 
-public class Admin extends Person{
+public class Admin extends User{
     final static String EMAIL_FORMAT = "@adm.kdc.edu";
     public String role;
     static HashMap<Integer,Admin> listOfAdmins = new HashMap<Integer,Admin>();

@@ -2,7 +2,7 @@ package user;
 
 import java.util.HashMap;
 
-public class Teacher extends Person {
+public class Teacher extends User {
     final static String EMAIL_FORMAT = "@tch.kdc.edu";
     public String major;
     public static HashMap<Integer, Teacher> listOfTeacher = new HashMap<Integer, Teacher>();

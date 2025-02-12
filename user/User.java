@@ -2,7 +2,7 @@ package user;
 
 import java.util.Scanner;
 
-public class Person {
+public class User {
     static Scanner input = new Scanner(System.in);
     public static int numberOfPerson = 0;
     public int id ;
@@ -13,16 +13,16 @@ public class Person {
     private String email;
     private String phoneNumber;
     private String password;
-    public Person(){
+    public User(){
 
     }
     //login
-    public Person( String email,String password){
+    public User( String email,String password){
         this.email = email;
         this.password = password;
     }
     //register
-    public Person(String lastName, String firstName, String address, String phoneNumber, String emailFormat) {
+    public User(String lastName, String firstName, String address, String phoneNumber, String emailFormat) {
         numberOfPerson++;
         this.id=numberOfPerson;
         this.lastName = lastName;
@@ -44,9 +44,9 @@ public class Person {
 
     @Override
     public boolean equals(Object obj) {
-        Person t = (Person) obj;
+        User t = (User) obj;
         if (this.email.hashCode() == t.hashCode()) {
-            if (((Person) obj).checkPassword(this.password)) {
+            if (((User) obj).checkPassword(this.password)) {
                 return true;
             }
         }
