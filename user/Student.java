@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 public class Student  extends User{
 
-    static Date dob;
+    public Date dob;
     // public String role;
     final static String EMAIL_FORMAT="@std.kdc.edu";
 
