@@ -3,7 +3,6 @@ package academic;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
-
 import user.Admin;
 import user.Student;
 import user.Teacher;
@@ -21,6 +20,7 @@ public class CourseInstance {
     private Quizz[] quizzes;
     private Assignment assignments;
     static HashSet<CourseInstance> listCourseInstace = new HashSet<CourseInstance>();
+    
     public CourseInstance(Course course, Teacher teacher, int year, int term,int group) {
         numebrClassInstance += 1;
         this.id = numebrClassInstance;
