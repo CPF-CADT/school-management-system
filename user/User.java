@@ -2,7 +2,7 @@ package user;
 
 import java.util.Scanner;
 
-public class User {
+public class User  implements Person{
     static Scanner input = new Scanner(System.in);
     public static int numberOfPerson = 0;
     private int id ;
@@ -52,7 +52,7 @@ public class User {
         }
         return false;
     }
-
+    @Override
     public void displayUserInfo() {
         System.out.println("\n====================================");
         System.out.println("              USER DETAILS      ");
@@ -117,7 +117,8 @@ public class User {
             System.out.println("Password Invalid");
         }
     }
-    private String generateEmail(String format){
+    
+     private   String generateEmail(String format){
         return firstName+lastName+String.valueOf(id)+ format;
     }
 }
