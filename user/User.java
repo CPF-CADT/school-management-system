@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class User {
     static Scanner input = new Scanner(System.in);
     public static int numberOfPerson = 0;
-    public int id ;
+    private int id ;
     public String lastName;
     public String firstName;
     // public Date dob; 
@@ -95,6 +95,9 @@ public class User {
         return email;
     }
 
+    public int getID(){
+        return id;
+    }
     public String getPhoneNumber() {
         return phoneNumber;
     }
