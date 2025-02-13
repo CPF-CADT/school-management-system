@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 public class Student  extends User{
 
-    static Date dob;
+    public Date dob;
     // public String role;
     final static String EMAIL_FORMAT="@std.kdc.edu";
 
@@ -26,17 +26,12 @@ public class Student  extends User{
         listOfStudent.put(id,this);
     }
 
-
-
-
-
-
-
     @Override
     public String toString() {
         return super.toString()+"Student [Course=" + Arrays.toString(Course) + "]";
     }
-        // public static Student FindStudentById(int id){
+    
+    // public static Student FindStudentById(int id){
     //     for(int i :listOfStudent.keySet()){
     //         if(i== id){
     //             return listOfStudent.get(i);
@@ -74,10 +69,6 @@ public class Student  extends User{
     public String getAddress() {
         return address;
     }
-
-
-
-
 
 
     public int getId() {
