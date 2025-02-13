@@ -30,6 +30,8 @@ public class Main {
         // login to user can be admin , student or teacher
         
         do {
+            System.out.println(Teacher.listOfTeacher);
+            System.out.println(Admin.listOfAdmins);
             System.out.println("Login\n");
             Object user = form.login();
             if (user != null) {
@@ -41,7 +43,6 @@ public class Main {
                         option = feature.admin();
                         switch (option) {
                             case 1:
-                                System.out.println("------------------ Create Teacher Account ------------------ ");
                                 //finish
                                 form.register(2);
                                 break;
@@ -50,7 +51,6 @@ public class Main {
                                 form.register(3);
                                 break;
                             case 3:
-                                System.out.println("------------------ Create Staff Account ------------------ ");
                                 //notyet
                                 form.register(1);
                                 break;

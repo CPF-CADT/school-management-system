@@ -2,12 +2,12 @@ package user;
 
 import java.util.HashMap;
 
-public class Teacher extends Person {
+public class Teacher extends User {
     final static String EMAIL_FORMAT = "@tch.kdc.edu";
     public String major;
     public static HashMap<Integer, Teacher> listOfTeacher = new HashMap<Integer, Teacher>();
 
-    public Teacher() {
+    public Teacher() {         
 
     }
 
@@ -17,8 +17,8 @@ public class Teacher extends Person {
     }
 
     // register
-    public Teacher(String lastName, String firstName, String address, String phoneNumber, String major) {
-        super(lastName, firstName, address, phoneNumber,EMAIL_FORMAT);
+    public Teacher(String firstName,String lastName, String address, String phoneNumber, String major) {
+        super(firstName,lastName, address, phoneNumber,EMAIL_FORMAT);
         this.major = major;
         listOfTeacher.put(id, this);
 
@@ -36,6 +36,12 @@ public class Teacher extends Person {
             }
         }
         return null;
+    }
+
+    public void displayUserInfo(){
+        super.displayUserInfo();
+        System.out.println("Major        : " + major);
+        System.out.println("====================================\n");
     }
 
     public static Teacher selectTeacher() {

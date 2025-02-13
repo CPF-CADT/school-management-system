@@ -3,7 +3,6 @@ package academic;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
-
 import user.Admin;
 import user.Student;
 import user.Teacher;
