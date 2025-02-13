@@ -13,7 +13,7 @@ public class Admin extends User{
     public Admin(String firstName, String lastName, String address , String phoneNumber, String role) {
         super(firstName,lastName, address, phoneNumber,EMAIL_FORMAT);
         this.role = role;
-        listOfAdmins.put(id,this);
+        listOfAdmins.put(super.getID(),this);
     }
     public Admin(String email,String password) {
         super(email,password);

@@ -20,7 +20,7 @@ public class Teacher extends User {
     public Teacher(String firstName,String lastName, String address, String phoneNumber, String major) {
         super(firstName,lastName, address, phoneNumber,EMAIL_FORMAT);
         this.major = major;
-        listOfTeacher.put(id, this);
+        listOfTeacher.put(super.getID(), this);
 
     }
 
