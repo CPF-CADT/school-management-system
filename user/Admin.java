@@ -52,7 +52,7 @@ public class Admin extends User{
     
 }
 public    void remove() {
-    if (Admin.listOfAdmins.isEmpty()) {
+    if (!Admin.listOfAdmins.isEmpty()) {
         System.out.println("List Admin ");
         for (Admin std : listOfAdmins.values()) {
             System.out.println(std);
