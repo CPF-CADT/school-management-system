@@ -3,7 +3,7 @@ package academic;
 import java.util.Scanner;
 import user.Teacher;
 
-public class Assignment {
+public class Assignment extends Assessable {
     //field
     public int id;
     public int courseId;
@@ -19,6 +19,22 @@ public class Assignment {
         this.description = description;
         this.score = score;
         this.teacher = teacher;
+    }
+
+    @Override
+    public void provideScore(float score) {
+        if (score >= 0 && score <= 100) {
+            this.score = score;
+            System.out.println("Score provided for Assignment: " + score);
+        } else {
+            System.out.println("Invalid score! Must be between 0 and 100.");
+        }
+    }
+
+    @Override
+    public void displayAssessment() {
+        super.displayAssessment();
+        System.out.println("Description: " + description);
     }
 
     //for teacher  to create an assignment
@@ -55,4 +71,3 @@ public class Assignment {
         System.out.println(studentName + " has submitted the assignment: " + title); 
     }
 }
-

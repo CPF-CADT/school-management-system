@@ -5,16 +5,13 @@ import java.util.ArrayList;
 import user.Student;
 import user.Teacher;
 
-public class Quizz {
+public class Quizz extends Assessable{
     static int quizzNumber=0;
     public int courseId;
     public String title;
     private ArrayList<Question> tasks; 
-    public Quizz(int id, int courseId, int score, String title) {
-        quizzNumber++;
-        id = quizzNumber;
-        this.courseId = courseId;
-        this.title = title;
+    public Quizz(int id, int courseId, String title, Teacher teacher) {
+        super(++quizzNumber, courseId, title, teacher); // Auto-increment ID
     }
     public Question getTask(int index) {
         return tasks.get(index);
@@ -35,5 +32,14 @@ public class Quizz {
             total += task.answerQuestion();
         }
         return total; 
+    }
+    @Override
+    public void provideScore(float score) {
+        if (score >= 0 && score <= 100) {
+            this.score = score;
+            System.out.println("Score provided for Quiz: " + score);
+        } else {
+            System.out.println("Invalid score! Must be between 0 and 100.");
+        }
     }
 }
