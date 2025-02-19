@@ -3,6 +3,7 @@ package academic;
 import java.util.ArrayList;
 import java.util.Scanner;
 import user.Admin;
+import user.Student;
 import user.User;
 
 public class Course {
@@ -13,16 +14,31 @@ public class Course {
     public float fee;
     public String description;
     public String shortName;
+    public int courseId;
+    public ArrayList<Course> courses = new ArrayList<Course>();
+    private String shortNameCode; // GDS
+    private String nameCode; // graphic design
 
     public Course(int id, String name, String shortName, String level, float fee, String description) {
-        totalCourse+=1;
-        id = totalCourse;
+
+        totalCourse += 1;
+        this.id = totalCourse;
         this.name = name;
         this.shortName = shortName;
         this.level = level;
         this.fee = fee;
         this.description = description;
+        this.shortNameCode = shortName.toUpperCase();
+        this.nameCode = name.toLowerCase().replace(" ", "_");
+
     }
+
+    public String getShortNameCode() {
+        return shortNameCode;
+    }
+    public String getNameCode() {
+        return nameCode;
+    } 
     @Override
     public String toString() {
         return "Course [id=" + id + ", name=" + name + ", level=" + level + ", fee=" + fee + ", description="
@@ -55,18 +71,35 @@ public class Course {
             float fee = scanner.nextFloat();
             scanner.nextLine(); // Consume newline
             System.out.print("Enter Description: ");
-            String description = scanner.nextLine();
-            
+            String description = scanner.nextLine();          
             Course newCourse = new Course(totalCourse, name, shortName, level, fee, description);
             System.out.println("Course Created Successfully: " + newCourse);
         }
-    //enroll course
-    public static void enrollCourse(User user, Course course) {
-        if (!(user instanceof Student)) {
-            System.out.println("Permission Denied: Only Students can enroll in courses.");
+    // Method to display all courses
+    public static void displayCourses(ArrayList<Course> courses) {
+        for (Course course : courses) {
+            System.out.println(course);
+        }
+    }
+    
+    public static void updateCourse(User user, Course course) {
+        if (!(user instanceof Admin)) {
+            System.out.println("Permission Denied: Only Admins can update courses.");
             return;
         }
-        Student student = (Student) user;
-        student.enrollCourse(course);
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("-- Update Course --\n");
+        System.out.print("Enter New Course Name: ");
+        course.name = scanner.nextLine();       
+        System.out.print("Enter Short Name: ");
+        course.shortName = scanner.nextLine();
+        System.out.print("Enter Level: ");
+        course.level = scanner.nextLine();
+        System.out.print("Enter Fee: ");
+        course.fee = scanner.nextFloat();
+        scanner.nextLine(); // Consume newline
+        System.out.print("Enter Description: ");
+        course.description = scanner.nextLine();
+        System.out.println("Course Updated Successfully: " + course);
     }
 }

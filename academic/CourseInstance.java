@@ -9,7 +9,10 @@ import user.Teacher;
 
 public class CourseInstance {
     Scanner input = new Scanner(System.in);
-    static int numebrClassInstance = 0;
+
+    public static ArrayList<CourseInstance> listCourseInstace = new ArrayList<>();
+    private static HashSet<String> uniqueKeys = new HashSet<>(); // For uniqueness
+
     public int id;
     public Teacher teacher;
     public Course course;
@@ -19,11 +22,17 @@ public class CourseInstance {
     private ArrayList<Student> listStudent = new ArrayList<>(30);
     private Quizz[] quizzes;
     private Assignment assignments;
-    static HashSet<CourseInstance> listCourseInstace = new HashSet<CourseInstance>();
-    
-    public CourseInstance(Course course, Teacher teacher, int year, int term,int group) {
-        numebrClassInstance += 1;
-        this.id = numebrClassInstance;
+    public final String primaryKey; // Unique primary key
+
+    public CourseInstance(Course course, Teacher teacher, int year, int term, int group) {
+        this.primaryKey = generatePrimaryKey(course, year, term, group);
+
+        // Check uniqueness
+        if (!uniqueKeys.add(this.primaryKey)) {
+            throw new IllegalArgumentException("Error: Course instance already exists: " + this.primaryKey);
+        }
+
+        this.id = listCourseInstace.size() + 1;
         this.teacher = teacher;
         this.course = course;
         this.year = year;
@@ -31,19 +40,18 @@ public class CourseInstance {
         this.group = group;
         listCourseInstace.add(this);
     }
-    public CourseInstance(int year, int term,int group){
-        this.year = year;
-        this.term = term;
-        this.group = group;
+
+    // Generate key in format Year term course code group exmaple Y2021T1 GDS G1
+    private static String generatePrimaryKey(Course course, int year, int term, int group) {
+        return String.format("Y%dT%d %s G%d", year, term, course.getShortNameCode(), group);
     }
-    public static CourseInstance findCourseInstance(CourseInstance obj) {
-        for(CourseInstance c : listCourseInstace){
-            if(c.year == obj.year){
-                if(c.term == obj.term){
-                    if(c.group ==obj.group){
-                        return c;
-                    }
-                }
+
+    // Find instance by primary key 
+    public static CourseInstance findCourseInstance(Course course, int year, int term, int group) {
+        String key = generatePrimaryKey(course, year, term, group);
+        for (CourseInstance instance : listCourseInstace) {
+            if (instance.primaryKey.equals(key)) {
+                return instance;
             }
         }
         return null;
@@ -56,18 +64,18 @@ public class CourseInstance {
         if (user instanceof Admin) {
             listStudent.add(stu);
         } else {
-            System.out.println("You Dont Have Permission to Acees");
+            System.out.println("Access denied: You don't have permission.");
         }
     }
 
-    public Quizz[] getQuizzes(int code) {
+    public Quizz[] getQuizzes() {
         return quizzes;
     }
     public void setQuizzes(Object user, Quizz[] quizzes) {
         if (user instanceof Teacher) {
             this.quizzes = quizzes;
         } else {
-            System.out.println("Access denied: You Dont have permission!");
+            System.out.println("Access denied: You don't have permission!");
         }
     }
 
@@ -79,7 +87,11 @@ public class CourseInstance {
         if (user instanceof Teacher) {
             this.assignments = ass;
         } else {
-            System.out.println("Access denied: You Dont have permission!");
+            System.out.println("Access denied: You don't have permission!");
         }
+    }
+    @Override
+    public String toString() {
+        return primaryKey + " | Teacher: " + teacher.getName();
     }
 }
