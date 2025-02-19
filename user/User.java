@@ -40,6 +40,17 @@ public  abstract class User  implements Person{
     public int hashCode() {
         return email.hashCode();
     }
+    
+    public static User login(String email,String password) {
+        for (User user : User.listUser.values()) {
+            if (user.getEmail().equals(email)) {
+                if(user.checkPassword(password)){
+                    return user;
+                }
+            }
+        }
+        return null;
+    }
 
     @Override
     public boolean equals(Object obj) {
@@ -64,14 +75,6 @@ public  abstract class User  implements Person{
         System.out.println("Email        : " + email);
         if(password.equals("kdc2025")){
             System.out.println("Password (Default)  : " + password);
-        }
-    }
-
-    public String getPassword(String curPassword) {
-        if (curPassword.equals(this.password)) {
-            return password;
-        } else {
-            return "Password Invalid";
         }
     }
 
