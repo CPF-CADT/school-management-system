@@ -45,20 +45,6 @@ public class Admin extends User{
 //             System.out.println("No Admin in list");
 //             return null;
 //         }
-    
-// }
-// public    void remove() {
-//     if (Admin.listOfAdmins.isEmpty()) {
-//         System.out.println("List Admin ");
-//         for (Admin std : listOfAdmins.values()) {
-//             System.out.println(std);
-//         }
-//         System.out.print("Enter ID : ");
-//         int select = input.nextInt();
-//          listOfAdmins.get(select).remove();
-//         System.out.println("Remove successfully");
-//     } else {
-//         System.out.println("No Admin in list");
         
 //     }
 

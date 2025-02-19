@@ -89,7 +89,7 @@ public class Student  extends User{
         Course = course;
     }
     public    void remove() {
-        if (Student.listOfStudent.isEmpty()) {
+        if (!Student.listOfStudent.isEmpty()) {
             System.out.println("List Student ");
             for (Student std : listOfStudent.values()) {
                 System.out.println(std);

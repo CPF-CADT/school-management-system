@@ -3,7 +3,7 @@ package user;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public abstract class User{
+public  abstract class User  implements Person{
     static Scanner input = new Scanner(System.in);
     public static int numberOfPerson = 0;
     private int id ;
