@@ -2,7 +2,7 @@ package user;
 
 import java.util.Scanner;
 
-public class User  implements Person{
+public  abstract class User  implements Person{
     static Scanner input = new Scanner(System.in);
     public static int numberOfPerson = 0;
     private int id ;
