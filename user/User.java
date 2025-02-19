@@ -51,6 +51,7 @@ public  abstract class User  implements Person{
         }
         return false;
     }
+    @Override
     public void displayUserInfo() {
         System.out.println("\n====================================");
         System.out.println("              USER DETAILS      ");
