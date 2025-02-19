@@ -14,8 +14,6 @@ public class Student  extends User{
 
     public  Course[] Course;
     static HashMap<Integer,Student> listOfStudent = new HashMap<Integer,Student>();
-    public Student() {
-    }
     //login
     public Student(String email, String password) {
         super(email, password);

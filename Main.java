@@ -15,7 +15,7 @@ public class Main {
                 "123 Main St, NY",
                 "1234567890",
                 "Administrator");
-        Student students = new Student();
+        // Student students = new Student();
         Teacher t = new Teacher(
                 "Smith",
                 "Alice",
@@ -30,8 +30,8 @@ public class Main {
         // login to user can be admin , student or teacher
         
         do {
-            System.out.println(Teacher.listOfTeacher);
-            System.out.println(Admin.listOfAdmins);
+            System.out.println(User.listUser);
+            System.out.println(User.listUser);
             System.out.println("Login\n");
             Object user = form.login();
             if (user != null) {
