@@ -18,6 +18,5 @@ public class TestTeach {
             "Administrator");
         User tea = new Teacher("smithalice1@tch.kdc.edu", "kdc2025");
         System.out.println(User.listUser.values());
-        System.out.println(Teacher.login(tea));
     }
 }

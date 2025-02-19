@@ -22,16 +22,6 @@ public class Teacher extends User {
         return super.toString() + "  major :" + major;
     }
 
-    public static Teacher login(User t) {
-        
-        for (User teacher : User.listUser.values()) {
-            if (t.equals(teacher)) {
-                return (Teacher) teacher;
-            }
-        }
-        return null;
-    }
-
     @Override
     public void displayUserInfo(){
         super.displayUserInfo();
