@@ -1,8 +1,9 @@
 package user;
 
+import java.util.HashMap;
 import java.util.Scanner;
 
-public class User  implements Person{
+public abstract class User{
     static Scanner input = new Scanner(System.in);
     public static int numberOfPerson = 0;
     private int id ;
@@ -13,9 +14,7 @@ public class User  implements Person{
     private String email;
     private String phoneNumber;
     private String password;
-    public User(){
-
-    }
+    public static HashMap<Integer,User> listUser = new HashMap<Integer,User>();
     //login
     public User( String email,String password){
         this.email = email;
@@ -35,7 +34,7 @@ public class User  implements Person{
     @Override
     public String toString() {
         return "ID : " + id + "  name : " + lastName + " " + firstName + ", address : " + address
-                + ", phoneNumber : " + phoneNumber +" " + "Email : "+email;
+                + ", phoneNumber : " + phoneNumber +" " + "Email : "+email+"\n";
     }
     @Override
     public int hashCode() {
@@ -52,7 +51,6 @@ public class User  implements Person{
         }
         return false;
     }
-    @Override
     public void displayUserInfo() {
         System.out.println("\n====================================");
         System.out.println("              USER DETAILS      ");
