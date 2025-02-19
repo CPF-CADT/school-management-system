@@ -1,8 +1,9 @@
 package user;
 import academic.Course;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
+// import java.util.Date;
 import java.util.HashMap;
 // import java.util.HashSet;
 
@@ -12,7 +13,7 @@ public class Student  extends User{
     // public String role;
     final static String EMAIL_FORMAT="@std.kdc.edu";
 
-    public  Course[] Course;
+    public  ArrayList<Course> Course;
     static HashMap<Integer,Student> listOfStudent = new HashMap<Integer,Student>();
     public Student() {
     }

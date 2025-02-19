@@ -39,7 +39,7 @@ public class Teacher extends User {
     }
 
     public void displayUserInfo(){
-        super.displayUserInfo();
+        super.displayUserInfo(  );
         System.out.println("Major        : " + major);
         System.out.println("====================================\n");
     }

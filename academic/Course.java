@@ -44,21 +44,29 @@ public class Course {
             System.out.println("Permission Denied: Only Admins can create courses.");
             return;
         }
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter Course Name: ");
-        String name = scanner.nextLine();
-        System.out.print("Enter Short Name: ");
-        String shortName = scanner.nextLine();
-        System.out.print("Enter Level: ");
-        String level = scanner.nextLine();
-        System.out.print("Enter Fee: ");
-        float fee = scanner.nextFloat();
-        scanner.nextLine(); // Consume newline
-        System.out.print("Enter Description: ");
-        String description = scanner.nextLine();
-        
-        Course newCourse = new Course(totalCourse, name, shortName, level, fee, description);
-    System.out.println("Course Created Successfully: " + newCourse);
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("Enter Course Name: ");
+            String name = scanner.nextLine();
+            System.out.print("Enter Short Name: ");
+            String shortName = scanner.nextLine();
+            System.out.print("Enter Level: ");
+            String level = scanner.nextLine();
+            System.out.print("Enter Fee: ");
+            float fee = scanner.nextFloat();
+            scanner.nextLine(); // Consume newline
+            System.out.print("Enter Description: ");
+            String description = scanner.nextLine();
+            
+            Course newCourse = new Course(totalCourse, name, shortName, level, fee, description);
+            System.out.println("Course Created Successfully: " + newCourse);
+        }
+    //enroll course
+    public static void enrollCourse(User user, Course course) {
+        if (!(user instanceof Student)) {
+            System.out.println("Permission Denied: Only Students can enroll in courses.");
+            return;
+        }
+        Student student = (Student) user;
+        student.enrollCourse(course);
+    }
 }
-}
-
