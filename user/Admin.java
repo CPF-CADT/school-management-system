@@ -4,12 +4,15 @@ package user;
 
 public class Admin extends User {
     final static String EMAIL_FORMAT = "@adm.kdc.edu";
+    static int numberOfAdmin = 0;
     public String role;
+    public String id = "A";
 
     public Admin(String firstName, String lastName, String address, String phoneNumber, String role) {
         super(firstName, lastName, address, phoneNumber, EMAIL_FORMAT);
         this.role = role;
-        User.listUser.put(super.getID(), this);
+        id +=(String.valueOf(++numberOfAdmin));
+        User.listUser.put(this.id, this);
     }
 
     public Admin(String email, String password) {
@@ -18,13 +21,14 @@ public class Admin extends User {
 
     @Override
     public String toString() {
-        return super.toString() + "  Role : " + this.role;
+        return super.toString() +"ID : " + id +  "  Role : " + this.role +"\n";
     }
 
 
     public void displayUserInfo() {
         super.displayUserInfo();
-        System.out.println("Role        : " + role);
+        System.out.println("ID           : " + id);
+        System.out.println("Role         : " + role);
         System.out.println("====================================\n");
     }
     // public static Admin selectAdmin() {

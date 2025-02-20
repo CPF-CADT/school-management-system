@@ -5,9 +5,7 @@ import java.util.Scanner;
 public class Feature {
     Scanner input = new Scanner(System.in);
     String[] adminList = {
-        "Create Teacher Account",
-        "Create Student Account",
-        "Create Staff Account",
+        "Create User Account",
         "Create Course",
         "Create Course Instance",
         "Assign Teacher"

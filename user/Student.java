@@ -10,7 +10,8 @@ public class Student  extends User{
  public Date dob;
     public String role;
     final static String EMAIL_FORMAT="@std.kdc.edu";
-
+    static int numberOfStudents = 0;
+    public String id = "S";
     public  Course[] Course;
     
     //login
@@ -20,16 +21,13 @@ public class Student  extends User{
     //register
     public Student(String firstName, String lastName, String address, String phoneNumber,String role) {
         super(firstName, lastName, address,phoneNumber, EMAIL_FORMAT);
-
-       
-
-        User.listUser.put(super.getID(),this);
-
+        id +=(String.valueOf(++numberOfStudents));
+        User.listUser.put(this.id, this);
     }
 
     @Override
     public String toString() {
-        return super.toString()+"Student [Course=" + Arrays.toString(Course) + "]";
+        return super.toString()+"ID : " + id + "Student [Course=" + Arrays.toString(Course) + "]"+"\n";
     }
     
     // public static Student FindStudentById(int id){

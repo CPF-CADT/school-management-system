@@ -22,7 +22,12 @@ public class Main {
                 "456 Elm St, CA",
                 "9876543210",
                 "Mathematics");
-
+        Teacher t2 = new Teacher(
+                    "Jak",
+                    "Jony",
+                    "456 Elm St, CA",
+                    "9876543210",
+                    "Mathematics");
         Form form = new Form();
         Feature feature = new Feature();
         AcademicControl academicControl = new AcademicControl();
@@ -30,7 +35,6 @@ public class Main {
         // login to user can be admin , student or teacher
         
         do {
-            System.out.println(User.listUser);
             System.out.println(User.listUser);
             System.out.println("Login\n");
             User user = form.login();
