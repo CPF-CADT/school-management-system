@@ -3,7 +3,7 @@ package academic;
 import java.util.Scanner;
 import user.Teacher;
 
-public class Assignment extends Assessable {
+public class Assignment extends Assessment {
     //field
     public int id;
     public int courseId;
@@ -12,6 +12,7 @@ public class Assignment extends Assessable {
     public float score;
     public Teacher teacher;
     public Scanner scanner = new Scanner(System.in);
+    
     public Assignment(int id, int courseId, String title, String description, float score, Teacher teacher) {
         this.id = id;
         this.courseId = courseId;
@@ -63,7 +64,7 @@ public class Assignment extends Assessable {
         System.out.println("Title: " + title);
         System.out.println("Description: " + description);
         System.out.println("Score: " + score);
-        System.out.println("Assigned by: " + (teacher != null ? teacher.toString() : "Annonyomous"));
+        System.out.println("Assigned by: " + (teacher != null ? teacher.toString() : "Annonyomous")); //
     }
 
     //submit assignment

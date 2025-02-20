@@ -22,7 +22,7 @@ public class CourseInstance {
     private ArrayList<Student> listStudent = new ArrayList<>(30);
     private Quizz[] quizzes;
     private Assignment assignments;
-    public final String primaryKey; // Unique primary key
+    public String primaryKey; // Unique primary key
 
     public CourseInstance(Course course, Teacher teacher, int year, int term, int group) {
         this.primaryKey = generatePrimaryKey(course, year, term, group);
@@ -41,7 +41,7 @@ public class CourseInstance {
         listCourseInstace.add(this);
     }
 
-    // Generate key in format Year term course code group exmaple Y2021T1 GDS G1
+    // Generate key in format Year term course_code GROUP le Y2021T1 GDS G1
     private static String generatePrimaryKey(Course course, int year, int term, int group) {
         return String.format("Y%dT%d %s G%d", year, term, course.getShortNameCode(), group);
     }

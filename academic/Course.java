@@ -15,7 +15,7 @@ public class Course {
     public String description;
     public String shortName;
     public int courseId;
-    public ArrayList<Course> courses = new ArrayList<Course>();
+    // public ArrayList<Course> courses = new ArrayList<Course>();
     private String shortNameCode; // GDS
     private String nameCode; // graphic design
 

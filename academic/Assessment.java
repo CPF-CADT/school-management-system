@@ -2,7 +2,7 @@ package academic;
 
 import user.Teacher;
 
-public abstract class Assessable {
+public abstract class Assessment{}
     public int id;
     public int courseId;
     public String title;
@@ -10,12 +10,12 @@ public abstract class Assessable {
     public Teacher teacher;
 
     // Constructor
-    public Assessable(int id, int courseId, String title, Teacher teacher) {
-        this.id = id;
-        this.courseId = courseId;
-        this.title = title;
-        this.teacher = teacher;
-    }
+    // public Assessable(int id, int courseId, String title, Teacher teacher) {
+    //     this.id = id;
+    //     this.courseId = courseId;
+    //     this.title = title;
+    //     this.teacher = teacher;
+    // }
 
     // Abstract method to be implemented by subclasses
     public abstract void provideScore(float score);

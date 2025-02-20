@@ -5,11 +5,13 @@ import java.util.ArrayList;
 import user.Student;
 import user.Teacher;
 
-public class Quizz extends Assessable{
+public class Quizz extends Assessment{
     static int quizzNumber=0;
     public int courseId;
     public String title;
+    public float totalScore;
     private ArrayList<Question> tasks; 
+    
     public Quizz(int id, int courseId, String title, Teacher teacher) {
         super(++quizzNumber, courseId, title, teacher); // Auto-increment ID
     }
@@ -42,4 +44,4 @@ public class Quizz extends Assessable{
             System.out.println("Invalid score! Must be between 0 and 100.");
         }
     }
-}
+}// assign quiz provide score to student using abstract class
