@@ -1,8 +1,9 @@
 package user;
 
+import java.util.HashMap;
 import java.util.Scanner;
 
-public class User {
+public  abstract class User  implements Person{
     static Scanner input = new Scanner(System.in);
     public static int numberOfPerson = 0;
     private int id ;
@@ -13,9 +14,7 @@ public class User {
     private String email;
     private String phoneNumber;
     private String password;
-    public User(){
-
-    }
+    public static HashMap<Integer,User> listUser = new HashMap<Integer,User>();
     //login
     public User( String email,String password){
         this.email = email;
@@ -35,11 +34,22 @@ public class User {
     @Override
     public String toString() {
         return "ID : " + id + "  name : " + lastName + " " + firstName + ", address : " + address
-                + ", phoneNumber : " + phoneNumber +" " + "Email : "+email;
+                + ", phoneNumber : " + phoneNumber +" " + "Email : "+email+"\n";
     }
     @Override
     public int hashCode() {
         return email.hashCode();
+    }
+    
+    public static User login(String email,String password) {
+        for (User user : User.listUser.values()) {
+            if (user.getEmail().equals(email)) {
+                if(user.checkPassword(password)){
+                    return user;
+                }
+            }
+        }
+        return null;
     }
 
     @Override
@@ -52,7 +62,7 @@ public class User {
         }
         return false;
     }
-
+    @Override
     public void displayUserInfo() {
         System.out.println("\n====================================");
         System.out.println("              USER DETAILS      ");
@@ -65,14 +75,6 @@ public class User {
         System.out.println("Email        : " + email);
         if(password.equals("kdc2025")){
             System.out.println("Password (Default)  : " + password);
-        }
-    }
-
-    public String getPassword(String curPassword) {
-        if (curPassword.equals(this.password)) {
-            return password;
-        } else {
-            return "Password Invalid";
         }
     }
 
@@ -117,7 +119,8 @@ public class User {
             System.out.println("Password Invalid");
         }
     }
-    private String generateEmail(String format){
+    
+     private   String generateEmail(String format){
         return firstName+lastName+String.valueOf(id)+ format;
     }
 }

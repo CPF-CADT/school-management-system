@@ -5,49 +5,37 @@ import java.util.Scanner;
 import user.Admin;
 // import user.Student;
 import user.Teacher;
+import user.User;
 
 public class Form implements Authentication{
     Scanner input = new Scanner(System.in);
 
     @Override
-    public Object login() {
+    public User login() {
         System.out.print("Email address : ");
         String email = input.next();
         System.out.print("Password      : ");
         String passsword = input.next();
         if (isValidEmailFormat(email)) {
-            switch (typeOfEmail(email)) {
-                case 1:
-                    Admin adm = new Admin(email, passsword);
-                    adm = Admin.login(adm);
-                    if (adm != null) {
-                        return adm;
-                    }
-                    break;
-                case 2:
-                    Teacher teach = new Teacher(email, passsword);
-                    teach = Teacher.login(teach);
-                    if (teach != null) {
-                        return teach;
-                    }
-                    break;
-                case 3:
-                    System.out.println("This Student Account");
-                    break;
-                default:
-                    break;
-            }
+           return User.login(email, passsword);
         }
         return null;
     }
 
     @Override
-    public boolean register(int type) {
+    public boolean register() {
         String lastName, firstName, address, phoneNumber, role_major;
         Scanner input = new Scanner(System.in);
+        int typeOfAccount =0;
         System.out.println("====================================");
         System.out.println("      USER REGISTRATION FORM       ");
         System.out.println("====================================");
+        System.out.println("Choose Type User :");
+        System.out.println("1 . Staff");
+        System.out.println("2 . Teacher");
+        System.out.println("3 . Student");
+        System.out.println("Choose : ");
+        typeOfAccount = input.nextInt();
 
         System.out.print("First Name   : ");
         firstName = input.next();
@@ -63,29 +51,21 @@ public class Form implements Authentication{
         System.out.print("Phone Number : ");
         phoneNumber = input.next();
 
-        switch (type) {
+        switch (typeOfAccount) {
             case 1:
                 // Admin
                 System.out.print("Role         : ");
                 role_major = input.next();
                 Admin adm = new Admin(firstName, lastName, address, phoneNumber, role_major);
-                if(adm != null){
                     adm.displayUserInfo();
                     return true;
-                }
-                return false;
-
             case 2:
                 // Teacher
                 System.out.print("Major        : ");
                 role_major = input.next();
                 Teacher teach = new Teacher(firstName, lastName, address, phoneNumber, role_major);
-                if(teach!=null){
-                    teach.displayUserInfo();
-                    return true;
-                }
-                return false;
-
+                teach.displayUserInfo();
+                return true;
             case 3:
                 // Student
                 System.out.println("Student registered successfully!");

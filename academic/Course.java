@@ -53,6 +53,23 @@ public class Course {
         }
         return null;
     }
+    public static void removeCourse(ArrayList<Course> courses,int inputId){
+        if(courses.isEmpty()){
+            System.err.println("Empty");
+        }else{
+            for(Course course: courses){
+                if(inputId == course.id){
+                    courses.remove(course);
+                    return ;
+                }
+                
+            }
+            
+            System.err.println("Not found");
+        }
+       
+    }
+    
 
     // Method to create a course by user input
     public static void createCourse(User user) {

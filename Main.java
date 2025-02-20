@@ -9,13 +9,13 @@ public class Main {
 
         int incorrectLoginCount = 3;
 
-        Admin admin = new Admin(
+        Admin adm = new Admin(
                 "John",
                 "Doe",
                 "123 Main St, NY",
                 "1234567890",
                 "Administrator");
-        Student students = new Student();
+        // Student students = new Student();
         Teacher t = new Teacher(
                 "Smith",
                 "Alice",
@@ -30,43 +30,35 @@ public class Main {
         // login to user can be admin , student or teacher
         
         do {
-            System.out.println(Teacher.listOfTeacher);
-            System.out.println(Admin.listOfAdmins);
+            System.out.println(User.listUser);
+            System.out.println(User.listUser);
             System.out.println("Login\n");
-            Object user = form.login();
+            User user = form.login();
             if (user != null) {
                 if (user instanceof Admin) {
                     System.out.println("Admin Interface");
-                    Admin adm = (Admin) user;
+                    Admin admin = (Admin) user;
                     int option =0 ;
                     do{
                         option = feature.admin();
                         switch (option) {
                             case 1:
-                                //finish
-                                form.register(2);
+                                System.out.println("------------------ Create User Account ------------------ ");
+                                form.register();
                                 break;
                             case 2:
-                                System.out.println("------------------ Create Student Account ------------------ ");
-                                form.register(3);
-                                break;
-                            case 3:
-                                //notyet
-                                form.register(1);
-                                break;
-                            case 4:
                                 System.out.println("------------------ Create Course ------------------ ");
 
                                 break;
                             
-                            case 5:
+                            case 3:
                                 System.out.println("------------------ Create Course Insatnce  ------------------ ");
                                 //finish
                                 academicControl.createClass();
                                 // CourseInstance co = new CourseInstance(2025, 2, 1);
                                 // System.out.println(CourseInstance.findCourseInstance(co));
                                 break;
-                            case 6:
+                            case 4:
                                 System.out.println("------------------ Assign Student ------------------ ");
                                 //do it later
                                 break;
@@ -77,8 +69,8 @@ public class Main {
                     }while(option!=0);
                 } else if (user instanceof Teacher) {
                     System.out.println("Teacher Interface");
-                    Teacher tch = (Teacher) user;
-                    System.out.println(tch);
+                    Teacher teacher = (Teacher) user;
+                    System.out.println(teacher);
                     switch (feature.teacher()) {
                         case 1:
 

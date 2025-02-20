@@ -5,26 +5,30 @@ import java.util.ArrayList;
 import java.util.Arrays;
 // import java.util.Date;
 import java.util.HashMap;
+import java.util.Date;
+
 // import java.util.HashSet;
 
 public class Student  extends User{
 
     // public Date dob;
-    // public String role;
+    public String role;
     final static String EMAIL_FORMAT="@std.kdc.edu";
 
-    public  ArrayList<Course> Course;
-    static HashMap<Integer,Student> listOfStudent = new HashMap<Integer,Student>();
-    public Student() {
-    }
+    public  Course[] Course;
+    
     //login
     public Student(String email, String password) {
         super(email, password);
     }
     //register
-    public Student(String firstName, String lastName, String address, String phoneNumber) {
+    public Student(String firstName, String lastName, String address, String phoneNumber,String role) {
         super(firstName, lastName, address,phoneNumber, EMAIL_FORMAT);
-        listOfStudent.put(super.getID(),this);
+
+       
+
+        User.listUser.put(super.getID(),this);
+
     }
 
     @Override
@@ -40,24 +44,29 @@ public class Student  extends User{
     //     }
     //     return null;
     // }
-        public static Student login(Student std) {
-        for (Student student : listOfStudent.values()) {
+        public static Student login(User std) {
+        for (User student : User.listUser.values()) {
             if (std.equals(student)) {
-                return student;
+                return (Student) student;
             }
         }
         return null;
     }
 
     public static Student selectStudent() {
-        if (Student.listOfStudent.isEmpty()) {
+        if (!User.listUser.isEmpty()) {
             System.out.println("List Student ");
-            for (Student std : listOfStudent.values()) {
+            for (User std : User.listUser.values()) {
                 System.out.println(std);
             }
             System.out.print("Enter ID : ");
             int select = input.nextInt();
-            return listOfStudent.get(select);
+            User findUser = User.listUser.get(select);
+            if(findUser instanceof Student){
+                return (Student) findUser;
+            }else {
+                return null;
+            }
         } else {
             System.out.println("No Student in list");
             return null;
@@ -74,9 +83,7 @@ public class Student  extends User{
     public static int getPeople() {
         return numberOfPerson;
     }
-    // public static Date getDob() {
-    //     return dob;
-    // }
+
     public Course[] getCourse() {
         return Course;
     }
@@ -89,6 +96,22 @@ public class Student  extends User{
     public void setCourse(Course[] course) {
         Course = course;
     }
+    public    void remove() {
+        if (!User.listUser.isEmpty()) {
+            System.out.println("List Student ");
+            for (User std : User.listUser.values()) {
+                System.out.println(std);
+            }
+            System.out.print("Enter ID : ");
+            int select = input.nextInt();
+             User.listUser.remove(select);
+            System.out.println("Remove successfully");
+        } else {
+            System.out.println("No Student in list");
+            
+        }
+    
+}
 
 
     // public static void setListOfStudent(HashSet<Student> listOfStudent) {
