@@ -9,12 +9,14 @@ public  abstract class User  implements Person{
     private int id ;
     public String lastName;
     public String firstName;
-    // public Date dob; 
-    public String address;
+
+    // protected Date dob; 
+    protected String address;
+    
     private String email;
     private String phoneNumber;
     private String password;
-    public static HashMap<Integer,User> listUser = new HashMap<Integer,User>();
+    public static HashMap<String,User> listUser = new HashMap<String,User>();
     //login
     public User( String email,String password){
         this.email = email;
@@ -33,7 +35,7 @@ public  abstract class User  implements Person{
     }
     @Override
     public String toString() {
-        return "ID : " + id + "  name : " + lastName + " " + firstName + ", address : " + address
+        return "Name : " + lastName + " " + firstName + ", address : " + address
                 + ", phoneNumber : " + phoneNumber +" " + "Email : "+email+"\n";
     }
     @Override
@@ -41,6 +43,7 @@ public  abstract class User  implements Person{
         return email.hashCode();
     }
     
+    // login
     public static User login(String email,String password) {
         for (User user : User.listUser.values()) {
             if (user.getEmail().equals(email)) {
@@ -67,7 +70,6 @@ public  abstract class User  implements Person{
         System.out.println("\n====================================");
         System.out.println("              USER DETAILS      ");
         System.out.println("====================================");
-        System.out.println("User ID      : " + id);
         System.out.println("First Name   : " + firstName);
         System.out.println("Last Name    : " + lastName);
         System.out.println("Address      : " + address);
