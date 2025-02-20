@@ -4,32 +4,19 @@ import java.util.Scanner;
 import user.Teacher;
 
 public class Assignment extends Assessment {
-    //field
-    public int id;
-    public int courseId;
-    public String title;
-    public String description;
-    public float score;
-    public Teacher teacher;
-    public Scanner scanner = new Scanner(System.in);
+    //fields
+    public String instruction; 
+    Scanner scanner = new Scanner(System.in);
     
-    public Assignment(int id, int courseId, String title, String description, float score, Teacher teacher) {
-        this.id = id;
-        this.courseId = courseId;
-        this.title = title;
+    public Assignment(int courseId, String title, Teacher teacher, float score,String description) {
+        super(courseId, title, teacher,score,description);
         this.description = description;
-        this.score = score;
-        this.teacher = teacher;
     }
 
     @Override
-    public void provideScore(float score) {
-        if (score >= 0 && score <= 100) {
-            this.score = score;
-            System.out.println("Score provided for Assignment: " + score);
-        } else {
-            System.out.println("Invalid score! Must be between 0 and 100.");
-        }
+    //add student score
+    public void addStudentScore(int studentId, float score) {
+        
     }
 
     @Override
@@ -42,8 +29,6 @@ public class Assignment extends Assessment {
 
     public void createAssignment(Object user){
         if (user instanceof Teacher ) {
-            System.out.println("Enter Assignment ID: ");
-            this.id = scanner.nextInt();
             System.out.println("Enter Course ID: ");
             this.courseId = scanner.nextInt();
             System.out.println("Enter Title: ");
@@ -51,7 +36,7 @@ public class Assignment extends Assessment {
             System.out.println("Enter Description: ");
             this.description = scanner.nextLine();
             System.out.println("Enter Score: ");
-            this.score = scanner.nextFloat();
+            this.totalScore = scanner.nextFloat();
             System.out.println("Assignment created successfully!");
         } else {
             System.out.println("Access denied: You don't have permission!");
@@ -59,11 +44,10 @@ public class Assignment extends Assessment {
     }
     //displlay the assignment
     public void displayAssignment() {
-        System.out.println("Assignment ID: " + id);
         System.out.println("Course ID: " + courseId);
         System.out.println("Title: " + title);
         System.out.println("Description: " + description);
-        System.out.println("Score: " + score);
+        System.out.println("Score: " + totalScore);
         System.out.println("Assigned by: " + (teacher != null ? teacher.toString() : "Annonyomous")); //
     }
 

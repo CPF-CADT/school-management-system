@@ -1,32 +1,45 @@
 package academic;
 
+import java.util.HashMap;
+
 import user.Teacher;
 
-public abstract class Assessment{}
-    public int id;
+public abstract class Assessment{
+    public static int numberAssessments = 0;
+    public int no;
     public int courseId;
     public String title;
-    public float score;
+    public float totalScore; 
     public Teacher teacher;
+    public String description;
+
+    //id key and value score
+    public HashMap<Integer, Float> studentScore = new HashMap<Integer, Float>();
 
     // Constructor
-    // public Assessable(int id, int courseId, String title, Teacher teacher) {
-    //     this.id = id;
-    //     this.courseId = courseId;
-    //     this.title = title;
-    //     this.teacher = teacher;
-    // }
+    public Assessment(int courseId, String title, Teacher teacher,float score, String description) {
+        numberAssessments+=1;
+        this.no = numberAssessments;
+        this.courseId = courseId;
+        this.title = title;
+        this.teacher = teacher;
+        this.totalScore =  score;
+        this.description = description;
+    }
 
-    // Abstract method to be implemented by subclasses
-    public abstract void provideScore(float score);
+    //add student score
+    public abstract void addStudentScore(int studentId, float score);
+
+    //
 
     // Display assessment details
     public void displayAssessment() {
-        System.out.println("Assessment ID: " + id);
         System.out.println("Course ID: " + courseId);
         System.out.println("Title: " + title);
-        System.out.println("Score: " + score);
+        System.out.println("Score: " + totalScore);
         System.out.println("Assigned by: " + (teacher != null ? teacher.toString() : "Anonymous"));
     }
+
+    
 }
 

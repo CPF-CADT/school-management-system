@@ -90,8 +90,8 @@ public class CourseInstance {
             System.out.println("Access denied: You don't have permission!");
         }
     }
-    @Override
-    public String toString() {
-        return primaryKey + " | Teacher: " + teacher.getName();
-    }
+    // @Override
+    // public String toString() {
+    //     // return primaryKey + " | Teacher: " + teacher.getName();
+    // }
 }

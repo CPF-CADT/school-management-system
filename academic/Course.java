@@ -1,6 +1,7 @@
 package academic;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 import user.Admin;
 import user.Student;
@@ -9,16 +10,15 @@ import user.User;
 public class Course {
     static int totalCourse;
     public int id;
-    public String name;
+    public String name; //graphic desgign
     public String level;
     public float fee;
     public String description;
     public String shortName;
     public int courseId;
-    // public ArrayList<Course> courses = new ArrayList<Course>();
-    private String shortNameCode; // GDS
-    private String nameCode; // graphic design
+    public static HashMap<String, Course> listCourses = new HashMap<>();
 
+    //constructor 
     public Course(int id, String name, String shortName, String level, float fee, String description) {
 
         totalCourse += 1;
@@ -28,25 +28,17 @@ public class Course {
         this.level = level;
         this.fee = fee;
         this.description = description;
-        this.shortNameCode = shortName.toUpperCase();
-        this.nameCode = name.toLowerCase().replace(" ", "_");
 
     }
-
-    public String getShortNameCode() {
-        return shortNameCode;
-    }
-    public String getNameCode() {
-        return nameCode;
-    } 
     @Override
     public String toString() {
         return "Course [id=" + id + ", name=" + name + ", level=" + level + ", fee=" + fee + ", description="
                 + description + "]";
     }
         // Method to find a course by short name and level
-    public static Course findCourse(ArrayList<Course> courses, String shortName, String level) {
-        for (Course course : courses) {
+        // GDS, Beginner
+    public static Course findCourse(String shortName, String level) {
+        for (Course course : Course.listCourses.values()) {
             if (course.shortName.equals(shortName) && course.level.equals(level)) {
                 return course;
             }

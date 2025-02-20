@@ -6,14 +6,12 @@ import user.Student;
 import user.Teacher;
 
 public class Quizz extends Assessment{
-    static int quizzNumber=0;
-    public int courseId;
-    public String title;
     public float totalScore;
     private ArrayList<Question> tasks; 
     
-    public Quizz(int id, int courseId, String title, Teacher teacher) {
-        super(++quizzNumber, courseId, title, teacher); // Auto-increment ID
+    public Quizz(int courseId, String title, Teacher teacher, float score,String description) {
+        super(courseId, title, teacher,score,description);
+        
     }
     public Question getTask(int index) {
         return tasks.get(index);
@@ -25,7 +23,7 @@ public class Quizz extends Assessment{
             System.out.println("Access denied: You Dont have permission!");
         }
     }
-    public float attemp(){
+    public float attemp(int studentId){
         float total =0.0f;
         int numberOfQuestion =0;
         for(Question task : tasks){
@@ -36,12 +34,10 @@ public class Quizz extends Assessment{
         return total; 
     }
     @Override
-    public void provideScore(float score) {
-        if (score >= 0 && score <= 100) {
-            this.score = score;
-            System.out.println("Score provided for Quiz: " + score);
-        } else {
-            System.out.println("Invalid score! Must be between 0 and 100.");
-        }
+    //add student score
+
+    public void addStudentScore(int studentId, float score) {
+        totalScore = attemp(studentId);
+        System.out.println("Student ID: " + studentId + " Totalscore: " + totalScore);
     }
-}// assign quiz provide score to student using abstract class
+}

@@ -16,8 +16,8 @@ public class AcademicControl {
         int group = input.nextInt();
         // System.out.print("Course   : ");
         System.out.print("Teacher  : ");
-        Teacher teacher = Teacher.selectTeacher();
-        CourseInstance course = new CourseInstance( null, teacher, year,term,group);
+        // Teacher teacher = Teacher.selectTeacher();
+        // CourseInstance course = new CourseInstance( null, teacher, year,term,group);
     }
     // void assignStudentToClass(CourseInstance c, Student stu){  
         
