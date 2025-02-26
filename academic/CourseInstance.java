@@ -22,6 +22,11 @@ public class CourseInstance {
     private ArrayList<Student> listStudent = new ArrayList<>(30);
     private Quizz[] quizzes;
     private Assignment assignments;
+    static HashSet<CourseInstance> listCourseInstace = new HashSet<CourseInstance>();
+
+    public CourseInstance(Course course, Teacher teacher, int year, int term,int group) {
+        numebrClassInstance += 1;
+        this.id = numebrClassInstance;
     public String primaryKey; // Unique primary key
 
     public CourseInstance(Course course, Teacher teacher, int year, int term, int group) {

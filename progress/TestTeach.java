@@ -1,5 +1,6 @@
 package progress;
 
+import core.*;
 import user.*;
 
 public class TestTeach {
@@ -17,6 +18,14 @@ public class TestTeach {
             "1234567890",
             "Administrator");
         User tea = new Teacher("smithalice1@tch.kdc.edu", "kdc2025");
+        Student s3=new Student("kon","chin","82","123","year3");
+        Student s4 =new Student("konjam3@std.kdc.edu", "yes");
         System.out.println(User.listUser.values());
+        Form form = new Form();
+        User user = form.login();
+        if (user != null){
+            System.out.println("true");
+        }else
+        System.out.println(".(false)");
     }
 }

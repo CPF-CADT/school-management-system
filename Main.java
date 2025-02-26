@@ -1,5 +1,5 @@
-import user.*;
 import core.*;
+import user.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -22,6 +22,15 @@ public class Main {
                 "456 Elm St, CA",
                 "9876543210",
                 "Mathematics");
+        Teacher t2 = new Teacher(
+                    "Jak",
+                    "Jony",
+                    "456 Elm St, CA",
+                    "9876543210",
+                    "Mathematics");
+                    
+                    
+        Student s1=new Student("kon","khmer","82","123","year1");
 
         Form form = new Form();
         Feature feature = new Feature();
@@ -31,9 +40,9 @@ public class Main {
         
         do {
             System.out.println(User.listUser);
-            System.out.println(User.listUser);
             System.out.println("Login\n");
             User user = form.login();
+            System.out.println(user);
             if (user != null) {
                 if (user instanceof Admin) {
                     System.out.println("Admin Interface");
@@ -72,6 +81,17 @@ public class Main {
                     Teacher teacher = (Teacher) user; //casting
                     System.out.println(teacher);
                     switch (feature.teacher()) {
+                        case 1:
+
+                            break;
+                        default:
+                            break;
+                    }
+                } else if (user instanceof Student) {
+                    System.out.println("Student Interface");
+                    Student studentLogin = (Student) user;
+                    System.out.println(studentLogin);
+                    switch (feature.student()) {
                         case 1:
 
                             break;
