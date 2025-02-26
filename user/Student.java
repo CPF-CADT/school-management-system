@@ -1,15 +1,14 @@
 package user;
 import academic.Course;
 import java.util.Arrays;
-import java.util.Date;
 
 // import java.util.HashSet;
 
 public class Student  extends User{
 
- public Date dob;
+ 
     public String role;
-    final static String EMAIL_FORMAT="@std.kdc.edu";
+    final static String EMAIL_FORMAT="@stu.kdc.edu";
     static int numberOfStudents = 0;
     public String id = "S";
     public  Course[] Course;
@@ -20,8 +19,9 @@ public class Student  extends User{
     }
     //register
     public Student(String firstName, String lastName, String address, String phoneNumber,String role) {
-        super(firstName, lastName, address,phoneNumber, EMAIL_FORMAT);
+        super(firstName,lastName, address, phoneNumber,EMAIL_FORMAT);
         id +=(String.valueOf(++numberOfStudents));
+        this.role=role;
         User.listUser.put(this.id, this);
     }
 
@@ -38,74 +38,81 @@ public class Student  extends User{
     //     }
     //     return null;
     // }
-        public static Student login(User std) {
-        for (User student : User.listUser.values()) {
-            if (std.equals(student)) {
-                return (Student) student;
-            }
-        }
-        return null;
+    //     public static Student login(User std) {
+    //     for (User student : User.listUser.values()) {
+    //         if (std.equals(student)) {
+    //             return (Student) student;
+    //         }
+    //     }
+    //     return null;
+    // }
+    @Override
+    public void displayUserInfo() {
+        super.displayUserInfo();
+        System.out.println("ID           : " + id);
+        System.out.println("Role         : " + role);
+        System.out.println("====================================\n");
     }
 
-    public static Student selectStudent() {
-        if (!User.listUser.isEmpty()) {
-            System.out.println("List Student ");
-            for (User std : User.listUser.values()) {
-                System.out.println(std);
-            }
-            System.out.print("Enter ID : ");
-            int select = input.nextInt();
-            User findUser = User.listUser.get(select);
-            if(findUser instanceof Student){
-                return (Student) findUser;
-            }else {
-                return null;
-            }
-        } else {
-            System.out.println("No Student in list");
-            return null;
-        }
+//     public static Student selectStudent() {
+//         if (!User.listUser.isEmpty()) {
+//             System.out.println("List Student ");
+//             for (User std : User.listUser.values()) {
+//                 System.out.println(std);
+//             }
+//             System.out.print("Enter ID : ");
+//             String select = input.nextLine();
+//             User findUser = User.listUser.get(select);
+//             if(findUser instanceof Student student){
+//                 return student;
+//             }else {
+//                 return null;
+//             }
+//         } else {
+//             System.out.println("No Student in list");
+//             return null;
+//         }
     
-}
+// }
 
 
 
-    public String getAddress() {
-        return address;
-    }
 
-    public static int getPeople() {
-        return numberOfPerson;
-    }
 
-    public Course[] getCourse() {
-        return Course;
-    }
+//     public static int getPeople() {
+//         return numberOfPerson;
+//     }
+
+//     public Course[] getCourse() {
+//         return Course;
+//     }
     
     
 
 
 
 
-    public void setCourse(Course[] course) {
-        Course = course;
-    }
-    public    void remove() {
-        if (!User.listUser.isEmpty()) {
-            System.out.println("List Student ");
-            for (User std : User.listUser.values()) {
-                System.out.println(std);
-            }
-            System.out.print("Enter ID : ");
-            int select = input.nextInt();
-             User.listUser.remove(select);
-            System.out.println("Remove successfully");
-        } else {
-            System.out.println("No Student in list");
+//     public void setCourse(Course[] course) {
+//         Course = course;
+//     }
+
+    
+//     public    void remove() {
+//         if (!User.listUser.isEmpty()) {
+//             System.out.println("List Student ");
+//             for (User std : User.listUser.values()) {
+//                 System.out.println(std);
+//             }
+//             System.out.print("Enter ID : ");
+//             String select = input.nextLine();
+//              User.listUser.remove(select);
+//             System.out.println("Remove successfully");
+//         } else {
+//             System.out.println("No Student in list");
             
-        }
+//         }
     
-}
+// }
 
 
     // public static void setListOfStudent(HashSet<Student> listOfStudent) {
