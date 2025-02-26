@@ -39,7 +39,5 @@ public abstract class Assessment{
         System.out.println("Score: " + totalScore);
         System.out.println("Assigned by: " + (teacher != null ? teacher.toString() : "Anonymous"));
     }
-
-    
 }
 

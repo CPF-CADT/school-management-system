@@ -1,8 +1,6 @@
 package academic;
 
 import java.util.ArrayList;
-
-import user.Student;
 import user.Teacher;
 
 public class Quizz extends Assessment{

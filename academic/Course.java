@@ -2,7 +2,6 @@ package academic;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 import user.Admin;
 import user.User;
@@ -10,14 +9,13 @@ import user.User;
 public class Course {
     static int totalCourse;
     public int id;
-    public String name; //graphic desgign
+    public String name; //graphic design
     public String level;
     public float fee;
     public String description;
     public String shortName;
     public int courseId;
     public static HashMap<String, Course> listCourses = new HashMap<>();
-
     //constructor 
     public Course(int id, String name, String shortName, String level, float fee, String description) {
 
@@ -28,28 +26,27 @@ public class Course {
         this.level = level;
         this.fee = fee;
         this.description = description;
-
     }
+    
     @Override
     public String toString() {
         return "Course [id=" + id + ", name=" + name + ", level=" + level + ", fee=" + fee + ", description="
                 + description + "]";
     }
-        // Method to find a course by short name and level
-        // GDS, Beginner
+    // Method to find a course by short name and level
+    // GDS, Beginner
     public static Course findCourse(String shortName, String level) {
         for (Course course : Course.listCourses.values()) {
-            if (course.shortName.equals(shortName) && course.level.equals(level)) {
+            if (course.shortName.equalsIgnoreCase(shortName) && course.level.equalsIgnoreCase(level)) {
                 return course;
             }
         }
-        return null;
+    throw new IllegalArgumentException("Course with short name '" + shortName + "' and level '" + level + "' not found.");
     }
     public static void removeCourse(ArrayList<Course> courses, int inputId) {
         if (courses.isEmpty()) {
             throw new IllegalStateException("Course list is empty.");
         }
-
         for (Course course : courses) {
             if (inputId == course.id) {
                 courses.remove(course);
@@ -57,59 +54,35 @@ public class Course {
                 return;
             }
         }
-
         throw new IllegalArgumentException("Course with ID " + inputId + " not found.");
     }
-    
-
     // Method to create a course by user input
     public static void createCourse(User user) {
         if (!(user instanceof Admin)) {
             System.out.println("Permission Denied: Only Admins can create courses.");
             return;
         }
-
-        Scanner scanner = new Scanner(System.in);
-        try {
+            Scanner scanner = new Scanner(System.in);
             System.out.print("Enter Course Name: ");
             String name = scanner.nextLine();
-            if (name.trim().isEmpty()) throw new IllegalArgumentException("Enter the course name");
-
             System.out.print("Enter Short Name: ");
             String shortName = scanner.nextLine();
-            if (shortName.trim().isEmpty()) throw new IllegalArgumentException("please enter the short name.");
-
             System.out.print("Enter Level: ");
             String level = scanner.nextLine();
-            if (level.trim().isEmpty()) throw new IllegalArgumentException("Please enter the valid level from ( 01 - 12 )");
-
             System.out.print("Enter Fee: ");
             float fee = scanner.nextFloat();
-            if (fee <= 0) throw new IllegalArgumentException("Fee must be positive.");
-
-            scanner.nextLine(); // Consume newline
-
+            scanner.nextLine();
             System.out.print("Enter Description: ");
-            String description = scanner.nextLine();
-            if (description.trim().isEmpty()) throw new IllegalArgumentException("Description cannot be empty.");
-
+            String description = scanner.nextLine();          
             Course newCourse = new Course(totalCourse, name, shortName, level, fee, description);
-            listCourses.put(shortName + "-" + level, newCourse);
             System.out.println("Course Created Successfully: " + newCourse);
-
-        } catch (InputMismatchException e) {
-            System.out.println("Invalid input: Fee must be a number.");
-        } catch (IllegalArgumentException e) {
-            System.out.println("Error: " + e.getMessage());
         }
-    }
     // Method to display all courses
     public static void displayCourses(ArrayList<Course> courses) {
         for (Course course : courses) {
             System.out.println(course);
         }
-    }
-    
+    }   
     public static void updateCourse(User user, Course course) {
         if (!(user instanceof Admin)) {
             System.out.println("Permission Denied: Only Admins can update courses.");
