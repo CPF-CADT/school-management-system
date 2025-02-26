@@ -31,6 +31,7 @@ public class Main {
                     
                     
         Student s1=new Student("kon","khmer","82","123","year1");
+        Student s2=new Student("kon","thai","82","123","year2");
 
         Form form = new Form();
         Feature feature = new Feature();
@@ -39,7 +40,9 @@ public class Main {
         // login to user can be admin , student or teacher
         
         do {
-            System.out.println(User.listUser);
+            for (User user : User.listUser.values()){
+                user.displayUserInfo();
+            }
             System.out.println("Login\n");
             User user = form.login();
             System.out.println(user);
@@ -47,10 +50,10 @@ public class Main {
                 if (user instanceof Admin) {
                     System.out.println("Admin Interface");
                     Admin admin = (Admin) user;
-                    int option =0 ;
+                    int option = 0 ;
                     do{
-                        option = feature.admin();
-                        switch (option) {
+        
+                        switch (feature.admin()) {
                             case 1:
                                 System.out.println("------------------ Create User Account ------------------ ");
                                 form.register();
@@ -80,8 +83,10 @@ public class Main {
                     System.out.println("Teacher Interface");
                     Teacher teacher = (Teacher) user; //casting
                     System.out.println(teacher);
+                    int option = 0 ;
                     switch (feature.teacher()) {
                         case 1:
+
 
                             break;
                         default:
@@ -93,7 +98,10 @@ public class Main {
                     System.out.println(studentLogin);
                     switch (feature.student()) {
                         case 1:
-
+                            Student.addStudent();
+                            break;
+                        case 2:
+                            studentLogin.displayUserInfo();;
                             break;
                         default:
                             break;
