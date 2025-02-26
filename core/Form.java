@@ -2,13 +2,11 @@ package core;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
 import exception.NumberRangeExceptionHandling;
 import exception.OnlyAlphabetInString;
 import exception.PhoneNumberFormartHandle;
 import exception.TitleIdentifierForUser;
 import user.Admin;
-// import user.Student;
 import user.Teacher;
 import user.User;
 
@@ -23,7 +21,7 @@ public class Form implements Authentication{
         System.out.print("Password      : ");
         String passsword = input.next();
         if (isValidEmailFormat(email)) {
-           return User.login(email, passsword);
+            return User.login(email, passsword);
         }
         return null;
     }
