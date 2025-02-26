@@ -31,6 +31,7 @@ public class Main {
                     
                     
         Student s1=new Student("kon","khmer","82","123","year1");
+        Student s2=new Student("kon","thai","82","123","year2");
 
         Form form = new Form();
         Feature feature = new Feature();
@@ -83,6 +84,7 @@ public class Main {
                     switch (feature.teacher()) {
                         case 1:
 
+
                             break;
                         default:
                             break;
@@ -93,7 +95,10 @@ public class Main {
                     System.out.println(studentLogin);
                     switch (feature.student()) {
                         case 1:
-
+                            Student.addStudent();
+                            break;
+                        case 2:
+                            studentLogin.displayUserInfo();;
                             break;
                         default:
                             break;
