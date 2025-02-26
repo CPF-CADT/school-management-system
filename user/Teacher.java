@@ -25,7 +25,11 @@ public class Teacher extends User {
 
     @Override
     public String toString() {
-        return super.toString() + "ID : " + id + "  major :" + major +"\n";
+        String userInfo = super.toString();
+        userInfo += "ID           : " + id + "\n"
+                 + "Major         : " + major + "\n"
+                 + "====================================\n";
+        return userInfo;
     }
 
     @Override
