@@ -69,7 +69,7 @@ public class Main {
                     }while(option!=0);
                 } else if (user instanceof Teacher) {
                     System.out.println("Teacher Interface");
-                    Teacher teacher = (Teacher) user;
+                    Teacher teacher = (Teacher) user; //casting
                     System.out.println(teacher);
                     switch (feature.teacher()) {
                         case 1:

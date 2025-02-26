@@ -39,5 +39,6 @@ public class Quizz extends Assessment{
     public void addStudentScore(int studentId, float score) {
         totalScore = attemp(studentId);
         System.out.println("Student ID: " + studentId + " Totalscore: " + totalScore);
+        studentScore.put(studentId, totalScore);
     }
 }

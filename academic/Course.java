@@ -2,9 +2,9 @@ package academic;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import user.Admin;
-import user.Student;
 import user.User;
 
 public class Course {
@@ -45,21 +45,20 @@ public class Course {
         }
         return null;
     }
-    public static void removeCourse(ArrayList<Course> courses,int inputId){
-        if(courses.isEmpty()){
-            System.err.println("Empty");
-        }else{
-            for(Course course: courses){
-                if(inputId == course.id){
-                    courses.remove(course);
-                    return ;
-                }
-                
-            }
-            
-            System.err.println("Not found");
+    public static void removeCourse(ArrayList<Course> courses, int inputId) {
+        if (courses.isEmpty()) {
+            throw new IllegalStateException("Course list is empty.");
         }
-       
+
+        for (Course course : courses) {
+            if (inputId == course.id) {
+                courses.remove(course);
+                System.out.println("Course removed successfully.");
+                return;
+            }
+        }
+
+        throw new IllegalArgumentException("Course with ID " + inputId + " not found.");
     }
     
 
@@ -69,21 +68,41 @@ public class Course {
             System.out.println("Permission Denied: Only Admins can create courses.");
             return;
         }
-            Scanner scanner = new Scanner(System.in);
+
+        Scanner scanner = new Scanner(System.in);
+        try {
             System.out.print("Enter Course Name: ");
             String name = scanner.nextLine();
+            if (name.trim().isEmpty()) throw new IllegalArgumentException("Enter the course name");
+
             System.out.print("Enter Short Name: ");
             String shortName = scanner.nextLine();
+            if (shortName.trim().isEmpty()) throw new IllegalArgumentException("please enter the short name.");
+
             System.out.print("Enter Level: ");
             String level = scanner.nextLine();
+            if (level.trim().isEmpty()) throw new IllegalArgumentException("Please enter the valid level from ( 01 - 12 )");
+
             System.out.print("Enter Fee: ");
             float fee = scanner.nextFloat();
+            if (fee <= 0) throw new IllegalArgumentException("Fee must be positive.");
+
             scanner.nextLine(); // Consume newline
+
             System.out.print("Enter Description: ");
-            String description = scanner.nextLine();          
+            String description = scanner.nextLine();
+            if (description.trim().isEmpty()) throw new IllegalArgumentException("Description cannot be empty.");
+
             Course newCourse = new Course(totalCourse, name, shortName, level, fee, description);
+            listCourses.put(shortName + "-" + level, newCourse);
             System.out.println("Course Created Successfully: " + newCourse);
+
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input: Fee must be a number.");
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error: " + e.getMessage());
         }
+    }
     // Method to display all courses
     public static void displayCourses(ArrayList<Course> courses) {
         for (Course course : courses) {

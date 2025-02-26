@@ -1,5 +1,6 @@
 package academic;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import user.Teacher;
 
@@ -14,9 +15,18 @@ public class Assignment extends Assessment {
     }
 
     @Override
-    //add student score
     public void addStudentScore(int studentId, float score) {
-        
+        try {
+            if (studentId <= 0) {
+                throw new IllegalArgumentException("Invalid student ID.");
+            }
+            if (score < 0 || score > totalScore) {
+                throw new IllegalArgumentException("Score must be between 0 and " + totalScore + ".");
+            }
+            System.out.println("Score of " + score + " added for student ID: " + studentId);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
@@ -27,21 +37,39 @@ public class Assignment extends Assessment {
 
     //for teacher  to create an assignment
 
-    public void createAssignment(Object user){
-        if (user instanceof Teacher ) {
-            System.out.println("Enter Course ID: ");
-            this.courseId = scanner.nextInt();
-            System.out.println("Enter Title: ");
-            this.title = scanner.nextLine();
-            System.out.println("Enter Description: ");
-            this.description = scanner.nextLine();
-            System.out.println("Enter Score: ");
-            this.totalScore = scanner.nextFloat();
-            System.out.println("Assignment created successfully!");
+    public void createAssignment(Object user) {
+        if (user instanceof Teacher) {
+            try {
+                System.out.println("Enter Course ID: ");
+                this.courseId = scanner.nextInt();
+                scanner.nextLine(); // Consume leftover newline
+
+                System.out.println("Enter Title: ");
+                this.title = scanner.nextLine();
+
+                System.out.println("Enter Description: ");
+                this.description = scanner.nextLine();
+
+                System.out.println("Enter Score: ");
+                this.totalScore = scanner.nextFloat();
+                
+                if (this.totalScore < 0) {
+                    throw new IllegalArgumentException("Score cannot be negative.");
+                }
+
+                System.out.println("Assignment created successfully!");
+
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input! Please enter the correct data type.");
+                scanner.nextLine(); // Clear invalid input
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
         } else {
             System.out.println("Access denied: You don't have permission!");
         }
     }
+
     //displlay the assignment
     public void displayAssignment() {
         System.out.println("Course ID: " + courseId);
@@ -54,5 +82,6 @@ public class Assignment extends Assessment {
     //submit assignment
     public void submitAssignment(String studentName) {
         System.out.println(studentName + " has submitted the assignment: " + title); 
+        
     }
 }
