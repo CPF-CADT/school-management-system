@@ -1,20 +1,15 @@
 package academic;
 
 import java.util.ArrayList;
-
-import user.Student;
 import user.Teacher;
 
-public class Quizz {
-    static int quizzNumber=0;
-    public int courseId;
-    public String title;
+public class Quizz extends Assessment{
+    public float totalScore;
     private ArrayList<Question> tasks; 
-    public Quizz(int id, int courseId, int score, String title) {
-        quizzNumber++;
-        id = quizzNumber;
-        this.courseId = courseId;
-        this.title = title;
+    
+    public Quizz(int courseId, String title, Teacher teacher, float score,String description) {
+        super(courseId, title, teacher,score,description);
+        
     }
     public Question getTask(int index) {
         return tasks.get(index);
@@ -26,7 +21,7 @@ public class Quizz {
             System.out.println("Access denied: You Dont have permission!");
         }
     }
-    public float attemp(){
+    public float attemp(int studentId){
         float total =0.0f;
         int numberOfQuestion =0;
         for(Question task : tasks){
@@ -35,5 +30,13 @@ public class Quizz {
             total += task.answerQuestion();
         }
         return total; 
+    }
+    @Override
+    //add student score
+
+    public void addStudentScore(int studentId, float score) {
+        totalScore = attemp(studentId);
+        System.out.println("Student ID: " + studentId + " Totalscore: " + totalScore);
+        studentScore.put(studentId, totalScore);
     }
 }

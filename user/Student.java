@@ -1,12 +1,15 @@
 package user;
 import academic.Course;
+
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 
 // import java.util.HashSet;
 
 public class Student  extends User{
 
- 
+ public Date dob;
     public String role;
     final static String EMAIL_FORMAT="@stu.kdc.edu";
     static int numberOfStudents = 0;
