@@ -1,7 +1,11 @@
 package core;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import javax.management.RuntimeErrorException;
+
+import exception.*;
 public class Feature {
     Scanner input = new Scanner(System.in);
     String[] adminList = {
@@ -26,24 +30,67 @@ public class Feature {
             System.out.println(i+". "+adminList[i-1]);
         }
         System.out.println("0. Exit");
-        System.out.print("Choose Option : ");
-        return input.nextInt();
+        
+        int option = 0;
+        while (true) {
+            try{
+                System.out.print("Choose Option : ");
+                option = input.nextInt();
+                NumberRangeExceptionHandling stuOption = new NumberRangeExceptionHandling(adminList.length);
+                stuOption.checkNumberInRange(option);
+                break;
+            }catch(InputMismatchException e){
+                System.out.println("Input Must be in Integer ");
+            }catch(IllegalArgumentException e){
+                System.out.println(e.getMessage());
+            }
+            input.nextLine();
+        }
+        return option;
     }
     public int teacher(){
         for(int i=1;i<=teacherList.length;i++){
             System.out.println(i+". "+teacherList[i-1]);
         }
         System.out.println("0. Exit");
-        System.out.print("Choose Option : ");
-        return input.nextInt();
+        int option = 0;
+        while (true) {
+            try{
+                System.out.print("Choose Option : ");
+                option = input.nextInt();
+                NumberRangeExceptionHandling teacherOption = new NumberRangeExceptionHandling(teacherList.length);
+                teacherOption.checkNumberInRange(option);
+                break;
+            }catch(InputMismatchException e){
+                System.out.println("Input Must be in Integer ");
+            }catch(IllegalArgumentException e){
+                System.out.println(e.getMessage());
+            }
+            input.nextLine();
+        }
+        return option;
     }
     public int student(){
         for(int i=1;i<=studentList.length;i++){
             System.out.println(i+". "+studentList[i-1]);
         }
         System.out.println("0. Exit");
-        System.out.print("Choose Option : ");
-        return input.nextInt();
+        int option = 0 ;
+        while (true) {
+            try{
+                System.out.print("Choose Option : ");
+                option = input.nextInt();
+                NumberRangeExceptionHandling stuOption = new NumberRangeExceptionHandling(studentList.length);
+                stuOption.checkNumberInRange(option);
+                break;
+            }catch(InputMismatchException e){
+                System.out.println("Input Must be in Integer ");
+            }catch(IllegalArgumentException e){
+                System.out.println(e.getMessage());
+            }
+            input.nextLine();
+        }
+        return option;
     }
     public void clearScreen(){
         System.out.print("\033[H\033[2J");  

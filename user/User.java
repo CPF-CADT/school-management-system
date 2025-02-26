@@ -35,8 +35,15 @@ public  abstract class User  implements Person{
     }
     @Override
     public String toString() {
-        return "Name : " + lastName + " " + firstName + ", address : " + address
-                + ", phoneNumber : " + phoneNumber +" " + "Email : "+email+"\n";
+        String userInfo = "Name        : " + lastName + " " + firstName + "\n"
+                        + "Address     : " + address + "\n"
+                        + "Phone Number: " + phoneNumber + "\n"
+                        + "Email       : " + email + "\n";
+
+        if (password.equals("kdc2025")) {
+            userInfo += "Password (Default): " + password + "\n";
+        }
+        return userInfo;
     }
     @Override
     public int hashCode() {

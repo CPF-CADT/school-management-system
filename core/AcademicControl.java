@@ -17,7 +17,7 @@ public class AcademicControl {
         System.out.print("Course   : ");
         Course courseId = Course.findCourse(null, null, null);
         System.out.print("Teacher ID  : ");
-        int teacherId = input.nextInt();
+        String teacherId = input.next();
         Teacher teach = (Teacher) User.listUser.get(teacherId);
         if(teach!=null){
             CourseInstance course = new CourseInstance( null, teach, year,term,group);
