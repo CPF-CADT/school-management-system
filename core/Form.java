@@ -5,11 +5,12 @@ import java.util.Scanner;
 import exception.StringFilterException;
 import exception.NumberRangeExceptionHandling;
 import user.Admin;
+import user.Student;
 import user.Teacher;
 import user.User;
 
 public class Form implements Authentication{
-    Scanner input = new Scanner(System.in);
+    static Scanner input = new Scanner(System.in);
     Feature f = new Feature();
     public int TYPE_OF_USER = 3;
     @Override
@@ -18,8 +19,16 @@ public class Form implements Authentication{
         String email = input.next();
         System.out.print("Password      : ");
         String passsword = input.next();
+        User user = null;
         if (isValidEmailFormat(email)) {
-            return User.login(email, passsword);
+            if(email.endsWith("@tch.kdc.edu")) {
+                user = new Teacher(email, passsword);
+            }else if(email.endsWith("@stu.kdc.edu")){
+                user = new Student(email, passsword);
+            }else{
+                user = new Admin(email, passsword);
+            }
+            return User.login(user);
         }
         return null;
     }
@@ -93,7 +102,7 @@ public class Form implements Authentication{
         }while (!inputStats) ;
         return false;
     }
-    public int inputInteger() throws IllegalArgumentException{
+    public static int inputInteger() throws IllegalArgumentException{
         int number = 0;
         while (true) {
             try{
@@ -107,7 +116,7 @@ public class Form implements Authentication{
         }
     }
 
-    public double inputNumber() throws IllegalArgumentException{
+    public static double inputNumber() throws IllegalArgumentException{
         double number = 0;
         while (true) {
             try{

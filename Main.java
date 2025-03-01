@@ -45,7 +45,6 @@ public class Main {
             }
             System.out.println("Login\n");
             User user = form.login();
-            System.out.println(user);
             if (user != null) {
                 if (user instanceof Admin) {
                     System.out.println("Admin Interface");
@@ -86,7 +85,6 @@ public class Main {
                     int option = 0 ;
                     switch (feature.teacher()) {
                         case 1:
-
 
                             break;
                         default:

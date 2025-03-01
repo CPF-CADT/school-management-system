@@ -7,6 +7,7 @@ import exception.CastToUserHandleException;
 
 public  abstract class User  implements Person{
     static Scanner input = new Scanner(System.in);
+    static int numberOfUser = 0;
     private int id ;
     public String lastName;
     public String firstName;
@@ -25,6 +26,7 @@ public  abstract class User  implements Person{
     }
     //register
     public User(String firstName,String lastName,  String address, String phoneNumber, String emailFormat) {
+        id = ++numberOfUser;
         this.lastName = lastName;
         this.firstName = firstName;
         this.address = address;
@@ -44,31 +46,29 @@ public  abstract class User  implements Person{
         }
         return userInfo;
     }
-    @Override
-    public int hashCode() {
-        return email.hashCode();
-    }
     
     // login
-    public static User login(String email,String password) {
+    public static User login(User log) {
         for (User user : User.listUser.values()) {
-            if (user.getEmail().equals(email)) {
-                if(user.checkPassword(password)){
-                    return user;
-                }
+            if (log.equals(user)){
+                return user;
             }
         }
         return null;
     }
 
     @Override
-    public boolean equals(Object obj) throws CastToUserHandleException{
-        User t = null ;
-        CastToUserHandleException c = new CastToUserHandleException(t, obj);
-        if (this.email.hashCode() == t.hashCode()) {
-            if (((User) obj).checkPassword(this.password)) {
-                return true;
+    public boolean equals(Object obj) throws ClassCastException{
+        try{
+            CastToUserHandleException c = new CastToUserHandleException(obj);
+            User log = (User) obj;
+            if (this.email.equals(log.getEmail())) {
+                if ((log.checkPassword(this.password))) {
+                    return true;
+                }
             }
+        }catch(ClassCastException c){
+            System.out.println(c.getMessage());
         }
         return false;
     }

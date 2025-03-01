@@ -3,9 +3,8 @@ package core;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import javax.management.RuntimeErrorException;
-
 import exception.*;
+import user.User;
 public class Feature {
     Scanner input = new Scanner(System.in);
     String[] adminList = {
@@ -35,11 +34,9 @@ public class Feature {
         while (true) {
             try{
                 System.out.print("Choose Option : ");
-                option = input.nextInt();
+                option = Form.inputInteger();
                 NumberRangeExceptionHandling stuOption = new NumberRangeExceptionHandling(0,adminList.length,option);
                 break;
-            }catch(InputMismatchException e){
-                System.out.println("Input Must be in Integer ");
             }catch(IllegalArgumentException e){
                 System.out.println(e.getMessage());
             }
@@ -56,11 +53,9 @@ public class Feature {
         while (true) {
             try{
                 System.out.print("Choose Option : ");
-                option = input.nextInt();
+                option = Form.inputInteger();
                 NumberRangeExceptionHandling stuOption = new NumberRangeExceptionHandling(0,teacherList.length,option);
                 break;
-            }catch(InputMismatchException e){
-                System.out.println("Input Must be in Integer ");
             }catch(IllegalArgumentException e){
                 System.out.println(e.getMessage());
             }
@@ -77,11 +72,9 @@ public class Feature {
         while (true) {
             try{
                 System.out.print("Choose Option : ");
-                option = input.nextInt();
+                option = Form.inputInteger();
                 NumberRangeExceptionHandling stuOption = new NumberRangeExceptionHandling(0,studentList.length,option);
                 break;
-            }catch(InputMismatchException e){
-                System.out.println("Input Must be in Integer ");
             }catch(IllegalArgumentException e){
                 System.out.println(e.getMessage());
             }
