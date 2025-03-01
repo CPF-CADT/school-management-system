@@ -25,7 +25,7 @@ public class CourseInstance {
     public String primaryKey; // Unique primary key
 
     public CourseInstance(Course course, Teacher teacher, int year, int term, int group) {
-        this.primaryKey = generatePrimaryKey(course, year, term, group);
+        // this.primaryKey = generatePrimaryKey(course, year, term, group);
 
         // Check uniqueness
         if (!uniqueKeys.add(this.primaryKey)) {
@@ -42,20 +42,20 @@ public class CourseInstance {
     }
 
     // Generate key in format Year term course_code GROUP le Y2021T1 GDS G1
-    private static String generatePrimaryKey(Course course, int year, int term, int group) {
-        return String.format("Y%dT%d %s G%d", year, term, course.getShortNameCode(), group);
-    }
+    // private static String generatePrimaryKey(Course course, int year, int term, int group) {
+    //     return String.format("Y%dT%d %s G%d", year, term, course.getShortNameCode(), group);
+    // }
 
     // Find instance by primary key 
-    public static CourseInstance findCourseInstance(Course course, int year, int term, int group) {
-        String key = generatePrimaryKey(course, year, term, group);
-        for (CourseInstance instance : listCourseInstace) {
-            if (instance.primaryKey.equals(key)) {
-                return instance;
-            }
-        }
-        return null;
-    }
+    // public static CourseInstance findCourseInstance(Course course, int year, int term, int group) {
+    //     String key = generatePrimaryKey(course, year, term, group);
+    //     for (CourseInstance instance : listCourseInstace) {
+    //         if (instance.primaryKey.equals(key)) {
+    //             return instance;
+    //         }
+    //     }
+    //     return null;
+    // }
     public ArrayList<Student> listStudent() {
         return listStudent;
     }

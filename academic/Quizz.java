@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import user.Teacher;
 
 public class Quizz extends Assessment{
-    public float totalScore;
     private ArrayList<Question> tasks; 
     
     public Quizz(int courseId, String title, Teacher teacher, float score,String description) {

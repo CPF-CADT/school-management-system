@@ -36,8 +36,7 @@ public class Feature {
             try{
                 System.out.print("Choose Option : ");
                 option = input.nextInt();
-                NumberRangeExceptionHandling stuOption = new NumberRangeExceptionHandling(adminList.length);
-                stuOption.checkNumberInRange(option);
+                NumberRangeExceptionHandling stuOption = new NumberRangeExceptionHandling(0,adminList.length,option);
                 break;
             }catch(InputMismatchException e){
                 System.out.println("Input Must be in Integer ");
@@ -58,8 +57,7 @@ public class Feature {
             try{
                 System.out.print("Choose Option : ");
                 option = input.nextInt();
-                NumberRangeExceptionHandling teacherOption = new NumberRangeExceptionHandling(teacherList.length);
-                teacherOption.checkNumberInRange(option);
+                NumberRangeExceptionHandling stuOption = new NumberRangeExceptionHandling(0,teacherList.length,option);
                 break;
             }catch(InputMismatchException e){
                 System.out.println("Input Must be in Integer ");
@@ -80,8 +78,7 @@ public class Feature {
             try{
                 System.out.print("Choose Option : ");
                 option = input.nextInt();
-                NumberRangeExceptionHandling stuOption = new NumberRangeExceptionHandling(studentList.length);
-                stuOption.checkNumberInRange(option);
+                NumberRangeExceptionHandling stuOption = new NumberRangeExceptionHandling(0,studentList.length,option);
                 break;
             }catch(InputMismatchException e){
                 System.out.println("Input Must be in Integer ");

@@ -3,9 +3,10 @@ package user;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import exception.CastToUserHandleException;
+
 public  abstract class User  implements Person{
     static Scanner input = new Scanner(System.in);
-    public static int numberOfPerson = 0;
     private int id ;
     public String lastName;
     public String firstName;
@@ -24,8 +25,6 @@ public  abstract class User  implements Person{
     }
     //register
     public User(String firstName,String lastName,  String address, String phoneNumber, String emailFormat) {
-        numberOfPerson++;
-        this.id=numberOfPerson;
         this.lastName = lastName;
         this.firstName = firstName;
         this.address = address;
@@ -63,8 +62,9 @@ public  abstract class User  implements Person{
     }
 
     @Override
-    public boolean equals(Object obj) {
-        User t = (User) obj;
+    public boolean equals(Object obj) throws CastToUserHandleException{
+        User t = null ;
+        CastToUserHandleException c = new CastToUserHandleException(t, obj);
         if (this.email.hashCode() == t.hashCode()) {
             if (((User) obj).checkPassword(this.password)) {
                 return true;
@@ -129,7 +129,7 @@ public  abstract class User  implements Person{
         }
     }
     
-     private   String generateEmail(String format){
+    private   String generateEmail(String format){
         return firstName+lastName+String.valueOf(id)+ format;
     }
 }
