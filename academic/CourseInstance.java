@@ -1,7 +1,7 @@
 package academic;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.Scanner;
 import user.Admin;
 import user.Student;
@@ -9,48 +9,42 @@ import user.Teacher;
 
 public class CourseInstance {
     Scanner input = new Scanner(System.in);
+    public static HashMap<String,CourseInstance> listCourseInstace = new HashMap<String,CourseInstance>();
+    protected Teacher teacher;
 
-    public static ArrayList<CourseInstance> listCourseInstace = new ArrayList<>();
-    private static HashSet<String> uniqueKeys = new HashSet<>(); // For uniqueness
+    protected Course course;
+    public String getKeyIdentical() {
+        return keyIdentical;
+    }
 
-    public int id;
-    public Teacher teacher;
-    public Course course;
     public int year;
     public int term;
     public int group;
+
     private ArrayList<Student> listStudent = new ArrayList<>(30);
-    private Quizz[] quizzes;
-    private Assignment assignments;
-    public String primaryKey; // Unique primary key
-
+    private ArrayList<Quizz> quizzes = new ArrayList<Quizz>();
+    private ArrayList<Assignment> assignments = new ArrayList<>();
+    private String keyIdentical;
     public CourseInstance(Course course, Teacher teacher, int year, int term, int group) {
-        this.primaryKey = generatePrimaryKey(course, year, term, group);
-
-        // Check uniqueness
-        if (!uniqueKeys.add(this.primaryKey)) {
-            throw new IllegalArgumentException("Error: Course instance already exists: " + this.primaryKey);
-        }
-
-        this.id = listCourseInstace.size() + 1;
         this.teacher = teacher;
         this.course = course;
         this.year = year;
         this.term = term;
         this.group = group;
-        listCourseInstace.add(this);
+        keyIdentical = generatePrimaryKey( year, term, course.getShortName(),group);
+        listCourseInstace.put(keyIdentical,this);
     }
 
-    // Generate key in format Year term course_code GROUP le Y2021T1 GDS G1
-    private static String generatePrimaryKey(Course course, int year, int term, int group) {
-        return String.format("Y%dT%d %s G%d", year, term, course.getShortNameCode(), group);
+    // Generate key in format Year term course_code GROUP le 2021-T1-GDS-G1
+    private String generatePrimaryKey(int year, int term, String shortName,int group) {
+        return String.format("%d-T%d-%s-G%d", year, term, shortName, group);
     }
 
     // Find instance by primary key 
-    public static CourseInstance findCourseInstance(Course course, int year, int term, int group) {
-        String key = generatePrimaryKey(course, year, term, group);
-        for (CourseInstance instance : listCourseInstace) {
-            if (instance.primaryKey.equals(key)) {
+    public CourseInstance findCourseInstance(int year, int term,String shortName, int group) {
+        String key = generatePrimaryKey(year, term, shortName,group);
+        for (CourseInstance instance : CourseInstance.listCourseInstace.values()) {
+            if (instance.getKeyIdentical().equals(key)) {
                 return instance;
             }
         }
@@ -68,30 +62,23 @@ public class CourseInstance {
         }
     }
 
-    public Quizz[] getQuizzes() {
-        return quizzes;
-    }
-    public void setQuizzes(Object user, Quizz[] quizzes) {
+    public void setQuizzes(Object user, Quizz quizzes) {
         if (user instanceof Teacher) {
-            this.quizzes = quizzes;
+            this.quizzes.add(quizzes);
         } else {
             System.out.println("Access denied: You don't have permission!");
         }
     }
 
-    public Assignment getAssignments() {
-        return assignments;
+    public Assignment getAssignments(int index) {
+        return assignments.get(index);
     }
 
     public void setAssignments(Object user, Assignment ass) {
         if (user instanceof Teacher) {
-            this.assignments = ass;
+            this.assignments.add(ass);
         } else {
             System.out.println("Access denied: You don't have permission!");
         }
     }
-    // @Override
-    // public String toString() {
-    //     // return primaryKey + " | Teacher: " + teacher.getName();
-    // }
 }

@@ -15,7 +15,7 @@ public class AcademicControl {
         System.out.print("Group    : ");
         int group = input.nextInt();
         System.out.print("Course   : ");
-        Course courseId = Course.findCourse(null, null, null);
+        // Course courseId = Course.findCourse(null, null, null);
         System.out.print("Teacher ID  : ");
         String teacherId = input.next();
         Teacher teach = (Teacher) User.listUser.get(teacherId);

@@ -79,22 +79,9 @@ public class Student  extends User{
     
 }
 
-
-
-
-
-    public static int getPeople() {
-        return numberOfPerson;
-    }
-
     public Course[] getCourse() {
         return Course;
     }
-    
-    
-
-
-
 
     public void setCourse(Course[] course) {
         Course = course;
