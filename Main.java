@@ -99,8 +99,8 @@ public class Main {
                     switch (feature.student()) {
                         case 1:
                             System.out.println(" - Your Course ");
-                            studentLogin.displayCourse();
-                            //
+                            studentLogin.selectCourseStudy();
+                            ///
                             break;
                         case 2:
                             studentLogin.displayUserInfo();;
