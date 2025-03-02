@@ -1,3 +1,6 @@
+import javax.net.ssl.SSLContext;
+
+import academic.CourseInstance;
 import core.*;
 import user.*;
 
@@ -59,21 +62,21 @@ public class Main {
                                 break;
                             case 2:
                                 System.out.println("------------------ Create Course ------------------ ");
-
+                                academicControl.createCourse(admin);
                                 break;
-                            
                             case 3:
                                 System.out.println("------------------ Create Course Insatnce  ------------------ ");
-                                //finish
-                                academicControl.createClass();
-                                // CourseInstance co = new CourseInstance(2025, 2, 1);
-                                // System.out.println(CourseInstance.findCourseInstance(co));
+                                academicControl.createClass(admin);
                                 break;
                             case 4:
                                 System.out.println("------------------ Assign Student ------------------ ");
-                                //do it later
+                                try{
+                                    CourseInstance stuClass = CourseInstance.findCourseInstance();
+                                    stuClass.studentEnrollment(admin);
+                                }catch(NullPointerException n){
+                                    System.out.println("Class not Found");
+                                }
                                 break;
-        
                             default:
                                 break;
                         }
@@ -82,7 +85,6 @@ public class Main {
                     System.out.println("Teacher Interface");
                     Teacher teacher = (Teacher) user; //casting
                     System.out.println(teacher);
-                    int option = 0 ;
                     switch (feature.teacher()) {
                         case 1:
 
@@ -96,7 +98,9 @@ public class Main {
                     System.out.println(studentLogin);
                     switch (feature.student()) {
                         case 1:
-                            Student.addStudent();
+                            System.out.println(" - Your Course ");
+                            studentLogin.displayCourse();
+                            //
                             break;
                         case 2:
                             studentLogin.displayUserInfo();;

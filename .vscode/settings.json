@@ -1,0 +1,21 @@
+{
+  "sqltools.connections": [
+    {
+      "mysqlOptions": {
+        "authProtocol": "default",
+        "enableSsl": "Disabled"
+      },
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 3306,
+      "driver": "MySQL",
+      "database": "project_java",
+      "username": "localhost",
+      "name": "localhost"
+    }
+  ],
+  "java.project.referencedLibraries": [
+    "lib/**/*.jar",
+    "/home/vathanak/Downloads/mysql-connector-j-9.2.0/mysql-connector-j-9.2.0.jar"
+  ]
+}
