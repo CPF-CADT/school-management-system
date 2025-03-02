@@ -1,5 +1,6 @@
 package user;
 import academic.Course;
+import academic.CourseInstance;
 import core.Form;
 import exception.NumberRangeExceptionHandling;
 
@@ -12,7 +13,7 @@ public class Student  extends User{
     final static String EMAIL_FORMAT="@stu.kdc.edu";
     static int numberOfStudents = 0;
     private String id = "S";
-    private ArrayList<Integer> studyCourseID = new ArrayList<Integer>();
+    private ArrayList<String> studyCourseID = new ArrayList<String>();
     
     //login
     public Student(String email, String password) {
@@ -54,15 +55,15 @@ public class Student  extends User{
     //     return null;
     // }
     
-    public Course selectCourseStudy(){
+    public CourseInstance selectCourseStudy(){
         for(int i=0;i<studyCourseID.size();i++){
-            System.out.println((i+1) + " . "+ Course.listCourses.get(studyCourseID.get(i)).name );
+            System.out.println((i+1) + " . "+ CourseInstance.listCourseInstace.get(studyCourseID.get(i)).course.name );
         }
         System.out.print("Choose Course : ");
         try{
             int choose = Form.inputInteger();
             NumberRangeExceptionHandling c = new NumberRangeExceptionHandling(1,studyCourseID.size(),choose);
-            Course cStudy = Course.listCourses.get(studyCourseID.get(choose-1));
+            CourseInstance cStudy = CourseInstance.listCourseInstace.get(studyCourseID.get(choose-1));
             return cStudy;
         }catch(IllegalArgumentException e){
             System.out.println(e.getMessage());
@@ -90,10 +91,9 @@ public class Student  extends User{
             System.out.println("No Student in list");
             return null;
         }
-    
     }
     
-    public boolean addCourseStudy(User user,int c_id){
+    public boolean addCourseStudy(User user,String c_id){
         if(user instanceof Admin){
             //add validation
             studyCourseID.add(c_id);
@@ -102,7 +102,7 @@ public class Student  extends User{
         return false;
     }
     
-    public    void remove() {
+    public void remove() {
         if (!User.listUser.isEmpty()) {
             System.out.println("List Student ");
             for (User std : User.listUser.values()) {

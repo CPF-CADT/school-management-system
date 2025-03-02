@@ -30,10 +30,14 @@ public class studentCourse {
         CourseInstance clas = new CourseInstance(c, t2, 2022, 2, 1);
         CourseInstance clas2 = new CourseInstance(c2, t2, 2022, 3, 1);
 
-        clas.studentEnrollment(admin);
-        clas2.studentEnrollment(admin);
-        Course cs = s1.selectCourseStudy();
-        System.out.println(cs);
+        // clas.studentEnrollment(admin);
+        // clas2.studentEnrollment(admin);
+        // CourseInstance cs = s1.selectCourseStudy();
+        
+        // CourseInstance cs = t2.selectCourseTeaching();
+        // System.out.println(cs.course);
+
+
         
     }
 }

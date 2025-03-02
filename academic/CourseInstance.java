@@ -15,17 +15,12 @@ public class CourseInstance {
     public static HashMap<String, CourseInstance> listCourseInstace = new HashMap<String, CourseInstance>();
     protected Teacher teacher;
 
-    protected Course course;
-
-    public String getKeyIdentical() {
-        return keyIdentical;
-    }
-
+    public Course course;
     public int year;
     public int term;
     public int group;
 
-    private ArrayList<String> listStudent = new ArrayList<>(30);
+    private ArrayList<String> listStudent = new ArrayList<>(30); //future will store referenece of student
     private ArrayList<Quizz> quizzes = new ArrayList<Quizz>();
     private ArrayList<Assignment> assignments = new ArrayList<>();
     private String keyIdentical;
@@ -37,6 +32,7 @@ public class CourseInstance {
         this.term = term;
         this.group = group;
         keyIdentical = generatePrimaryKey(year, term, course.getShortName(), group);
+        teacher.addTeachingCourse(keyIdentical);
         listCourseInstace.put(keyIdentical, this);
     }
 
@@ -79,20 +75,12 @@ public class CourseInstance {
             if (User.listUser.get(stuID) != null) {
                 listStudent.add(stuID);
                 Student s = (Student)User.listUser.get(stuID);
-                s.addCourseStudy(user,this.course.getCourseId());
+                s.addCourseStudy(user,this.keyIdentical);
                 return true;
             }
         }
         return false;
     }
-
-    // public void assignStudent(Object user, int stuID) {
-    // if (user instanceof Admin) {
-    // listStudent.add(stuID);
-    // } else {
-    // System.out.println("Access denied: You don't have permission.");
-    // }
-    // }
 
     public void setQuizzes(Object user, Quizz quizzes) {
         if (user instanceof Teacher) {
@@ -105,12 +93,15 @@ public class CourseInstance {
     public Assignment getAssignments(int index) {
         return assignments.get(index);
     }
-
+    
     public void setAssignments(Object user, Assignment ass) {
         if (user instanceof Teacher) {
             this.assignments.add(ass);
         } else {
             System.out.println("Access denied: You don't have permission!");
         }
+    }
+    public String getKeyIdentical() {
+        return keyIdentical;
     }
 }
