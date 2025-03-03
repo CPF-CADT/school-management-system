@@ -87,7 +87,8 @@ public class Main {
                     System.out.println(teacher);
                     switch (feature.teacher()) {
                         case 1:
-
+                            System.out.println( "-------------- Teaching Course -------------- ");
+                            teacher.selectCourseTeaching();
                             break;
                         default:
                             break;

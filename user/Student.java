@@ -36,7 +36,6 @@ public class Student  extends User{
                  + "====================================\n";
         return userInfo;
     }
-    
 
     // public static Student FindStudentById(int id){
     //     for(int i :listOfStudent.keySet()){
@@ -70,6 +69,10 @@ public class Student  extends User{
             return null;
         }
 
+    }
+
+    public String getId() {
+        return id;
     }
 
     public  Student selectStudent() {

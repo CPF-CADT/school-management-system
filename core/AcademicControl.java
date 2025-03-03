@@ -2,9 +2,9 @@ package core;
 import user.*;
 
 import java.util.Scanner;
-
 import academic.*;
 import exception.CastFromUserToAnotherException;
+import exception.NumberRangeExceptionHandling;
 public class AcademicControl {
     Scanner input = new Scanner(System.in);
     public boolean createCourse(User user) {
@@ -59,4 +59,66 @@ public class AcademicControl {
         // CourseInstance course = new CourseInstance( null, teacher, year,term,group);
         return true;
     }
+    public void courseInterfacceForTeacher(Teacher teach,CourseInstance classLearn){
+        System.out.println("------------- "+ classLearn.course.name  +"------------- ");
+        System.out.println(" -  "+classLearn.course.description);
+        System.out.println(" 1 .  List Student ");
+        System.out.println(" 2 .  Grading ");
+        System.out.println(" 3 .  View Student Grade ");
+        System.out.println(" 4 .  Create Assignment");
+        System.out.println(" 5 .  Create Quizz");
+        System.out.println(" 6 .  Atendance (Optional)");
+        System.out.println(" 0 .  Exit ");
+        int option = Form.inputInteger();
+        switch (option) {
+            case 1:
+                System.out.println(" -----------  List of Student ----------- ");
+                System.out.printf("%-5s %-10s %-15s %-15s %-25s %-15s%n", "No.", "ID", "First Name", "Last Name", "Email", "Phone Number");
+                System.out.println("------------------------------------------------------------------------------------------");
+                for (int i = 0; i < classLearn.getlistStudent().size(); i++) {
+                    Student stu = (Student) User.listUser.get(classLearn.getlistStudent().get(i));
+                    System.out.printf("%-5d %-10s %-15s %-15s %-25s %-15s%n",
+                            i + 1, stu.getId(), stu.firstName, stu.lastName, stu.getEmail(), stu.getPhoneNumber());
+                }
+                break;
+            case 2:
+                System.out.println(" -----------  Grading for Student ----------- ");
+                System.out.print("Assessment Type : ");
+                String assType = input.nextLine();
+                System.out.print("Sesseon No     : ");
+                int sesNo =0;
+                try{
+                    sesNo = Form.inputInteger(); // add validation leter
+
+                }catch(IllegalArgumentException e){
+                    System.out.println(e.getMessage());
+                }
+                System.out.printf("%-5s %-10s %-15s %-15s%n", "No.", "ID", "First Name", "Last Name ");
+                for (int i = 0; i < classLearn.getlistStudent().size(); i++) {
+                    Student stu = (Student) User.listUser.get(classLearn.getlistStudent().get(i));
+                    System.out.printf("%-5d %-10s %-15s %-15s%n",i + 1, stu.getId(), stu.firstName, stu.lastName);
+                    System.out.print("Enter Score : " );
+                    try{
+                        float score = (float) Form.inputNumber();
+                        NumberRangeExceptionHandling sc = new NumberRangeExceptionHandling(0.0,100.0,score);
+                        classLearn.setStuGrade(teach,stu.getId(),assType,sesNo,score);
+                    }catch(IllegalArgumentException e){
+                        System.out.println(e.getMessage());
+                    }
+                }
+                break;
+            case 3:
+                //show grading
+                break;
+            case 4:
+                
+                break;
+            case 5:
+                
+                break;
+            default:
+                break;
+        }
+    }
+
 }

@@ -102,7 +102,7 @@ public class Form implements Authentication{
         }while (!inputStats) ;
         return false;
     }
-    public static int inputInteger() throws IllegalArgumentException{
+    public static int inputInteger(){
         int number = 0;
         while (true) {
             try{

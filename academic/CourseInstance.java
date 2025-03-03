@@ -24,7 +24,8 @@ public class CourseInstance {
     private ArrayList<Quizz> quizzes = new ArrayList<Quizz>();
     private ArrayList<Assignment> assignments = new ArrayList<>();
     private String keyIdentical;
-
+    
+    private HashMap<String,ArrayList<Grading>> stuGrade =  new HashMap<String,ArrayList<Grading>>();
     public CourseInstance(Course course, Teacher teacher, int year, int term, int group) {
         this.teacher = teacher;
         this.course = course;
@@ -76,6 +77,8 @@ public class CourseInstance {
                 listStudent.add(stuID);
                 Student s = (Student)User.listUser.get(stuID);
                 s.addCourseStudy(user,this.keyIdentical);
+                ArrayList<Grading> g = new ArrayList<Grading>();
+                stuGrade.put(stuID,g);
                 return true;
             }
         }
@@ -103,5 +106,14 @@ public class CourseInstance {
     }
     public String getKeyIdentical() {
         return keyIdentical;
+    }
+
+    public void setStuGrade(User user,String stuID, String assessmentType,int ses_number,float socre) {
+        if(user instanceof Teacher){
+            Grading grade = new Grading(assessmentType, ses_number, socre);
+            stuGrade.get(stuID).add(grade);
+        }else{
+            System.out.println("Access Denied : teacher Only");
+        }
     }
 }

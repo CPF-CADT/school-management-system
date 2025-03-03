@@ -105,10 +105,7 @@ public  abstract class User  implements Person{
     public String getEmail() {
         return email;
     }
-
-    public int getID(){
-        return id;
-    }
+    
     public String getPhoneNumber() {
         return phoneNumber;
     }
