@@ -2,50 +2,57 @@ package academic;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Scanner;
-import user.Admin;
-import user.User;
 
+import core.Form;
+import exception.NumberRangeExceptionHandling;
 public class Course {
-    public float getFee() {
-        return fee;
-    }
-
-    public String getShortName() {
-        return shortName;
-    }
     static int totalCourse;
     private int courseId;
     
     public String name; //graphic design
-    public String level;
+    // public String level;
     public String description;
+
+    public int getCourseId() {
+        return courseId;
+    }
 
     private float fee;
     private String shortName;
-    public static HashMap<String, Course> listCourses = new HashMap<>();
-    //constructor 
-    public Course(int id, String name, String shortName, String level, float fee, String description) {
+    public static HashMap<Integer, Course> listCourses = new HashMap<>();
 
+    //constructor 
+    public Course(String name, String shortName, float fee, String description) {
         totalCourse += 1;
         this.courseId = totalCourse;
         this.name = name;
         this.shortName = shortName;
-        this.level = level;
+        // this.level = level;
         this.fee = fee;
         this.description = description;
+        listCourses.put(courseId, this);
     }
     
+    // @Override
+    // public String toString() {
+    //     return "Course " + courseId + ", name=" + name + ", level=" + level + ", fee=" + fee + ", description="
+    //             + description ;
+    // }
     @Override
     public String toString() {
-        return "Course [id=" + courseId + ", name=" + name + ", level=" + level + ", fee=" + fee + ", description="
-                + description + "]";
+        return "Course ID: " + courseId + "\n" +
+               "Name: " + name + "\n" +
+               "Short Name: " + shortName + "\n" +
+            //    "Level: " + level + "\n" +
+               "Fee: $" + fee + "\n" +
+               "Description: " + description;
     }
+
     // Method to find a course by short name and level
     // GDS, Beginner
     public static Course findCourse(String shortName, String level) {
         for (Course course : Course.listCourses.values()) {
-            if (course.shortName.equalsIgnoreCase(shortName) && course.level.equalsIgnoreCase(level)) {
+            if (course.shortName.equalsIgnoreCase(shortName)) {
                 return course;
             }
         }
@@ -60,51 +67,31 @@ public class Course {
             }
         }
     }
-    // Method to create a course by user input
-    public static void createCourse(User user) {
-        if (!(user instanceof Admin)) {
-            System.out.println("Permission Denied: Only Admins can create courses.");
-            return;
+    public static Course selectCourse(){
+        displayCourses();
+        System.out.print("Entetr Course ID : ");
+        int courseID = 0;
+        try{
+            courseID = Form.inputInteger(); 
+            NumberRangeExceptionHandling n = new NumberRangeExceptionHandling(1,Course.listCourses.size(),courseID);
+        }catch(IllegalArgumentException e){
+            System.out.println(e.getMessage());
         }
-            Scanner scanner = new Scanner(System.in);
-            System.out.print("Enter Course Name: ");
-            String name = scanner.nextLine();
-            System.out.print("Enter Short Name: ");
-            String shortName = scanner.nextLine();
-            System.out.print("Enter Level: ");
-            String level = scanner.nextLine();
-            System.out.print("Enter Fee: ");
-            float fee = scanner.nextFloat();
-            scanner.nextLine();
-            System.out.print("Enter Description: ");
-            String description = scanner.nextLine();          
-            Course newCourse = new Course(totalCourse, name, shortName, level, fee, description);
-            System.out.println("Course Created Successfully: " + newCourse);
-        }
+        return Course.listCourses.get(courseID);
+    }
     // Method to display all courses
-    public static void displayCourses(ArrayList<Course> courses) {
-        for (Course course : courses) {
+    public static void displayCourses() {
+        for (Course course : Course.listCourses.values()) {
             System.out.println(course);
+            System.out.println("------------------------------------------");
+
         }
-    }   
-    // public static void updateCourse(User user, Course course) {
-    //     if (!(user instanceof Admin)) {
-    //         System.out.println("Permission Denied: Only Admins can update courses.");
-    //         return;
-    //     }
-    //     Scanner scanner = new Scanner(System.in);
-    //     System.out.print("-- Update Course --\n");
-    //     System.out.print("Enter New Course Name: ");
-    //     course.name = scanner.nextLine();       
-    //     System.out.print("Enter Short Name: ");
-    //     course.shortName = scanner.nextLine();
-    //     System.out.print("Enter Level: ");
-    //     course.level = scanner.nextLine();
-    //     System.out.print("Enter Fee: ");
-    //     course.fee = scanner.nextFloat();
-    //     scanner.nextLine(); // Consume newline
-    //     System.out.print("Enter Description: ");
-    //     course.description = scanner.nextLine();
-    //     System.out.println("Course Updated Successfully: " + course);
-    // }
+    }  
+    public float getFee() {
+        return fee;
+    }
+
+    public String getShortName() {
+        return shortName;
+    } 
 }

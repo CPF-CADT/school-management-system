@@ -2,13 +2,17 @@ package user;
 
 import java.util.ArrayList;
 
+import academic.CourseInstance;
+import core.Form;
+import exception.NumberRangeExceptionHandling;
+
 // import java.util.HashMap;
 
 public class Teacher extends User {
     static int numberOfTeacher = 0;
     public String id = "T";
     final static String EMAIL_FORMAT = "@tch.kdc.edu";
-    ArrayList<Integer> teachingCourseId = new ArrayList<Integer>();
+    public ArrayList<String> teachingCourseId = new ArrayList<String>();
     public String major;
     // login
     public Teacher(String email, String password) {
@@ -39,4 +43,27 @@ public class Teacher extends User {
         System.out.println("Major        : " + major);
         System.out.println("====================================\n");
     }
+
+    public void addTeachingCourse(String c_id){
+            //add validation
+        teachingCourseId.add(c_id);
+    }
+
+    public CourseInstance selectCourseTeaching(){
+        for(int i=0;i<teachingCourseId.size();i++){
+            System.out.println((i+1) + " . "+ CourseInstance.listCourseInstace.get(teachingCourseId.get(i)).course.name );
+        }
+        System.out.print("Choose Course : ");
+        try{
+            int choose = Form.inputInteger();
+            NumberRangeExceptionHandling c = new NumberRangeExceptionHandling(1,teachingCourseId.size(),choose);
+            CourseInstance cStudy = CourseInstance.listCourseInstace.get(teachingCourseId.get(choose-1));
+            return cStudy;
+        }catch(IllegalArgumentException e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+
+    }
+
 }
