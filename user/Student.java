@@ -8,23 +8,27 @@ import java.util.ArrayList;
 import java.util.Date;
 public class Student  extends User{
 
-    public Date dob;
-    public String role;
+    // public Date dob;
     final static String EMAIL_FORMAT="@stu.kdc.edu";
     static int numberOfStudents = 0;
     private String id = "S";
     private ArrayList<String> studyCourseID = new ArrayList<String>();
     
-    //login
+    //login fir compare
     public Student(String email, String password) {
         super(email, password);
+    }
+
+    public Student(String id,String firstName, String lastName, String address, String phoneNumber,String email,String password) {
+        super(firstName,lastName, address, phoneNumber,email);
+        this.id = id;
+        User.listUser.put(this.id, this);
     }
 
     //register
     public Student(String firstName, String lastName, String address, String phoneNumber,String role) {
         super(firstName,lastName, address, phoneNumber,EMAIL_FORMAT);
         id +=(String.valueOf(++numberOfStudents));
-        this.role=role;
         User.listUser.put(this.id, this);
     }
 

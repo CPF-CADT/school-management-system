@@ -19,7 +19,7 @@ public class Form implements Authentication{
         String email = input.next();
         System.out.print("Password      : ");
         String passsword = input.next();
-        User user = null;
+        User user = null;   
         if (isValidEmailFormat(email)) {
             if(email.endsWith("@tch.kdc.edu")) {
                 user = new Teacher(email, passsword);

@@ -20,6 +20,15 @@ public  abstract class User  implements Person{
     private String password;
     public static HashMap<String,User> listUser = new HashMap<String,User>();
     //login
+    public User(String firstName,String lastName,  String address, String phoneNumber, String email, String password) {
+        id = ++numberOfUser;
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.password = password; // defult password
+    }
     public User( String email,String password){
         this.email = email;
         this.password = password;
@@ -127,6 +136,6 @@ public  abstract class User  implements Person{
     }
     
     private   String generateEmail(String format){
-        return firstName+lastName+String.valueOf(id)+ format;
+        return firstName+"."+lastName+String.valueOf(id)+ format;
     }
 }

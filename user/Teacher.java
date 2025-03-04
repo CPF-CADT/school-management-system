@@ -19,6 +19,10 @@ public class Teacher extends User {
         super(email, password);
     }
 
+    // Teacher (User user,String major,ArrayList<String> teaching){
+    //     this = (Teacher) user;
+    // }
+    
     // register
     public Teacher(String firstName,String lastName, String address, String phoneNumber, String major) {
         super(firstName,lastName, address, phoneNumber,EMAIL_FORMAT);
