@@ -15,7 +15,7 @@ public class Teacher extends User {
     public ArrayList<String> teachingCourseId = new ArrayList<String>();
     public String major;
     // login
-    public Teacher(String email, String password) {
+    public Teacher(String email, int password) {
         super(email, password);
     }
 
