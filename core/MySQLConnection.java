@@ -20,7 +20,7 @@ public class MySQLConnection {
         if (connection == null) {
             try {
                 connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-                System.out.println("Connected to MySQL successfully!");
+                // System.out.println("Connected to MySQL successfully!");
             }catch (CJCommunicationsException e) {
                 System.out.println("please check ur db server");
                
@@ -57,7 +57,7 @@ public class MySQLConnection {
             Statement statement = getConnection().createStatement();
             return statement.executeUpdate(query);
         } catch (SQLException e) {
-            System.out.println("Update execution failed!");
+            System.out.println("Update execution failed! "+e.getMessage());
         }
         return 0;
     }
@@ -68,7 +68,6 @@ public class MySQLConnection {
             try {
                 connection.close();
                 connection = null;
-                System.out.println("Connection closed.");
             } catch (SQLException e) {
                 System.out.println("Failed to close the connection!");
             }

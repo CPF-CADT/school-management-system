@@ -6,29 +6,30 @@ import java.util.Scanner;
 import exception.*;
 import user.User;
 public class Feature {
-    Scanner input = new Scanner(System.in);
-    String[] adminList = {
+    static Scanner input = new Scanner(System.in);
+    static String[] adminList = {
         "Create User Account",
         "Create Course",
         "Create Course Instance",
-        "Assign Teacher"
+        "Assign Teacher",
+        "Save User to Cloud"
     };
-    String[] studentList = {
+    static String[] studentList = {
         "View Course",
         "Update Information",
         "Detail Information",
     };
-    String[] teacherList = {
+    static String[] teacherList = {
         "View Course",
         "Update Information",
         "Detail Information"
     };
 
-    public int admin(){
+    public static int admin(){
         for(int i=1;i<=adminList.length;i++){
             System.out.println(i+". "+adminList[i-1]);
         }
-        System.out.println("0. Exit");
+        System.out.println("0. Logout");
         
         int option = 0;
         while (true) {
@@ -44,11 +45,11 @@ public class Feature {
         }
         return option;
     }
-    public int teacher(){
+    public static int teacher(){
         for(int i=1;i<=teacherList.length;i++){
             System.out.println(i+". "+teacherList[i-1]);
         }
-        System.out.println("0. Exit");
+        System.out.println("0. Logout");
         int option = 0;
         while (true) {
             try{
@@ -63,11 +64,11 @@ public class Feature {
         }
         return option;
     }
-    public int student(){
+    public static int student(){
         for(int i=1;i<=studentList.length;i++){
             System.out.println(i+". "+studentList[i-1]);
         }
-        System.out.println("0. Exit");
+        System.out.println("0. Logout");
         int option = 0 ;
         while (true) {
             try{

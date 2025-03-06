@@ -20,7 +20,7 @@ public class TestCourse {
                     "Mathematics");
                     
                     
-        Student s1=new Student("kon","khmer","82","123","year1");
+        Student s1=new Student("kon","khmer","82","123");
 
         while (true) {
             System.out.println("\n===== Course Management System =====");

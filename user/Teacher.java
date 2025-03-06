@@ -1,16 +1,18 @@
 package user;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import academic.CourseInstance;
 import core.Form;
+import core.MySQLConnection;
 import exception.NumberRangeExceptionHandling;
 
 // import java.util.HashMap;
 
 public class Teacher extends User {
     static int numberOfTeacher = 0;
-    public String id = "T";
     final static String EMAIL_FORMAT = "@tch.kdc.edu";
     public ArrayList<String> teachingCourseId = new ArrayList<String>();
     public String major;
@@ -22,11 +24,17 @@ public class Teacher extends User {
     // Teacher (User user,String major,ArrayList<String> teaching){
     //     this = (Teacher) user;
     // }
-    
+    public Teacher(String id,String firstName, String lastName, String address, String phoneNumber,String email,String password,String major) {
+        super(firstName,lastName, address, phoneNumber,email);
+        this.id = id;
+        this.major = major;
+        User.listUser.put(this.id, this);
+    }
     // register
     public Teacher(String firstName,String lastName, String address, String phoneNumber, String major) {
         super(firstName,lastName, address, phoneNumber,EMAIL_FORMAT);
-        id +=(String.valueOf(++numberOfTeacher));
+        super.id="T";
+        super.id +=(String.valueOf(++numberOfTeacher));
         this.major = major;
         User.listUser.put(this.id, this);
     }
@@ -40,17 +48,19 @@ public class Teacher extends User {
         return userInfo;
     }
 
-    @Override
-    public void displayUserInfo(){
-        super.displayUserInfo();
-        System.out.println("ID           : " + id);
-        System.out.println("Major        : " + major);
-        System.out.println("====================================\n");
-    }
-
     public void addTeachingCourse(String c_id){
             //add validation
         teachingCourseId.add(c_id);
+    }
+
+    public static void syncNumberOfUser() throws SQLException {
+        ResultSet r = MySQLConnection.executeQuery("SELECT COUNT(id) AS n FROM User WHERE id LIKE 'T%';");
+        if (r!=null){
+            if(r.next()){
+                numberOfTeacher = r.getInt("n");
+            }
+        }
+        MySQLConnection.closeConnection();
     }
 
     public CourseInstance selectCourseTeaching(){
@@ -69,5 +79,18 @@ public class Teacher extends User {
         }
 
     }
+    public String getId() {
+        return id;
+    }
+
+    public int registerToMySQL() throws SQLException {        
+        int row = super.registerToMySQL();
+        String teacherQuery = "INSERT INTO Teachers (user_id, role_major) "
+        + "VALUES ('" + id + "', '" + major + "');";    
+        row += MySQLConnection.executeUpdate(teacherQuery);
+        MySQLConnection.closeConnection();
+        return row;
+    }
+
 
 }

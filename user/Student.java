@@ -2,16 +2,17 @@ package user;
 import academic.Course;
 import academic.CourseInstance;
 import core.Form;
+import core.MySQLConnection;
 import exception.NumberRangeExceptionHandling;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 public class Student  extends User{
 
     // public Date dob;
     final static String EMAIL_FORMAT="@stu.kdc.edu";
     static int numberOfStudents = 0;
-    private String id = "S";
     private ArrayList<String> studyCourseID = new ArrayList<String>();
     
     //login fir compare
@@ -24,11 +25,12 @@ public class Student  extends User{
         this.id = id;
         User.listUser.put(this.id, this);
     }
-
+    
     //register
-    public Student(String firstName, String lastName, String address, String phoneNumber,String role) {
+    public Student(String firstName, String lastName, String address, String phoneNumber) {
         super(firstName,lastName, address, phoneNumber,EMAIL_FORMAT);
-        id +=(String.valueOf(++numberOfStudents));
+        super.id="S";
+        super.id +=(String.valueOf(++numberOfStudents));
         User.listUser.put(this.id, this);
     }
 
@@ -123,6 +125,27 @@ public class Student  extends User{
             System.out.println("No Student in list");
             
         }
+    }
+
+
+    public static void  syncNumberOfUser() throws SQLException {
+        ResultSet r = MySQLConnection.executeQuery("SELECT COUNT(id) AS n FROM User WHERE id LIKE 'S%';");
+        if (r!=null){
+            if(r.next()){
+                numberOfStudents = r.getInt("n");
+            }
+        }
+        MySQLConnection.closeConnection();
+    }
+
+    public int registerToMySQL() throws SQLException {        
+        int row = super.registerToMySQL();
+        String query = "INSERT INTO Teachers (user_id) "
+        + "VALUES ('" + id + "');";    
+        // + "VALUES ('" + id + "', '" + major + "');";    
+        row += MySQLConnection.executeUpdate(query);
+        MySQLConnection.closeConnection();
+        return row;
     }
 
 }
