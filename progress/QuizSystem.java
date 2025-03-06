@@ -122,19 +122,6 @@ public class QuizSystem {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            quiz.startQuiz();
-
-            // int num= input.nextInt();
-            // if (num == 4) {
-            //     System.out.println("Correct!");
-            //     break;
-            // }else{
-            //     System.out.println("Incorrect!" );
-            //     break;
-            // }
-            break;
-
-
         }
         
         System.out.println("\nProceed to next question...");

@@ -1,65 +1,87 @@
 package user;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import core.MySQLConnection;
 import exception.CastToUserHandleException;
 
-public  abstract class User  implements Person{
+public abstract class User {
     static Scanner input = new Scanner(System.in);
     static int numberOfUser = 0;
-    private int id ;
     public String lastName;
     public String firstName;
 
-    // protected Date dob; 
+    protected LocalDate dob;
     protected String address;
-    
+
     private String email;
     private String phoneNumber;
     private String password;
-    public static HashMap<String,User> listUser = new HashMap<String,User>();
-    //login
-    public User( String email,String password){
-        this.email = email;
-        this.password = password;
-    }
-    //register
-    public User(String firstName,String lastName,  String address, String phoneNumber, String emailFormat) {
-        id = ++numberOfUser;
+    protected String id;
+
+    public static HashMap<String, User> listUser = new HashMap<String, User>();
+
+    // login
+    public User(String firstName, String lastName, String address, String phoneNumber, String email, String password) {
         this.lastName = lastName;
         this.firstName = firstName;
         this.address = address;
         this.phoneNumber = phoneNumber;
+        dob = LocalDate.of(2025, 1, 1); // need to input later
+        this.email = email;
+        this.password = password; // defult password
+    }
+
+    public User(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
+    // register
+    public User(String firstName, String lastName, String address, String phoneNumber, String emailFormat) {
+        ++numberOfUser;
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        dob = LocalDate.of(2025, 1, 1); // need to input later
         this.email = generateEmail(emailFormat).toLowerCase();
         this.password = "kdc2025"; // defult password
     }
+
     @Override
     public String toString() {
         String userInfo = "Name        : " + lastName + " " + firstName + "\n"
-                        + "Address     : " + address + "\n"
-                        + "Phone Number: " + phoneNumber + "\n"
-                        + "Email       : " + email + "\n";
+                + "Address     : " + address + "\n"
+                + "DOB         : " + dob.toString() + "\n"
+                + "Phone Number: " + phoneNumber + "\n"
+                + "Email       : " + email + "\n";
 
         if (password.equals("kdc2025")) {
             userInfo += "Password (Default): " + password + "\n";
         }
         return userInfo;
     }
-    
+
     // login
     public static User login(User log) {
         for (User user : User.listUser.values()) {
-            if (log.equals(user)){
+            if (log.equals(user)) {
+                System.out.println("True");
                 return user;
             }
         }
+        System.out.println("Fail");
         return null;
     }
 
     @Override
-    public boolean equals(Object obj) throws ClassCastException{
-        try{
+    public boolean equals(Object obj) throws ClassCastException {
+        try {
             CastToUserHandleException c = new CastToUserHandleException(obj);
             User log = (User) obj;
             if (this.email.equals(log.getEmail())) {
@@ -67,24 +89,10 @@ public  abstract class User  implements Person{
                     return true;
                 }
             }
-        }catch(ClassCastException c){
+        } catch (ClassCastException c) {
             System.out.println(c.getMessage());
         }
         return false;
-    }
-    @Override
-    public void displayUserInfo() {
-        System.out.println("\n====================================");
-        System.out.println("              USER DETAILS      ");
-        System.out.println("====================================");
-        System.out.println("First Name   : " + firstName);
-        System.out.println("Last Name    : " + lastName);
-        System.out.println("Address      : " + address);
-        System.out.println("Phone Number : " + phoneNumber);
-        System.out.println("Email        : " + email);
-        if(password.equals("kdc2025")){
-            System.out.println("Password (Default)  : " + password);
-        }
     }
 
     public void setPassword(String newPassword, String curPassword) {
@@ -94,18 +102,20 @@ public  abstract class User  implements Person{
             System.out.println("Password Invalid");
         }
     }
-    public boolean checkPassword(String password){
-        if(this.password.equals(password)){
+
+    public boolean checkPassword(String password) {
+        if (this.password.equals(password)) {
             return true;
-        }else{
+        } else {
             return false;
         }
 
-    }   
+    }
+
     public String getEmail() {
         return email;
     }
-    
+
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -118,6 +128,10 @@ public  abstract class User  implements Person{
         }
     }
 
+    public String getId() {
+        return id;
+    }
+
     public void setPhoneNumber(String phoneNumber, String conPassword) {
         if (conPassword.equals(this.password)) {
             this.phoneNumber = phoneNumber;
@@ -125,8 +139,17 @@ public  abstract class User  implements Person{
             System.out.println("Password Invalid");
         }
     }
-    
-    private   String generateEmail(String format){
-        return firstName+lastName+String.valueOf(id)+ format;
+
+    private String generateEmail(String format) {
+        return firstName + "." + lastName + numberOfUser + format;
+    }
+
+    public int registerToMySQL() throws SQLException {
+        String userQuery = "INSERT INTO User (id, first_name, last_name, dob, address, email, phone_number, password) "
+                + "VALUES ('" + id + "', '" + firstName + "', '" + lastName + "', '" + dob.toString() + "', '"
+                + address + "', '" + email + "', '" + phoneNumber + "', '" + password + "');";
+        int row = MySQLConnection.executeUpdate(userQuery);
+        MySQLConnection.closeConnection();
+        return row;
     }
 }

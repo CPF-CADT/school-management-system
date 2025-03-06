@@ -6,8 +6,8 @@ import academic.*;
 import exception.CastFromUserToAnotherException;
 import exception.NumberRangeExceptionHandling;
 public class AcademicControl {
-    Scanner input = new Scanner(System.in);
-    public boolean createCourse(User user) {
+    static Scanner input = new Scanner(System.in);
+    public static boolean createCourse(User user) {
         if (!(user instanceof Admin)) {
             System.out.println("Permission Denied: Only Admins can create courses.");
             return false;
@@ -19,7 +19,7 @@ public class AcademicControl {
             System.out.print("Enter Level: ");
             String level = input.next();
             System.out.print("Enter Fee: ");
-            float fee = input.nextFloat();
+            float fee = (float) Form.inputNumber();
             input.nextLine();
             System.out.print("Enter Description: ");
             String description = input.nextLine();    
@@ -28,7 +28,7 @@ public class AcademicControl {
         }
     }
 
-    public boolean createClass(User user){
+    public static boolean createClass(User user){
         if (!(user instanceof Admin)) {
             System.out.println("Permission Denied: Only Admins can create class.");
             return false;
@@ -59,7 +59,7 @@ public class AcademicControl {
         // CourseInstance course = new CourseInstance( null, teacher, year,term,group);
         return true;
     }
-    public void courseInterfacceForTeacher(Teacher teach,CourseInstance classLearn){
+    public static void courseInterfacceForTeacher(Teacher teach,CourseInstance classLearn){
         System.out.println("------------- "+ classLearn.course.name  +"------------- ");
         System.out.println(" -  "+classLearn.course.description);
         System.out.println(" 1 .  List Student ");

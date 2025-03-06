@@ -1,5 +1,7 @@
 package core;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import exception.StringFilterException;
@@ -19,21 +21,22 @@ public class Form implements Authentication{
         String email = input.next();
         System.out.print("Password      : ");
         String passsword = input.next();
-        User user = null;
-        if (isValidEmailFormat(email)) {
-            if(email.endsWith("@tch.kdc.edu")) {
-                user = new Teacher(email, passsword);
-            }else if(email.endsWith("@stu.kdc.edu")){
-                user = new Student(email, passsword);
-            }else{
-                user = new Admin(email, passsword);
-            }
-            return User.login(user);
-        }
-        return null;
+        // User user = null;   
+        // if (loadData(email,passsword)) {
+        //     if(email.endsWith("@tch.kdc.edu")) {
+        //         user = new Teacher(email, passsword);
+        //     }else if(email.endsWith("@stu.kdc.edu")){
+        //         user = new Student(email, passsword);
+        //     }else{
+        //         user = new Admin(email, passsword);
+        //     }
+        //     return User.login(user);
+        // }
+        // System.out.println("Fail");
+        return loadData(email,passsword);
     }
     @Override
-    public boolean register() throws RuntimeException{
+    public boolean register(){
         String lastName, firstName, address, phoneNumber, role_major;
         boolean inputStats = true;
         int typeOfAccount =0;
@@ -68,33 +71,31 @@ public class Form implements Authentication{
 
                 switch (typeOfAccount) {
                     case 1:
-                        // Admin
+                        // Admin Dont Have Database
                         System.out.print("Role         : ");
                         role_major = input.next();
                         StringFilterException role = new StringFilterException(role_major, "^[A-Za-z]+([\\s-&][A-Za-z]+)*$", "Spcial character is not Allowed");
                         Admin adm = new Admin(firstName, lastName, address, phoneNumber, role_major);
-                        adm.displayUserInfo();
-                        return true;
+                        break;
                     case 2:
                         // Teacher
                         System.out.print("Major        : ");
                         role_major = input.next();
-
-                        StringFilterException major = new StringFilterException(role_major, "^[A-Za-z]+([\\\\s-&][A-Za-z]+)*$", "Spcial character is not Allowed");
+                        StringFilterException major = new StringFilterException(role_major, "^[A-Za-z]+([ -&][A-Za-z]+)*$", "Spcial character is not Allowed");
                         Teacher teach = new Teacher(firstName, lastName, address, phoneNumber, role_major);
-                        teach.displayUserInfo();
-                        return true;
+                        break;
                     case 3:
                         // Student
+                        Student stu = new Student(firstName, lastName, address, phoneNumber);
                         System.out.println("Student registered successfully!");
-                        return true;
-        
+                        break;
                     default:
                         System.out.println("Invalid user type! Registration failed.");
                         return false;
                 }
-        
-            }catch(RuntimeException registerCheck){
+                MySQLConnection.executeUpdate("INSERT INTO");
+                return true;
+            }catch(IllegalArgumentException registerCheck){
                 f.clearScreen();
                 System.out.println(registerCheck.getMessage());
                 inputStats = false;
@@ -130,9 +131,49 @@ public class Form implements Authentication{
         }
     }
 
-    private boolean isValidEmailFormat(String input) {
+    private static boolean isValidEmailFormat(String input) {
         return input.endsWith("@adm.kdc.edu") ||
                 input.endsWith("@tch.kdc.edu") ||
                 input.endsWith("@stu.kdc.edu");
+    }
+    public User loadData(String email,String password){
+        String query;
+        if (email.endsWith("@stu.kdc.edu")){
+            query = "SELECT u.id,u.first_name,u.last_name,u.dob,u.address,u.email,u.phone_number,u.password FROM User AS u JOIN Students AS s ON u.id = s.user_id WHERE email = '"+email+"' AND password = '"+password+"';";
+        }else if(email.endsWith("@tch.kdc.edu")){
+            query = "SELECT u.id, u.first_name, u.last_name, u.dob, u.address, u.email, u.phone_number, u.password, t.role_major FROM User AS u JOIN Teachers AS t ON u.id = t.user_id WHERE u.email = '"+email+"' AND u.password = '"+password+"';";
+        }else {
+            query = "SELECT u.id,u.first_name,u.last_name,u.dob,u.address,u.email,u.phone_number,u.passwordrole_major,t. FROM User AS u JOIN Admin AS s ON u.id = s.user_id "+ "WHERE email = '" + email + "' AND password = '" + password + "';"; //NOT READY 
+        }
+        ResultSet result = MySQLConnection.executeQuery(query);
+        if(result!=null){
+            try{
+                if (result.next()) { 
+                    String userId = result.getString("id"); 
+                    String userEmail = result.getString("email");
+                    String phone = result.getString("phone_number"); 
+                    String userPassword = result.getString("password");
+                    String firstName = result.getString("first_name");
+                    String lastName = result.getString("last_name");
+                    String address = result.getString("address");
+                    if (email.endsWith("@stu.kdc.edu")){
+                        User user = new Student(userId, firstName, lastName, address, phone, userEmail, userPassword);
+                        return user;
+                    }else if(email.endsWith("@tch.kdc.edu")){
+                        String major = result.getString("role_major");
+                        User user = new Teacher( userId, firstName,  lastName,  address,  phone, email, password, major);
+                        return user;
+                    }
+                } else {
+                    System.out.println("Invalid email or password.");
+                    return null;
+                }
+            }catch(SQLException s){
+                
+            }
+        }else{
+            System.out.println("Fail");
+        }
+        return null;
     }
 }

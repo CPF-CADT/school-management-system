@@ -25,14 +25,6 @@ public class Admin extends User {
         return super.toString() +"ID : " + id +  "  Role : " + this.role +"\n";
     }
 
-
-    @Override
-    public void displayUserInfo() {
-        super.displayUserInfo();
-        System.out.println("ID           : " + id);
-        System.out.println("Role         : " + role);
-        System.out.println("====================================\n");
-    }
     public static Admin selectAdmin() {
     if (!User.listUser.isEmpty()) {
     System.out.println("List Admin ");

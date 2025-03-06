@@ -16,11 +16,11 @@ public class studentCourse {
                     "Jak",
                     "Jony",
                     "456 Elm St, CA",
-                    "9876543210",
+                    "987243210",
                     "Mathematics");
                     
                     
-        Student s1=new Student("kon","khmer","82","123","year1");
+        Student s1=new Student("kon","khmer","82","123");
         Scanner sc = new Scanner(System.in);
         AcademicControl ac = new AcademicControl();
         Course c = new Course("C++ And OOP", "CPP", 60.0f, "Basic Level");
