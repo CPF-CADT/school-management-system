@@ -140,12 +140,12 @@ public class Student  extends User{
 
     public int registerToMySQL() throws SQLException {        
         int row = super.registerToMySQL();
-        String query = "INSERT INTO Teachers (user_id) "
+        String query = "INSERT INTO Students (user_id) "
         + "VALUES ('" + id + "');";    
         // + "VALUES ('" + id + "', '" + major + "');";    
         row += MySQLConnection.executeUpdate(query);
         MySQLConnection.closeConnection();
-        return row;
+        return row ;
     }
 
 }
