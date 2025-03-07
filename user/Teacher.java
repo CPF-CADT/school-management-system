@@ -28,6 +28,7 @@ public class Teacher extends User {
         super(firstName,lastName, address, phoneNumber,email);
         this.id = id;
         this.major = major;
+        syncCourse();
         User.listUser.put(this.id, this);
     }
     // register
@@ -44,6 +45,7 @@ public class Teacher extends User {
         String userInfo = super.toString();
         userInfo += "ID           : " + id + "\n"
                  + "Major         : " + major + "\n"
+                 + "Course         : " + teachingCourseId + "\n"
                  + "====================================\n";
         return userInfo;
     }
@@ -90,6 +92,23 @@ public class Teacher extends User {
         row += MySQLConnection.executeUpdate(teacherQuery);
         MySQLConnection.closeConnection();
         return row;
+    }
+    private void syncCourse(){
+        String query = "SELECT c.instance_id  FROM Course_instance AS c WHERE teacher_id = '"+this.id+"';";
+        ResultSet result = MySQLConnection.executeQuery(query);
+        if(result!=null){
+            try{
+                while(result.next()){
+                    String courseId = result.getString("c");
+                    teachingCourseId.add(courseId);
+                }
+            }catch(Exception e){
+                System.out.println("You Dont Have class");
+            }
+        }
+    }
+    private void syncCourseInstance(){
+
     }
 
 
