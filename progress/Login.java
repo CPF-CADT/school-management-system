@@ -1,14 +1,5 @@
-    package progress;
-
-    import java.sql.ResultSet;
-    import java.sql.SQLException;
-    import java.util.Scanner;
-
+package progress;
 import core.Form;
-import core.MySQLConnection;
-import user.Student;
-import user.Teacher;
-
     public class Login {
         public static void main(String[] args) {
             // String query = "SELECT * FROM Student WHERE email = '" + email + "' AND password = '" + password + "';";

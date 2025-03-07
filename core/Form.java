@@ -143,7 +143,7 @@ public class Form implements Authentication{
         }else if(email.endsWith("@tch.kdc.edu")){
             query = "SELECT u.id, u.first_name, u.last_name, u.dob, u.address, u.email, u.phone_number, u.password, t.role_major FROM User AS u JOIN Teachers AS t ON u.id = t.user_id WHERE u.email = '"+email+"' AND u.password = '"+password+"';";
         }else {
-            query = "SELECT u.id,u.first_name,u.last_name,u.dob,u.address,u.email,u.phone_number,u.passwordrole_major,t. FROM User AS u JOIN Admin AS s ON u.id = s.user_id "+ "WHERE email = '" + email + "' AND password = '" + password + "';"; //NOT READY 
+            query = "SELECT u.id,u.first_name,u.last_name,u.dob,u.address,u.email,u.phone_number,u.password,role_major,t. FROM User AS u JOIN Admin AS s ON u.id = s.user_id "+ "WHERE email = '" + email + "' AND password = '" + password + "';"; //NOT READY 
         }
         ResultSet result = MySQLConnection.executeQuery(query);
         if(result!=null){

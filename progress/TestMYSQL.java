@@ -1,15 +1,8 @@
 package progress;
-
-import core.Form;
-import core.MySQLConnection;
 import user.Student;
 import user.Teacher;
-import user.User;
 
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 public class TestMYSQL {
     public static void main(String[] args) throws SQLException {

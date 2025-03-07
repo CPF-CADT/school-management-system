@@ -123,7 +123,6 @@ public class QuizSystem {
                 e.printStackTrace();
             }
         }
-        
         System.out.println("\nProceed to next question...");
     }
 }
