@@ -157,11 +157,11 @@ public class Form implements Authentication{
                     String lastName = result.getString("last_name");
                     String address = result.getString("address");
                     if (email.endsWith("@stu.kdc.edu")){
-                        User user = new Student(userId, firstName, lastName, address, phone, userEmail, userPassword);
+                        Student user = new Student(userId, firstName, lastName, address, phone, userEmail, userPassword);
                         return user;
                     }else if(email.endsWith("@tch.kdc.edu")){
                         String major = result.getString("role_major");
-                        User user = new Teacher( userId, firstName,  lastName,  address,  phone, email, password, major);
+                        Teacher user = new Teacher( userId, firstName,  lastName,  address,  phone, email, password, major);
                         return user;
                     }
                 } else {
@@ -176,4 +176,5 @@ public class Form implements Authentication{
         }
         return null;
     }
+    
 }
