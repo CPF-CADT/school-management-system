@@ -17,10 +17,11 @@ public class Form implements Authentication{
     public int TYPE_OF_USER = 3;
     @Override
     public User login() {
-        System.out.print("Email address : ");
-        String email = input.next();
-        System.out.print("Password      : ");
-        String passsword = input.next();
+        // System.out.print("Email address : ");
+        // String email = input.next();
+        // System.out.print("Password      : ");
+        // String passsword = input.next();
+        
         // User user = null;   
         // if (loadData(email,passsword)) {
         //     if(email.endsWith("@tch.kdc.edu")) {
@@ -33,7 +34,7 @@ public class Form implements Authentication{
         //     return User.login(user);
         // }
         // System.out.println("Fail");
-        return loadData(email,passsword);
+        return loadData("alice.smith@tch.kdc.edu","password123");
     }
     @Override
     public boolean register(){

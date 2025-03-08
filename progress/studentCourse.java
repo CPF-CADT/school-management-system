@@ -27,8 +27,8 @@ public class studentCourse {
         Course c2 = new Course("JAVA GUI", "JAV", 60.0f, "Basic Level");
 
         User admin = new Admin("adminUser", "adminPass"); // Assuming Admin has a constructor (username, password)
-        CourseInstance clas = new CourseInstance(c, t2, 2022, 2, 1);
-        CourseInstance clas2 = new CourseInstance(c2, t2, 2022, 3, 1);
+        CourseInstance clas = new CourseInstance(c, t2, 2022, 2, "1");
+        CourseInstance clas2 = new CourseInstance(c2, t2, 2022, 3, "1");
 
         clas.studentEnrollment(admin);
         clas2.studentEnrollment(admin);
@@ -37,7 +37,7 @@ public class studentCourse {
         CourseInstance cs = t2.selectCourseTeaching();
         AcademicControl acs = new AcademicControl();
         do{
-            acs.courseInterfacceForTeacher(t2, clas2);
+            AcademicControl.courseInterfacceForTeacher(t2, clas2);
         }while(true);
 
         
