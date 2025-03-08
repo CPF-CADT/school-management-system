@@ -1,9 +1,12 @@
 package academic;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import core.Form;
+import core.MySQLConnection;
 import exception.NumberRangeExceptionHandling;
 public class Course {
     static int totalCourse;
@@ -50,7 +53,7 @@ public class Course {
 
     // Method to find a course by short name and level
     // GDS, Beginner
-    public static Course findCourse(String shortName, String level) {
+    public static Course findCourse(String shortName) {
         for (Course course : Course.listCourses.values()) {
             if (course.shortName.equalsIgnoreCase(shortName)) {
                 return course;
@@ -87,6 +90,19 @@ public class Course {
 
         }
     }  
+    public static void syncCourse(String shortName){
+        String query = "SELECT * FROM Course WHERE short_name = '"+shortName+"';";
+        ResultSet result = MySQLConnection.executeQuery(query);
+        if(result!=null){
+            try{
+                if(result.next()){
+                    Course c = new Course(result.getString("name"), result.getString("short_name"), result.getFloat("fee"), result.getString("description"));
+                }
+            }catch(SQLException sql){
+                System.out.println("Course Not found" + sql.getMessage());
+            }
+        }
+    }
     public float getFee() {
         return fee;
     }

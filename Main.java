@@ -25,6 +25,7 @@ public class Main {
         // }else{
         //     //use local session
         // }
+        
         do {
             System.out.println("Login\n");
             User user = form.login();
@@ -76,6 +77,9 @@ public class Main {
                                     }
                                 }
                                 break;
+                            case 0:
+                                System.exit(1);;
+                                break;
                             default:
                                 break;
                         }
@@ -89,11 +93,15 @@ public class Main {
                             System.out.println( "-------------- Teaching Course -------------- ");
                             teacher.selectCourseTeaching();
                             break;
+                        case 0:
+                            System.exit(1);;
+                            break;
                         default:
                             break;
                     }
                 } else if (user instanceof Student) {
                     System.out.println("Student Interface");
+                    System.out.println(CourseInstance.listCourseInstace);
                     Student studentLogin = (Student) user;
                     System.out.println(studentLogin);
                     switch (Feature.student()) {
@@ -103,6 +111,9 @@ public class Main {
                             ///
                             break;
                         case 2:
+                            break;
+                        case 0:
+                            System.exit(1);;
                             break;
                         default:
                             break;

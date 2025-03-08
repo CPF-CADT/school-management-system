@@ -94,22 +94,18 @@ public class Teacher extends User {
         return row;
     }
     private void syncCourse(){
-        String query = "SELECT c.instance_id  FROM Course_instance AS c WHERE teacher_id = '"+this.id+"';";
+        String query = "SELECT c.course_instance_id  FROM Course_instance AS c WHERE teacher_id = '"+this.id+"';";
         ResultSet result = MySQLConnection.executeQuery(query);
         if(result!=null){
             try{
                 while(result.next()){
-                    String courseId = result.getString("c");
+                    String courseId = result.getString("course_instance_id");
                     teachingCourseId.add(courseId);
                 }
+                CourseInstance.syncCourseInstance(teachingCourseId);
             }catch(Exception e){
                 System.out.println("You Dont Have class");
             }
         }
     }
-    private void syncCourseInstance(){
-
-    }
-
-
 }
