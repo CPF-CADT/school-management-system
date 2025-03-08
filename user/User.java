@@ -1,13 +1,10 @@
 package user;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
-import academic.CourseInstance;
 import core.MySQLConnection;
 import exception.CastToUserHandleException;
 
