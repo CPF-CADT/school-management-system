@@ -1,6 +1,5 @@
 package user;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -151,5 +150,5 @@ public abstract class User {
         int row = MySQLConnection.executeUpdate(userQuery);
         MySQLConnection.closeConnection();
         return row;
-    }
+    } 
 }

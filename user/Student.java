@@ -23,6 +23,7 @@ public class Student  extends User{
     public Student(String id,String firstName, String lastName, String address, String phoneNumber,String email,String password) {
         super(firstName,lastName, address, phoneNumber,email);
         this.id = id;
+        syncCourse();
         User.listUser.put(this.id, this);
     }
     
@@ -60,18 +61,21 @@ public class Student  extends User{
     //     return null;
     // }
     
-    public CourseInstance selectCourseStudy(){
-        for(int i=0;i<studyCourseID.size();i++){
-            System.out.println((i+1) + " . "+ CourseInstance.listCourseInstace.get(studyCourseID.get(i)).course.name );
-        }
-        System.out.print("Choose Course : ");
+    public CourseInstance selectCourseStudy(){ 
         try{
+            for(int i=0;i<studyCourseID.size();i++){
+                System.out.println((i+1) + " . "+ CourseInstance.listCourseInstace.get(studyCourseID.get(i)).course.name );
+            }
+            System.out.print("Choose Course : ");
             int choose = Form.inputInteger();
             NumberRangeExceptionHandling c = new NumberRangeExceptionHandling(1,studyCourseID.size(),choose);
             CourseInstance cStudy = CourseInstance.listCourseInstace.get(studyCourseID.get(choose-1));
             return cStudy;
         }catch(IllegalArgumentException e){
             System.out.println(e.getMessage());
+            return null;
+        }catch(NullPointerException n){
+            System.out.println("You Dont have courses");
             return null;
         }
 
@@ -147,5 +151,19 @@ public class Student  extends User{
         MySQLConnection.closeConnection();
         return row ;
     }
-
+    private void syncCourse(){
+        String query = "SELECT e.course_instance_id AS c FROM  Enrollment e WHERE  e.student_id = '"+this.id+"';";
+        ResultSet result = MySQLConnection.executeQuery(query);
+        if(result!=null){
+            try{
+                while(result.next()){
+                    String courseId = result.getString("c");
+                    studyCourseID.add(courseId);
+                }
+                CourseInstance.syncCourseInstance(studyCourseID);
+            }catch(Exception e){
+                System.out.println("You Dont Have class ");
+            }
+        }
+    }
 }

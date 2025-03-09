@@ -39,22 +39,20 @@ public class AcademicControl {
             System.out.print("Term     : ");
             int term = Form.inputInteger();
             System.out.print("Group    : ");
-            int group = Form.inputInteger();
+            String group = input.next();
             System.out.println(" - Select Course ");
             Course c = Course.selectCourse();
             System.out.print("Teacher ID  : ");
             String teacherId = input.next();
-            User t = User.listUser.get(teacherId);
-            Teacher teach = null;
-            try {
-                CastFromUserToAnotherException cast = new CastFromUserToAnotherException(t,teach);
-                teach = (Teacher) t;
-            } catch (ClassCastException e) {
-                System.out.println(e.getMessage());
-                System.out.println("Class Create Unsuccess");
+            User usr = User.listUser.get(teacherId);
+            Teacher t = null;
+            try{
+                CastFromUserToAnotherException toTeacher = new CastFromUserToAnotherException(c, t);
+            }catch(ClassCastException cast){
+                System.out.println("Cannot Create a class "+cast.getMessage());
                 return false;
             }
-            CourseInstance course = new CourseInstance( c, teach, year,term,group);
+            CourseInstance course = new CourseInstance( c, t, year,term,group);
         }
         // CourseInstance course = new CourseInstance( null, teacher, year,term,group);
         return true;

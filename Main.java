@@ -11,38 +11,20 @@ public class Main {
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++++");
 
         int incorrectLoginCount = 3;
-        try{
-            Student.syncNumberOfUser();
-            Teacher.syncNumberOfUser();
-        }catch(SQLException sql){
-            System.out.println(sql.getMessage());
-        }
-
         Admin adm = new Admin(
                 "John",
                 "Doe",
                 "123 Main St, NY",
                 "1234567890",
                 "Administrator");
-        // Teacher t = new Teacher(
-        //         "Smidth",
-        //         "Alice",
-        //         "456 Elm St, CA",
-        //         "9876543256100",
-        //         "Mathematics");
-        // Teacher t2 = new Teacher(
-        //             "Jsak",
-        //             "Jony",
-        //             "456 Elm St, CA",
-        //             "98765432100",
-        //             "Mathematics");
-                              
-        // Student s1=new Student("kon","khmer","82","1231");
-        // Student s2=new Student("kon","thai","82","123");
-        // Student s = new Student("kon.thai5@stu.kdc.edu", "kdc2025");
-        // System.out.println(User.login(s));
         Form form = new Form();
-        // login to user can be admin , student or teacher
+        
+        //check internet connection
+        // if(MySQLConnection.getConnection()!=null){
+            
+        // }else{
+        //     //use local session
+        // }
         
         do {
             System.out.println("Login\n");
@@ -57,6 +39,12 @@ public class Main {
                         switch (Feature.admin()) {
                             case 1:
                                 System.out.println("------------------ Create User Account ------------------ ");
+                                try{
+                                    Student.syncNumberOfUser();
+                                    Teacher.syncNumberOfUser();
+                                }catch(SQLException sql){
+                                    System.out.println(sql.getMessage());
+                                }
                                 form.register();
                                 break;
                             case 2:
@@ -89,6 +77,9 @@ public class Main {
                                     }
                                 }
                                 break;
+                            case 0:
+                                System.exit(1);;
+                                break;
                             default:
                                 break;
                         }
@@ -102,11 +93,15 @@ public class Main {
                             System.out.println( "-------------- Teaching Course -------------- ");
                             teacher.selectCourseTeaching();
                             break;
+                        case 0:
+                            System.exit(1);;
+                            break;
                         default:
                             break;
                     }
                 } else if (user instanceof Student) {
                     System.out.println("Student Interface");
+                    System.out.println(CourseInstance.listCourseInstace);
                     Student studentLogin = (Student) user;
                     System.out.println(studentLogin);
                     switch (Feature.student()) {
@@ -116,6 +111,9 @@ public class Main {
                             ///
                             break;
                         case 2:
+                            break;
+                        case 0:
+                            System.exit(1);;
                             break;
                         default:
                             break;

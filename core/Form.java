@@ -17,10 +17,11 @@ public class Form implements Authentication{
     public int TYPE_OF_USER = 3;
     @Override
     public User login() {
-        System.out.print("Email address : ");
-        String email = input.next();
-        System.out.print("Password      : ");
-        String passsword = input.next();
+        // System.out.print("Email address : ");
+        // String email = input.next();
+        // System.out.print("Password      : ");
+        // String passsword = input.next();
+        
         // User user = null;   
         // if (loadData(email,passsword)) {
         //     if(email.endsWith("@tch.kdc.edu")) {
@@ -33,7 +34,7 @@ public class Form implements Authentication{
         //     return User.login(user);
         // }
         // System.out.println("Fail");
-        return loadData(email,passsword);
+        return loadData("alice.smith@tch.kdc.edu","password123");
     }
     @Override
     public boolean register(){
@@ -157,11 +158,11 @@ public class Form implements Authentication{
                     String lastName = result.getString("last_name");
                     String address = result.getString("address");
                     if (email.endsWith("@stu.kdc.edu")){
-                        User user = new Student(userId, firstName, lastName, address, phone, userEmail, userPassword);
+                        Student user = new Student(userId, firstName, lastName, address, phone, userEmail, userPassword);
                         return user;
                     }else if(email.endsWith("@tch.kdc.edu")){
                         String major = result.getString("role_major");
-                        User user = new Teacher( userId, firstName,  lastName,  address,  phone, email, password, major);
+                        Teacher user = new Teacher( userId, firstName,  lastName,  address,  phone, email, password, major);
                         return user;
                     }
                 } else {
@@ -176,4 +177,5 @@ public class Form implements Authentication{
         }
         return null;
     }
+    
 }

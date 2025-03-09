@@ -32,7 +32,7 @@ public class TestCourse {
             Scanner sc = new Scanner(System.in);
             AcademicControl ac = new AcademicControl();
             Course c = new Course("C++ And OOP", "CPP", 60.0f, "Basic Level");
-            CourseInstance clas = new CourseInstance(c, t2, 2022, 2, 1);
+            CourseInstance clas = new CourseInstance(c, t2, 2022, 2, "1");
             // System.out.println(s1);
             // clas.StudentEnrollment(admin);
             // System.out.println(clas.getlistStudent());
