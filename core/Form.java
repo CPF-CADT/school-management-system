@@ -158,7 +158,7 @@ public class Form implements Authentication{
                     String lastName = result.getString("last_name");
                     String address = result.getString("address");
                     if (email.endsWith("@stu.kdc.edu")){
-                        Student user = new Student(userId, firstName, lastName, address, phone, userEmail, userPassword);
+                        Student user = new Student();
                         return user;
                     }else if(email.endsWith("@tch.kdc.edu")){
                         String major = result.getString("role_major");
