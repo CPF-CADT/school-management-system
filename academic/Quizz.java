@@ -1,6 +1,8 @@
 package academic;
 
 import java.util.ArrayList;
+
+import core.MySQLConnection;
 import user.Teacher;
 
 public class Quizz extends Assessment{
@@ -37,5 +39,27 @@ public class Quizz extends Assessment{
         totalScore = attemp(studentId);
         System.out.println("Student ID: " + studentId + " Totalscore: " + totalScore);
         studentScore.put(studentId, totalScore);
+    }
+    
+        public boolean updateQuizzData(){
+        String query = "UPDATE quizz SET description = '" + description + "' , title = '"+title+"' WHERE quizz_id = " + no;
+        MySQLConnection.executeUpdate(query);
+        return true;
+    }
+
+    public boolean updateDescriptionInQuizz(Quizz quizz) {
+        System.out.println("Enter the new description: ");
+        String newDescription = input.nextLine();
+        description = newDescription;
+        System.out.println(quizz);
+        return quizz.updateQuizzData();
+    }
+
+    public boolean updateTitleInQuizz(Quizz quizz) {
+        System.out.println("Enter the new title: ");
+        String newTitle = input.nextLine();
+        title = newTitle;
+        System.out.println(quizz);
+        return quizz.updateQuizzData();
     }
 }

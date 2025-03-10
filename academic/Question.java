@@ -1,4 +1,5 @@
 package academic;
+import core.MySQLConnection;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -45,5 +46,24 @@ public class Question {
             return marks;
         }
         return 0.0f;
+    }
+    public boolean updateQuestionData(){
+        String query = "UPDATE question SET question = '" + question + "' , marks = '"+marks+"' WHERE question_id = " + no;
+        MySQLConnection.executeUpdate(query);
+        return true;
+    }
+    public boolean updateQuestion(Question question) {
+        System.out.println("Enter the new question: ");
+        String newQuestion = input.nextLine();
+        this.question = newQuestion;
+        System.out.println(question);
+        return question.updateQuestionData();
+    }
+    public boolean updateMarks(Question question) {
+        System.out.println("Enter the new marks: ");
+        float newMarks = input.nextFloat();
+        this.marks = newMarks;
+        System.out.println(question);
+        return question.updateQuestionData();
     }
 }

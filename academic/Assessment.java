@@ -1,10 +1,12 @@
 package academic;
 
+import core.MySQLConnection;
 import java.util.HashMap;
-
+import java.util.Scanner;
 import user.Teacher;
 
 public abstract class Assessment{
+     Scanner input = new Scanner(System.in);
     public static int numberAssessments = 0;
     public int no;
     public int courseId;
@@ -39,5 +41,14 @@ public abstract class Assessment{
         System.out.println("Score: " + totalScore);
         System.out.println("Assigned by: " + (teacher != null ? teacher.toString() : "Anonymous"));
     }
+
+
+
+
+    
+
+
+
+
 }
 

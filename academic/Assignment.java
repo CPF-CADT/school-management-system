@@ -1,5 +1,6 @@
 package academic;
 
+import core.MySQLConnection;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import user.Teacher;
@@ -84,4 +85,35 @@ public class Assignment extends Assessment {
         System.out.println(studentName + " has submitted the assignment: " + title); 
         
     }
+
+    public boolean updateAssignmentData() {
+        String query = "UPDATE assignment SET description = '" + description + "' , title = '"+title+"' ,  instruction = '"+ instruction+ "'WHERE assignment_id = " + no;
+        MySQLConnection.executeUpdate(query);
+        return true;
+    }
+
+    public boolean updateDescriptionInAssignment(Assignment assignment) {
+        System.out.println("Enter the new description: ");
+        String newDescription = scanner.nextLine();
+        description = newDescription;
+        System.out.println(assignment);
+        return assignment.updateAssignmentData();
+    }
+
+    public boolean updateTitleInAssignment(Assignment assignment) {
+        System.out.println("Enter the new title: ");
+        String newTitle = scanner.nextLine();
+        title = newTitle;
+        System.out.println(assignment);
+        return assignment.updateAssignmentData();
+    }
+
+    public boolean updateInstructionInAssignment(Assignment assignment) {
+        System.out.println("Enter the new instruction: ");
+        String newInstruction = scanner.nextLine();
+        instruction = newInstruction;
+        System.out.println(assignment);
+        return assignment.updateAssignmentData();
+    }
+
 }

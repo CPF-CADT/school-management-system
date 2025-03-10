@@ -27,7 +27,7 @@ public class Login2 {
                     String firstName = result.getString("first_name");
                     String lastName = result.getString("last_name");
                     String address = result.getString("address");
-                    Student stu = new Student(userId, firstName, lastName, address, phone, userEmail, userPassword);
+                    Student stu = new Student();
                     System.out.println("Hello " + stu);
                     System.out.println("Login Success");
                 } else {

@@ -8,7 +8,9 @@ import java.util.HashMap;
 import core.Form;
 import core.MySQLConnection;
 import exception.NumberRangeExceptionHandling;
+import java.util.Scanner;
 public class Course {
+    Scanner input = new Scanner(System.in);
     static int totalCourse;
     private int courseId;
     
@@ -110,4 +112,28 @@ public class Course {
     public String getShortName() {
         return shortName;
     } 
+    public boolean updateCourseData(){
+      String query = "UPDATE Course SET name = '"+name+"', fee = "+fee+", description = '"+description+"' WHERE short_name = '"+shortName+"';";
+      MySQLConnection.executeUpdate(query);
+        return true;
+    }
+
+    public boolean updateFeeCourse(Course course){
+        System.out.println("Enter the new fee : ");
+        float newFee = input.nextFloat();
+        course.fee = newFee;
+        System.out.println(course);
+        return course.updateCourseData();
+    }
+
+    public boolean updateDescriptionInCourse(Course course){
+        System.out.println("Enter the new Description : ");
+        String newDescription = input.nextLine();
+        course.description = newDescription;
+        System.out.println(course);
+        return course.updateCourseData();
+    }
+
+
+
 }
