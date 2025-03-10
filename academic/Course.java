@@ -70,6 +70,7 @@ public class Course {
             }
         }
     }
+    @SuppressWarnings("unused")
     public static Course selectCourse(){
         displayCourses();
         System.out.print("Entetr Course ID : ");
@@ -90,6 +91,7 @@ public class Course {
 
         }
     }  
+    @SuppressWarnings("unused")
     public static void syncCourse(String shortName){
         String query = "SELECT * FROM Course WHERE short_name = '"+shortName+"';";
         ResultSet result = MySQLConnection.executeQuery(query);

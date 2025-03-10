@@ -3,6 +3,8 @@ package user;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.stream.Stream;
 
 import academic.CourseInstance;
 import core.Form;
@@ -16,6 +18,7 @@ public class Teacher extends User {
     final static String EMAIL_FORMAT = "@tch.kdc.edu";
     public ArrayList<String> teachingCourseId = new ArrayList<String>();
     public String major;
+    public boolean status;
     // login
     public Teacher(String email, String password) {
         super(email, password);
@@ -24,11 +27,14 @@ public class Teacher extends User {
     // Teacher (User user,String major,ArrayList<String> teaching){
     //     this = (Teacher) user;
     // }
-    public Teacher(String id,String firstName, String lastName, String address, String phoneNumber,String email,String password,String major) {
-        super(firstName,lastName, address, phoneNumber,email);
+    public Teacher(String id,String firstName, String lastName, String address, String phoneNumber,String email,String password,String major,boolean status) {
+        super(firstName,lastName, address, phoneNumber,email,password);
         this.id = id;
         this.major = major;
-        syncCourse();
+        this.status = true;
+        if(MySQLConnection.testConnection()){
+            syncCourse();
+        }
         User.listUser.put(this.id, this);
     }
     // register
@@ -39,12 +45,20 @@ public class Teacher extends User {
         this.major = major;
         User.listUser.put(this.id, this);
     }
+    private String isActive(boolean status){
+        if(status){
+            return "Active";
+        }else{
+            return "non-active";
+        }
+    }
 
     @Override
     public String toString() {
         String userInfo = super.toString();
         userInfo += "ID           : " + id + "\n"
                  + "Major         : " + major + "\n"
+                 + "Status        : " + isActive(status) + "\n"
                  + "Course         : " + teachingCourseId + "\n"
                  + "====================================\n";
         return userInfo;
@@ -72,6 +86,7 @@ public class Teacher extends User {
         System.out.print("Choose Course : ");
         try{
             int choose = Form.inputInteger();
+            @SuppressWarnings("unused")
             NumberRangeExceptionHandling c = new NumberRangeExceptionHandling(1,teachingCourseId.size(),choose);
             CourseInstance cStudy = CourseInstance.listCourseInstace.get(teachingCourseId.get(choose-1));
             return cStudy;
@@ -87,8 +102,8 @@ public class Teacher extends User {
 
     public int registerToMySQL() throws SQLException {        
         int row = super.registerToMySQL();
-        String teacherQuery = "INSERT INTO Teachers (user_id, role_major) "
-        + "VALUES ('" + id + "', '" + major + "');";    
+        String teacherQuery = "INSERT INTO Teachers (user_id, role_major,status) "
+        + "VALUES ('" + id + "', '" + major + "','"+status+"');";    
         row += MySQLConnection.executeUpdate(teacherQuery);
         MySQLConnection.closeConnection();
         return row;
@@ -103,9 +118,15 @@ public class Teacher extends User {
                     teachingCourseId.add(courseId);
                 }
                 CourseInstance.syncCourseInstance(teachingCourseId);
-            }catch(Exception e){
+            }catch(NullPointerException e){
                 System.out.println("You Dont Have class");
+            }catch(SQLException e){
+                System.out.println(e.getMessage());
             }
         }
+    }
+    @Override
+    public String[] toCSVFormat() {
+        return Stream.concat(Arrays.stream(super.toCSVFormat()), Stream.of(new String[]{major,String.valueOf(status)})).toArray(String[]::new);
     }
 }
