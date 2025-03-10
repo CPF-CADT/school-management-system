@@ -16,11 +16,8 @@ public class Assignment extends Assessment {
     }
 
     @Override
-    public void addStudentScore(int studentId, float score) {
+    public void addStudentScore(String studentId, float score) {
         try {
-            if (studentId <= 0) {
-                throw new IllegalArgumentException("Invalid student ID.");
-            }
             if (score < 0 || score > totalScore) {
                 throw new IllegalArgumentException("Score must be between 0 and " + totalScore + ".");
             }
@@ -30,11 +27,11 @@ public class Assignment extends Assessment {
         }
     }
 
-    @Override
-    public void displayAssessment() {
-        super.displayAssessment();
-        System.out.println("Description: " + description);
-    }
+    // @Override
+    // public void displayAssessment() {
+    //     super.displayAssessment();
+    //     System.out.println("Description: " + description);
+    // }
 
     //for teacher  to create an assignment
 

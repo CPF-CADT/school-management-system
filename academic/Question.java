@@ -1,35 +1,53 @@
 package academic;
-import core.MySQLConnection;
 import java.util.HashMap;
 import java.util.Scanner;
-
 import user.Teacher;
 
 public class Question {
     Scanner input = new Scanner(System.in);
-    public String question;
-    protected float marks;
-    private HashMap<Integer,String> answer = new HashMap<Integer,String>();
-    public int correctAnswer;
-    Question(String question,float marks,int correctAnswer){
+    private String question;
+    private float  marks;
+    private char correctAnswer;
+    private HashMap<Character,String> choices = new HashMap<>();
+    private final char[] option =  new char[]{'A','B','C','D'};
+
+    public Question() {
+    }
+    
+    public Question(String question,float  marks,char correctAnswer,HashMap<Character,String>choices){
         this.question = question;
         this.marks = marks;
         this.correctAnswer = correctAnswer;
+        this.choices=choices;
     }
-    Question(){
+    public String getQuestion() {
+        return question;
+    }
+    public double getMarks() {
+        return marks;
+    }
+    public char getCorrectAnswer() {
+        return correctAnswer;
+    }
+    
 
-    }
+    // @Override
+    // public String toString() {
+    //     return "Question [ question=" + question + ", marks=" + marks + ", correctAnswer="
+    //             + correctAnswer + ", choices=" + Arrays.toString(choices) + "]";
+    // }
     public void createQuestion(Object user){
         if(user instanceof Teacher){
             System.out.print("Enter Question : ");
             question = input.nextLine();
             System.out.println("Enter Answer");
             for(int i=0;i<4;i++){
-                System.out.print((i+1)+". ");
-                answer.put(i, input.nextLine());
+                System.out.print((option[i])+". ");
+                String answer = input.nextLine();
+                choices.put(option[i], answer);
             }
-            System.out.print("Set Correct Answer (1-4) : ");
-            correctAnswer = input.nextInt();
+            System.out.print("Set Correct Answer (A-D) : ");
+            correctAnswer = input.next().charAt(0);
             System.out.print("Set Mark : ");
             marks = input.nextFloat();
         }else{
@@ -39,31 +57,32 @@ public class Question {
     public float answerQuestion(){
         System.out.println("Question : "+question);
         for(int i=0;i<4;i++){
-            System.out.println((i+1) + ". "+answer.get(i));
+            System.out.print(option[i]+" . "+ choices.get(option[i])+"\n");
         }
         System.out.print("Enter : ");
-        if(correctAnswer == input.nextInt()){
+        if(correctAnswer == input.next().charAt(0)){
             return marks;
         }
         return 0.0f;
     }
-    public boolean updateQuestionData(){
-        String query = "UPDATE question SET question = '" + question + "' , marks = '"+marks+"' WHERE question_id = " + no;
-        MySQLConnection.executeUpdate(query);
-        return true;
-    }
-    public boolean updateQuestion(Question question) {
-        System.out.println("Enter the new question: ");
-        String newQuestion = input.nextLine();
-        this.question = newQuestion;
-        System.out.println(question);
-        return question.updateQuestionData();
-    }
-    public boolean updateMarks(Question question) {
-        System.out.println("Enter the new marks: ");
-        float newMarks = input.nextFloat();
-        this.marks = newMarks;
-        System.out.println(question);
-        return question.updateQuestionData();
-    }
+    // public boolean updateQuestionData(){
+    //     String query = "UPDATE question SET question = '" + question + "' , marks = '"+marks+"' WHERE question_id = " + no;
+    //     MySQLConnection.executeUpdate(query);
+    //     return true;
+    // }
+    // public boolean updateQuestion(Question question) {
+    //     System.out.println("Enter the new question: ");
+    //     String newQuestion = input.nextLine();
+    //     this.question = newQuestion;
+    //     System.out.println(question);
+    //     return question.updateQuestionData();
+    // }
+    // public boolean updateMarks(Question question) {
+    //     System.out.println("Enter the new marks: ");
+    //     float newMarks = input.nextFloat();
+    //     this.marks = newMarks;
+    //     System.out.println(question);
+    //     return question.updateQuestionData();
+    // }
+
 }

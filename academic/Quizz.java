@@ -1,15 +1,13 @@
 package academic;
 
-import java.util.ArrayList;
-
 import core.MySQLConnection;
+import java.util.ArrayList;
 import user.Teacher;
 
 public class Quizz extends Assessment{
-    private ArrayList<Question> tasks; 
-    
-    public Quizz(int courseId, String title, Teacher teacher, float score,String description) {
-        super(courseId, title, teacher,score,description);
+    private ArrayList<Question> tasks = new ArrayList<Question>(); 
+    public Quizz(int courseId, String title, Teacher teacher, float score, String description) {
+        super(courseId, title, teacher, score, description);
         
     }
     public Question getTask(int index) {
@@ -22,7 +20,7 @@ public class Quizz extends Assessment{
             System.out.println("Access denied: You Dont have permission!");
         }
     }
-    public float attemp(int studentId){
+    public float attemp(String studentId){
         float total =0.0f;
         int numberOfQuestion =0;
         for(Question task : tasks){
@@ -32,10 +30,10 @@ public class Quizz extends Assessment{
         }
         return total; 
     }
-    @Override
+    // @Override
     //add student score
 
-    public void addStudentScore(int studentId, float score) {
+    public void addStudentScore(String studentId, float score) {
         totalScore = attemp(studentId);
         System.out.println("Student ID: " + studentId + " Totalscore: " + totalScore);
         studentScore.put(studentId, totalScore);
@@ -62,4 +60,32 @@ public class Quizz extends Assessment{
         System.out.println(quizz);
         return quizz.updateQuizzData();
     }
+    // @Override
+    // public void addStudentScore(String studentId, float score) {
+    //     // TODO Auto-generated method stub
+    //     throw new UnsupportedOperationException("Unimplemented method 'addStudentScore'");
+    // }
+
+    // public  void createQuiz(){
+        
+    //     System.out.println("How many question you want to add?");
+    //     int n = input.nextInt();
+    //     for(int i=0;i<n;i++){
+    //         System.out.println("Input question "+(i+1));
+    //         String question = input.next();
+    //         System.out.println("Input marks"+(i+1));
+    //         double marks = input.nextFloat();
+    //         System.out.println("Input correct answer"+(i+1));
+    //         char correctAnswer = input.next().charAt(0);
+    //         System.out.println("Input 4choices "+(i+1));
+    //         String[] choices = new String[4];
+    //         for (int j = 0; j < 4; j++) {
+    //             char label = (char) ('a' + j);
+    //             System.out.print(label + ") ");
+    //             choices[j] = input.next();
+    //         }
+    //         // tasks.add(q);
+
+    //     }
+    // }
 }
