@@ -156,7 +156,7 @@ public class Student  extends User{
         }
         MySQLConnection.closeConnection();
     }
-
+    @Override
     public int registerToMySQL() throws SQLException {        
         int row = super.registerToMySQL();
         String query = "INSERT INTO Students (user_id,status) "

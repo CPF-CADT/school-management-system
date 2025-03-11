@@ -1,10 +1,11 @@
 package academic;
 
 import java.util.HashMap;
-
+import java.util.Scanner;
 import user.Teacher;
 
 public abstract class Assessment{
+    Scanner input = new Scanner(System.in);
     public static int numberAssessments = 0;
     public int no;
     public int courseId;
@@ -14,7 +15,7 @@ public abstract class Assessment{
     public String description;
 
     //id key and value score
-    public HashMap<Integer, Float> studentScore = new HashMap<Integer, Float>();
+    public HashMap<String, Float> studentScore = new HashMap<String, Float>();
 
     // Constructor
     public Assessment(int courseId, String title, Teacher teacher,float score, String description) {
@@ -28,16 +29,25 @@ public abstract class Assessment{
     }
 
     //add student score
-    public abstract void addStudentScore(int studentId, float score);
+    public abstract void addStudentScore(String studentId, float score);
 
     //
 
     // Display assessment details
-    public void displayAssessment() {
-        System.out.println("Course ID: " + courseId);
-        System.out.println("Title: " + title);
-        System.out.println("Score: " + totalScore);
-        System.out.println("Assigned by: " + (teacher != null ? teacher.toString() : "Anonymous"));
-    }
+    // public void displayAssessment() {
+    //     System.out.println("Course ID: " + courseId);
+    //     System.out.println("Title: " + title);
+    //     System.out.println("Score: " + totalScore);
+    //     System.out.println("Assigned by: " + (teacher != null ? teacher.toString() : "Anonymous"));
+    // }
+
+
+
+
+    
+
+
+
+
 }
 

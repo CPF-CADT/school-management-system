@@ -1,8 +1,7 @@
 package progress;
+import java.sql.SQLException;
 import user.Student;
 import user.Teacher;
-
-import java.sql.SQLException;
 
 public class TestMYSQL {
     public static void main(String[] args) throws SQLException {
@@ -18,8 +17,9 @@ public class TestMYSQL {
                     System.out.println(t2);
         Student.syncNumberOfUser();
         Student s1=new Student("kon","khmer","82","123");
+        Student s2=new Student("kon","alien","70","9283");
         try {
-            s1.registerToMySQL();
+            s2.registerToMySQL();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

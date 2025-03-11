@@ -109,7 +109,6 @@ public abstract class User {
         } else {
             return false;
         }
-
     }
 
     public String getEmail() {
@@ -154,4 +153,90 @@ public abstract class User {
     public String[] toCSVFormat(){
         return new String[]{id,firstName,lastName,dob.toString(),address,email,phoneNumber,password};
     } 
+
+    public boolean updateData(){
+        String query = "UPDATE User SET first_name = '" + firstName + "', last_name = '" + lastName + "', dob = '" + dob.toString() + "', address = '" + address + "', email = '" + email + "', phone_number = '" + phoneNumber + "', password = '" + password + "' WHERE id = '" + id + "';";
+        MySQLConnection.executeUpdate(query);
+        return true;
+    }
+
+    public boolean updateFirstName(User user) {
+        System.out.println("Enter the Password to comfirm: ");
+        String Cfpassword = input.nextLine();
+        if (checkPassword(Cfpassword)) {
+            System.out.println("Enter the new first name: ");
+            String newFirstName = input.nextLine();
+            user.firstName = newFirstName;
+            System.out.println(user);
+            return user.updateData();
+        } else {
+            System.out.println("Password Invalid");
+            return false;
+        }
+    }
+
+    public boolean updateLastName(User user) {
+        System.out.println("Enter the Password to comfirm: ");
+        String Cfpassword = input.nextLine();
+        if (checkPassword(Cfpassword)) {
+            System.out.println("Enter the new last name: ");
+            String newLastName = input.nextLine();
+            user.lastName = newLastName;
+            System.out.println(user);
+            return user.updateData();
+        } else {
+            System.out.println("Password Invalid");
+            return false;
+        }
+
+    }
+
+    public boolean updateAddress(User user) {
+        System.out.println("Enter the Password to comfirm: ");
+        String Cfpassword = input.nextLine();
+        if (checkPassword(Cfpassword)) {
+            System.out.println("Enter the new Address: ");
+            String newAddress = input.nextLine();
+            user.address = newAddress;
+            System.out.println(user);
+            return user.updateData();
+        } else {
+            System.out.println("Password Invalid");
+            return false;
+        }
+
+    }
+
+    public boolean updatePassword(User user) {
+        System.out.println("Enter the Password to comfirm: ");
+        String Cfpassword = input.nextLine();
+        if (checkPassword(Cfpassword)) {
+
+            System.out.println("Enter the new Password: ");
+            String newPassword = input.nextLine();
+            user.password = newPassword;
+            System.out.println(user);
+            return user.updateData();
+        } else {
+            System.out.println("Password Invalid");
+            return false;
+        }
+
+    }
+
+    public boolean updatePhoneNumber() {
+
+        System.out.println("Enter the Password to comfirm: ");
+        String Cfpassword = input.nextLine();
+        if (checkPassword(Cfpassword)) {
+            System.out.println("Enter the new PhoneNumber: ");
+            String newPhoneNumber = input.nextLine();
+            this.phoneNumber = newPhoneNumber;
+            return updateData();
+        } else {
+            System.out.println("Password Invalid");
+            return false;
+        }
+
+    }
 }
