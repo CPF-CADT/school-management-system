@@ -17,25 +17,33 @@ public class Form implements Authentication{
     public int TYPE_OF_USER = 3;
     @Override
     public User login() {
-        // System.out.print("Email address : ");
-        // String email = input.next();
-        // System.out.print("Password      : ");
-        // String passsword = input.next();
+
+        System.out.print("Email address : ");
+        String email = input.next();
+        System.out.print("Password      : ");
+        String passsword = input.next();
+
+        // //TEST LOGIN
+        // String email = "charlie.williams@tch.kdc.edu";
+        // String passsword = "password789";
+
         
-        // User user = null;   
-        // if (loadData(email,passsword)) {
-        //     if(email.endsWith("@tch.kdc.edu")) {
-        //         user = new Teacher(email, passsword);
-        //     }else if(email.endsWith("@stu.kdc.edu")){
-        //         user = new Student(email, passsword);
-        //     }else{
-        //         user = new Admin(email, passsword);
-        //     }
-        //     return User.login(user);
-        // }
+        User user = null;   
+        if (loadData(email,passsword)!=null) {
+            System.out.println("Welcome to Khode");
+            if(email.endsWith("@tch.kdc.edu")) {
+                user = new Teacher(email, passsword);
+            }else if(email.endsWith("@stu.kdc.edu")){
+                user = new Student(email, passsword);
+            }else{
+                user = new Admin(email, passsword);
+            }
+            return User.login(user);
+        }
         // System.out.println("Fail");
-        return loadData("alice.smith@tch.kdc.edu","password123");
+        return null;
     }
+    @SuppressWarnings("unused")
     @Override
     public boolean register(){
         String lastName, firstName, address, phoneNumber, role_major;
@@ -94,7 +102,6 @@ public class Form implements Authentication{
                         System.out.println("Invalid user type! Registration failed.");
                         return false;
                 }
-                MySQLConnection.executeUpdate("INSERT INTO");
                 return true;
             }catch(IllegalArgumentException registerCheck){
                 f.clearScreen();
@@ -132,6 +139,7 @@ public class Form implements Authentication{
         }
     }
 
+    @SuppressWarnings("unused")
     private static boolean isValidEmailFormat(String input) {
         return input.endsWith("@adm.kdc.edu") ||
                 input.endsWith("@tch.kdc.edu") ||
@@ -140,9 +148,9 @@ public class Form implements Authentication{
     public User loadData(String email,String password){
         String query;
         if (email.endsWith("@stu.kdc.edu")){
-            query = "SELECT u.id,u.first_name,u.last_name,u.dob,u.address,u.email,u.phone_number,u.password FROM User AS u JOIN Students AS s ON u.id = s.user_id WHERE email = '"+email+"' AND password = '"+password+"';";
+            query = "SELECT u.id,u.first_name,u.last_name,u.dob,u.address,u.email,u.phone_number,u.password,s.status FROM User AS u JOIN Students AS s ON u.id = s.user_id WHERE email = '"+email+"' AND password = '"+password+"';";
         }else if(email.endsWith("@tch.kdc.edu")){
-            query = "SELECT u.id, u.first_name, u.last_name, u.dob, u.address, u.email, u.phone_number, u.password, t.role_major FROM User AS u JOIN Teachers AS t ON u.id = t.user_id WHERE u.email = '"+email+"' AND u.password = '"+password+"';";
+            query = "SELECT u.id, u.first_name, u.last_name, u.dob, u.address, u.email, u.phone_number, u.password, t.role_major,t.status FROM User AS u JOIN Teachers AS t ON u.id = t.user_id WHERE u.email = '"+email+"' AND u.password = '"+password+"';";
         }else {
             query = "SELECT u.id,u.first_name,u.last_name,u.dob,u.address,u.email,u.phone_number,u.password,role_major,t. FROM User AS u JOIN Admin AS s ON u.id = s.user_id "+ "WHERE email = '" + email + "' AND password = '" + password + "';"; //NOT READY 
         }
@@ -157,12 +165,14 @@ public class Form implements Authentication{
                     String firstName = result.getString("first_name");
                     String lastName = result.getString("last_name");
                     String address = result.getString("address");
+                    boolean status = result.getBoolean("status");
+
                     if (email.endsWith("@stu.kdc.edu")){
-                        Student user = new Student();
+                        Student user = new Student(userId, firstName, lastName, address, phone, userEmail, userPassword,status);
                         return user;
                     }else if(email.endsWith("@tch.kdc.edu")){
                         String major = result.getString("role_major");
-                        Teacher user = new Teacher( userId, firstName,  lastName,  address,  phone, email, password, major);
+                        Teacher user = new Teacher( userId, firstName,  lastName,  address,  phone, email, password, major,status);
                         return user;
                     }
                 } else {

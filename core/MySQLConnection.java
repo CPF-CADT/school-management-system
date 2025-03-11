@@ -4,11 +4,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.SQLSyntaxErrorException;
+// import java.sql.SQLSyntaxErrorException;
 import java.sql.Statement;
 
-import com.mysql.cj.exceptions.CJCommunicationsException;
-import com.mysql.cj.jdbc.exceptions.CommunicationsException;
+// import com.mysql.cj.exceptions.CJCommunicationsException;
+// import com.mysql.cj.jdbc.exceptions.CommunicationsException;
 
 public class MySQLConnection {
     
@@ -23,17 +23,6 @@ public class MySQLConnection {
         if (connection == null) {
             try {
                 connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-            }catch (CJCommunicationsException e) {
-                System.out.println("please check ur db server");
-               
-            }
-            catch (CommunicationsException e) {
-                System.out.println("please check ur db server");
-                
-            }
-            catch (SQLSyntaxErrorException e) {
-                System.out.println("Connection failed!");
-                
             }
             catch (SQLException e) {
                 System.out.println("Connection failed!");
@@ -94,6 +83,12 @@ public class MySQLConnection {
                 System.out.println("Failed to close the connection!");
             }
         }
+    }
+    public static boolean testConnection() {
+        if(getConnection()==null){
+            return false;
+        }
+        return true;
     }
     public static void main(String[] args) {
         MySQLConnection.getConnection();

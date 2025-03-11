@@ -3,7 +3,7 @@ package exception;
 import user.Admin;
 import user.Student;
 import user.Teacher;
-import user.User;
+// import user.User;
 
 public class CastFromUserToAnotherException extends ClassCastException {
     CastFromUserToAnotherException(String message){
