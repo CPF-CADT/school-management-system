@@ -20,12 +20,12 @@ public class Student  extends User{
         super(email, password);
     }
 
-    public Student(String id,String firstName, String lastName, String address, String phoneNumber,String email,String password) {
-        super(firstName,lastName, address, phoneNumber,email);
-        this.id = id;
-        syncCourse();
-        User.listUser.put(this.id, this);
-    }
+    // public Student() {
+    //     super(firstName,lastName, address, phoneNumber,email);
+    //     this.id = id;
+    //     syncCourse();
+    //     User.listUser.put(this.id, this);
+    // }
     
     //register
     public Student(String firstName, String lastName, String address, String phoneNumber) {
@@ -141,7 +141,7 @@ public class Student  extends User{
         }
         MySQLConnection.closeConnection();
     }
-
+    @Override
     public int registerToMySQL() throws SQLException {        
         int row = super.registerToMySQL();
         String query = "INSERT INTO Students (user_id) "

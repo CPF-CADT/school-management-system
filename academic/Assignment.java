@@ -1,5 +1,6 @@
 package academic;
 
+import core.MySQLConnection;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import user.Teacher;
@@ -15,11 +16,8 @@ public class Assignment extends Assessment {
     }
 
     @Override
-    public void addStudentScore(int studentId, float score) {
+    public void addStudentScore(String studentId, float score) {
         try {
-            if (studentId <= 0) {
-                throw new IllegalArgumentException("Invalid student ID.");
-            }
             if (score < 0 || score > totalScore) {
                 throw new IllegalArgumentException("Score must be between 0 and " + totalScore + ".");
             }
@@ -29,11 +27,11 @@ public class Assignment extends Assessment {
         }
     }
 
-    @Override
-    public void displayAssessment() {
-        super.displayAssessment();
-        System.out.println("Description: " + description);
-    }
+    // @Override
+    // public void displayAssessment() {
+    //     super.displayAssessment();
+    //     System.out.println("Description: " + description);
+    // }
 
     //for teacher  to create an assignment
 
@@ -84,4 +82,35 @@ public class Assignment extends Assessment {
         System.out.println(studentName + " has submitted the assignment: " + title); 
         
     }
+
+    public boolean updateAssignmentData() {
+        String query = "UPDATE assignment SET description = '" + description + "' , title = '"+title+"' ,  instruction = '"+ instruction+ "'WHERE assignment_id = " + no;
+        MySQLConnection.executeUpdate(query);
+        return true;
+    }
+
+    public boolean updateDescriptionInAssignment(Assignment assignment) {
+        System.out.println("Enter the new description: ");
+        String newDescription = scanner.nextLine();
+        description = newDescription;
+        System.out.println(assignment);
+        return assignment.updateAssignmentData();
+    }
+
+    public boolean updateTitleInAssignment(Assignment assignment) {
+        System.out.println("Enter the new title: ");
+        String newTitle = scanner.nextLine();
+        title = newTitle;
+        System.out.println(assignment);
+        return assignment.updateAssignmentData();
+    }
+
+    public boolean updateInstructionInAssignment(Assignment assignment) {
+        System.out.println("Enter the new instruction: ");
+        String newInstruction = scanner.nextLine();
+        instruction = newInstruction;
+        System.out.println(assignment);
+        return assignment.updateAssignmentData();
+    }
+
 }
