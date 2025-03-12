@@ -5,6 +5,7 @@ import core.*;
 import user.*;
 
 public class Main {
+    @SuppressWarnings("unused")
     public static void main(String[] args) {
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++++");
         System.out.println("+             KHMER DEGITAL CENTER           +");
@@ -25,7 +26,7 @@ public class Main {
         // }else{
         //     //use local session
         // }
-        
+        System.out.println(User.listUser);
         do {
             System.out.println("Login\n");
             User user = form.login();

@@ -1,3 +1,4 @@
 *.class 
 .vscode/
-# core/MySQLConnection.java
+/out
+core/MySQLConnection.java

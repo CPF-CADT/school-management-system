@@ -32,7 +32,7 @@ public abstract class User {
         this.phoneNumber = phoneNumber;
         dob = LocalDate.of(2025, 1, 1); // need to input later
         this.email = email;
-        this.password = password; // defult password
+        this.password = password;
     }
 
     public User(String email, String password) {
@@ -78,8 +78,9 @@ public abstract class User {
         return null;
     }
 
+    @SuppressWarnings("unused")
     @Override
-    public boolean equals(Object obj) throws ClassCastException {
+    public boolean equals(Object obj){
         try {
             CastToUserHandleException c = new CastToUserHandleException(obj);
             User log = (User) obj;
@@ -141,7 +142,6 @@ public abstract class User {
     private String generateEmail(String format) {
         return firstName + "." + lastName + numberOfUser + format;
     }
-
     public int registerToMySQL() throws SQLException {
         String userQuery = "INSERT INTO User (id, first_name, last_name, dob, address, email, phone_number, password) "
                 + "VALUES ('" + id + "', '" + firstName + "', '" + lastName + "', '" + dob.toString() + "', '"
@@ -149,6 +149,9 @@ public abstract class User {
         int row = MySQLConnection.executeUpdate(userQuery);
         MySQLConnection.closeConnection();
         return row;
+    }
+    public String[] toCSVFormat(){
+        return new String[]{id,firstName,lastName,dob.toString(),address,email,phoneNumber,password};
     } 
 
     public boolean updateData(){

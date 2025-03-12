@@ -1,6 +1,5 @@
 package academic;
 
-import java.lang.reflect.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -132,6 +131,7 @@ public class CourseInstance {
             System.out.println("Access Denied : teacherID Only");
         }
     }
+    @SuppressWarnings("unused")
     public static void syncCourseInstance(ArrayList<String> instanceID){
         //check instanceID is null or not
         for(String classID : instanceID){

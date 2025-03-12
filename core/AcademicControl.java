@@ -6,6 +6,7 @@ import java.util.Scanner;
 import user.*;
 public class AcademicControl {
     static Scanner input = new Scanner(System.in);
+    @SuppressWarnings("unused")
     public static boolean createCourse(User user) {
         if (!(user instanceof Admin)) {
             System.out.println("Permission Denied: Only Admins can create courses.");
@@ -15,8 +16,8 @@ public class AcademicControl {
             String name = input.nextLine();
             System.out.print("Enter Short Name: ");
             String shortName = input.next();
-            System.out.print("Enter Level: ");
-            String level = input.next();
+            // System.out.print("Enter Level: ");
+            // String level = input.next();
             System.out.print("Enter Fee: ");
             float fee = (float) Form.inputNumber();
             input.nextLine();
@@ -27,6 +28,7 @@ public class AcademicControl {
         }
     }
 
+    @SuppressWarnings("unused")
     public static boolean createClass(User user){
         if (!(user instanceof Admin)) {
             System.out.println("Permission Denied: Only Admins can create class.");
@@ -56,6 +58,7 @@ public class AcademicControl {
         // CourseInstance course = new CourseInstance( null, teacher, year,term,group);
         return true;
     }
+    @SuppressWarnings("unused")
     public static void courseInterfacceForTeacher(Teacher teach,CourseInstance classLearn){
         System.out.println("------------- "+ classLearn.course.name  +"------------- ");
         System.out.println(" -  "+classLearn.course.description);
