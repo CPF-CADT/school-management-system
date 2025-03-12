@@ -34,4 +34,7 @@ public class Encryption {
         // Compare the hashed input with the stored hashed password
         return hashedInputPassword.equals(storedHashedPassword);
     }
+    public static void main(String[] args) {
+        System.out.println(Encryption.hashPassword("12345678"));
+    }
 }
