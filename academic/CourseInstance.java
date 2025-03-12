@@ -8,6 +8,8 @@ import java.util.Scanner;
 
 import core.Form;
 import core.MySQLConnection;
+import exception.NumberRangeExceptionHandling;
+import java.sql.Date;
 import user.Admin;
 import user.Student;
 import user.Teacher;
@@ -22,10 +24,10 @@ public class CourseInstance {
     public int year;
     public int term;
     public String group;
-
-    private ArrayList<String> listStudent = new ArrayList<>(30); //future will store referenece of student
+    ArrayList<String> listStudent = new ArrayList<>(30); //future will store referenece of student
     private ArrayList<Quizz> quizzes = new ArrayList<Quizz>();
     private ArrayList<Assignment> assignments = new ArrayList<>();
+    private HashMap<String, ArrayList<Attendent>> attendents = new HashMap<>();
     private String keyIdentical;
     
     private HashMap<String,ArrayList<Grading>> stuGrade =  new HashMap<String,ArrayList<Grading>>();
@@ -173,6 +175,66 @@ public class CourseInstance {
         }
 
         return list;
+    }
+
+        public class Attendent {
+        
+        Scanner input = new Scanner(System.in);
+        private boolean present;
+        private boolean late;
+        private boolean absent;
+        private boolean permission;
+        private Date date;
+        private int session;
+        public Attendent() {
+        }
+
+        public void tick() {
+            System.out.println("1. Present");
+            System.out.println("2. Late");
+            System.out.println("3. Absent");
+            System.out.println("4. Permission");
+            System.out.print("Choose: ");
+            int choice = input.nextInt();
+            try {
+                NumberRangeExceptionHandling stuOption = new NumberRangeExceptionHandling(1, 4, choice);
+                switch (choice) {
+                    case 1:
+                        present = true;
+                        late = absent = permission = false;
+                        break;
+                    case 2:
+                        late = true;
+                        present = absent = permission = false;
+                        break;
+                    case 3:
+                        absent = true;
+                        present = late = permission = false;
+                        break;
+                    case 4:
+                        permission = true;
+                        present = late = absent = false;
+                        break;
+                    default:
+                        System.out.println("Invalid choice");
+                        break;
+                }
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        
+        public void checkAttendance(Teacher teacher) {
+            if (teacher instanceof Teacher) {
+                for (String student : listStudent) {
+                    System.out.println("Enter attendance for student: " + student);
+                    tick();
+                }
+                System.out.println("Attendance checked successfully!");
+            } else {
+                System.out.println("Access denied: You don't have permission!");
+            }
+        }
     }
 
 

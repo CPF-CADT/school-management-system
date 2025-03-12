@@ -1,10 +1,9 @@
 package core;
-import user.*;
-
-import java.util.Scanner;
 import academic.*;
 import exception.CastFromUserToAnotherException;
 import exception.NumberRangeExceptionHandling;
+import java.util.Scanner;
+import user.*;
 public class AcademicControl {
     static Scanner input = new Scanner(System.in);
     @SuppressWarnings("unused")

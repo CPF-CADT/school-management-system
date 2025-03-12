@@ -1,10 +1,9 @@
 package progress;
 
-import java.util.Scanner;
-
 import academic.Course;
 import academic.CourseInstance;
 import core.AcademicControl;
+import java.util.Scanner;
 import user.Admin;
 import user.Student;
 import user.Teacher;

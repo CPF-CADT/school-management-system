@@ -1,13 +1,13 @@
 package progress;
 
+import academic.Course;
+import academic.CourseInstance;
+import core.AcademicControl;
+import java.util.Scanner;
 import user.Admin;
 import user.Student;
 import user.Teacher;
 import user.User;
-import java.util.Scanner;
-import academic.Course;
-import academic.CourseInstance;
-import core.AcademicControl;
 
 public class TestCourse {
     public static void main(String[] args) {
