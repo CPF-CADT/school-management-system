@@ -19,11 +19,11 @@ public class CombinedDashboard {
         sidebar.setLayout(new BoxLayout(sidebar, BoxLayout.Y_AXIS));
 
         // "Teacher" Title Label
-        JLabel welcomeLabel = new JLabel(" Teacher");
+        JLabel welcomeLabel = new JLabel(" Welcome, Teacher");
         welcomeLabel.setForeground(Color.WHITE);
-        welcomeLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        welcomeLabel.setFont(new Font("Arial", Font.BOLD, 16));
         welcomeLabel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 10));
-        sidebar.add(welcomeLabel);
+        sidebar.add(welcomeLabel);  
 
         // Sidebar Buttons
         String[] menuItems = {"Home", "Attendance", "Teaching Course", "Drop Lesson", "Quiz", "Check Assignment", "Grade"};
@@ -135,9 +135,9 @@ public class CombinedDashboard {
         topBar.add(profileLabel, BorderLayout.EAST);
 
         // Search Bar
-        JPanel searchPanel = new JPanel();
-        searchPanel.setLayout(new FlowLayout(FlowLayout.LEFT)); // Align components to the left
-        searchPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20)); // Add padding around the search bar
+        // JPanel searchPanel = new JPanel();
+        // searchPanel.setLayout(new FlowLayout(FlowLayout.LEFT)); // Align components to the left
+        // searchPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20)); // Add padding around the search bar
 
         // Create the search field with a larger size
         JTextField searchField = new JTextField(30); // Increase the number of columns to make it wider
@@ -145,7 +145,7 @@ public class CombinedDashboard {
         searchField.setFont(new Font("Arial", Font.PLAIN, 16)); // Increase the font size for better readability
 
         // Add the search field to the search panel
-        searchPanel.add(searchField);
+        // searchPanel.add(searchField);
 
         // Add a search button (optional)
         JButton searchButton = new JButton("Search");
@@ -154,17 +154,17 @@ public class CombinedDashboard {
         searchButton.setBackground(new Color(30, 70, 160)); // Set button color
         searchButton.setForeground(Color.WHITE); // Set text color
         searchButton.setFocusPainted(false); // Remove focus border
-        searchPanel.add(searchButton);
+        // searchPanel.add(searchButton);
 
         // Main Content Panel
         JPanel mainContent = new JPanel();
         mainContent.setBackground(new Color(255, 230, 230)); // Light Pink
         mainContent.setLayout(new BorderLayout());
-        mainContent.add(searchPanel, BorderLayout.NORTH);
+        // mainContent.add(searchPanel, BorderLayout.NORTH);
 
         // Card Panel for Courses
         JPanel cardPanel = new JPanel();
-        cardPanel.setLayout(new GridLayout(2, 3, 15, 15)); // 2 rows, 3 columns
+        cardPanel.setLayout(new GridLayout(3, 5, 15, 15)); // 2 rows, 3 columns
         cardPanel.setBorder(BorderFactory.createEmptyBorder(20, 40, 40, 40));
         cardPanel.setBackground(new Color(255, 230, 230)); // Same as background
 
