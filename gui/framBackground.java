@@ -22,12 +22,12 @@ import javax.swing.JPanel;
 
 
 public class framBackground {
-    JFrame frame = new JFrame("Teacher Dashboard");
-    JPanel sidebar = new JPanel();
-    JPanel topBar = new JPanel();
-    JLabel profileLabel = new JLabel("Profile");
-    JLabel titleLabel = new JLabel("Teacher");
-    JPanel burgerPanel = new JPanel() {
+    public JFrame frame = new JFrame("Teacher Dashboard");
+    public JPanel sidebar = new JPanel();
+    public JPanel topBar = new JPanel();
+    public JLabel profileLabel = new JLabel("Profile");
+    public JLabel titleLabel = new JLabel("Teacher");
+    public JPanel burgerPanel = new JPanel() {
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
@@ -85,6 +85,11 @@ public class framBackground {
                 burgerPanel.setCursor(Cursor.getDefaultCursor());
             }
         });
+        frame.setVisible(true);
+        frame.add(sidebar, BorderLayout.WEST);
+        frame.add(topBar, BorderLayout.NORTH);
+        
+
 
         }
     public  class sideBar{
