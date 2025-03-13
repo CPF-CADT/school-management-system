@@ -8,13 +8,20 @@ import user.*;
 public class Main {
     @SuppressWarnings("unused")
     public static void main(String[] args) {
+        headerProgram();
         Scanner input = new Scanner(System.in);
-        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++");
-        System.out.println( "+             KHMER DEGITAL CENTER           +");
-        System.out.println(" ++++++++++++++++++++++++++++++++++++++++++++++");
-
         int incorrectLoginCount = 3;
         Form form = new Form();
+        System.out.println("No Internet Connection ");
+        while (!MySQLConnection.testConnection()) {
+            try{
+                Thread.sleep(100);
+            }catch(Exception e){
+                System.out.println(e.getMessage());
+            }
+        }
+        Feature.clearScreen();
+        headerProgram();
         do {
             System.out.println("Login\n");
             User user = form.login();
@@ -108,8 +115,14 @@ public class Main {
                     switch (Feature.teacher()) {
                         case 1:
                             System.out.println( "-------------- Teaching Course -------------- ");
-                            teacher.selectCourseTeaching();
+                            CourseInstance teachingClass =  teacher.selectCourseTeaching();
+                            AcademicControl.courseInterfacceForTeacher(teacher, teachingClass);
                             break;
+                        case 2:
+                            System.out.println( "-------------- Update Information -------------- ");
+                        case 3:
+                            System.out.println( "-------------- Show Information -------------- ");
+                            System.out.println(teacher);
                         case 0:
                             System.exit(1);;
                             break;
@@ -124,12 +137,15 @@ public class Main {
                     switch (Feature.student()) {
                         case 1:
                             System.out.println(" - Your Course ");
-                            studentLogin.selectCourseStudy();
-                            ///
+                            CourseInstance c =studentLogin.selectCourseStudy();
+                            AcademicControl.courseInterfacceForStudent(studentLogin, c);
                             break;
                         case 2:
-                            break;
+                            System.out.println( "-------------- Update Information -------------- ");
+                        case 3:
+                            System.out.println( "-------------- Show Information -------------- ");
                         case 0:
+                            System.out.println(studentLogin);
                             System.exit(1);;
                             break;
                         default:
@@ -142,5 +158,10 @@ public class Main {
                 if(incorrectLoginCount==0) break;
             }
         } while (true);
+    }
+    static void headerProgram(){
+        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++");
+        System.out.println( "+             KHMER DEGITAL CENTER           +");
+        System.out.println(" ++++++++++++++++++++++++++++++++++++++++++++++");
     }
 }

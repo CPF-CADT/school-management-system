@@ -22,13 +22,14 @@ public class CourseInstance {
     public int year;
     public int term;
     public String group;
-    protected ArrayList<String> listStudent = new ArrayList<>(30); //future will store referenece of student
-    private ArrayList<Quizz> quizzes = new ArrayList<Quizz>();
-    private ArrayList<Assignment> assignments = new ArrayList<>();
-    public HashMap<String, ArrayList<Attendent>> attendentStu = new HashMap<>();
-    private String keyIdentical;
-    
+    protected ArrayList<String> listStudent = new ArrayList<>(30);
+    protected HashMap<String,String> listStudentName = new HashMap<>(30); // ID and name
+    // private ArrayList<Quizz> quizzes = new ArrayList<Quizz>();
+    // private ArrayList<Assignment> assignments = new ArrayList<>();
+    public HashMap<String,ArrayList<Attendent>> attendentStu = new HashMap<>();
+    private String keyIdentical;    
     private HashMap<String,ArrayList<Grading>> activityScore =  new HashMap<String,ArrayList<Grading>>();
+
     public CourseInstance(Course course, String teacherID, int year, int term, String group,ArrayList<String> listStudent) {
         this.teacherID = teacherID;
         this.course = course;
@@ -86,8 +87,11 @@ public class CourseInstance {
             System.out.println("Student Enrollment ");
             System.out.print("Student ID : ");
             String stuID = input.next();
-            if (User.listUser.get(stuID) != null) {
+            //Need add trycatch
+            Student stu = (Student) User.listUser.get(stuID);
+            if (stu != null) {
                 listStudent.add(stuID);
+                listStudentName.put(stuID,stu.firstName + " " + stu.lastName );
                 Student s = (Student)User.listUser.get(stuID);
                 s.addCourseStudy(user,this.keyIdentical);
 
@@ -103,33 +107,33 @@ public class CourseInstance {
         return false;
     }
 
-    private void allocateScoreForStudnet( HashMap<String, Float> listStu){
-        for(String id : this.listStudent){
-            listStu.put(id, 0.0f);
-        }
-    }
+    // private void allocateScoreForStudnet( HashMap<String, Float> listStu){
+    //     for(String id : this.listStudent){
+    //         listStu.put(id, 0.0f);
+    //     }
+    // }
 
-    public void setQuizzes(Object user, Quizz quizzes) {
-        if (user instanceof Teacher) {
-            this.quizzes.add(quizzes);
-            allocateScoreForStudnet(quizzes.studentScore);
-        } else {
-            System.out.println("Access denied: You don't have permission!");
-        }
-    }
+    // public void setQuizzes(Object user, Quizz quizzes) {
+    //     if (user instanceof Teacher) {
+    //         this.quizzes.add(quizzes);
+    //         allocateScoreForStudnet(quizzes.studentScore);
+    //     } else {
+    //         System.out.println("Access denied: You don't have permission!");
+    //     }
+    // }
 
-    public Assignment getAssignments(int index) {
-        return assignments.get(index);
-    }
+    // public Assignment getAssignments(int index) {
+    //     return assignments.get(index);
+    // }
     
-    public void setAssignments(Object user, Assignment ass) {
-        if (user instanceof Teacher) {
-            this.assignments.add(ass);
-            allocateScoreForStudnet(ass.studentScore);
-        } else {
-            System.out.println("Access denied: You don't have permission!");
-        }
-    }
+    // public void setAssignments(Object user, Assignment ass) {
+    //     if (user instanceof Teacher) {
+    //         this.assignments.add(ass);
+    //         allocateScoreForStudnet(ass.studentScore);
+    //     } else {
+    //         System.out.println("Access denied: You don't have permission!");
+    //     }
+    // }
     public String getKeyIdentical() {
         return keyIdentical;
     }
@@ -140,6 +144,48 @@ public class CourseInstance {
             activityScore.get(stuID).add(grade);
         }else{
             System.out.println("Access Denied : teacherID Only");
+        }
+    }
+    private void gradeHeader(){
+        System.out.printf("%-5s ", "Score : ");
+        for(int i=1;i<=activityScore.get(listStudent.get(0)).size();i++){
+            System.out.printf("%-10s ",activityScore.get(listStudent.get(0)).get(i-1).assesmentType);
+        }   
+    }
+    public void myAttendace(String id){
+        attendaceHeader();
+        System.out.println(); 
+        System.out.printf("%-5s ",id);
+        ArrayList<Attendent> attendents = attendentStu.get(id);
+        if (attendents != null) {
+            for (Attendent attendent : attendents) {
+                System.out.printf("%-14s ",attendent);
+            }
+        } else {
+            System.out.print("No attendents found");
+        }
+        System.out.println(); 
+    }
+    public void myGeade(String id){
+        gradeHeader();
+        System.out.println(); 
+        System.out.printf("%-5s    ",id);
+        ArrayList<Grading> grade = activityScore.get(id);
+        for (Grading g : grade) {
+            System.out.printf("%-10.2f ",g.score);
+        }
+        System.out.println(); 
+    }
+    public void showStuGrade(){
+        gradeHeader();
+        System.out.println(); 
+        for (String id : listStudent) {
+            System.out.printf("%-5s      ",id);
+            ArrayList<Grading> grade = activityScore.get(id);
+            for (Grading g : grade) {
+                System.out.printf("%-10.2f ",g.score);
+            }
+            System.out.println(); 
         }
     }
     @SuppressWarnings("unused")
@@ -192,7 +238,7 @@ public class CourseInstance {
         if(user instanceof Teacher){
             System.out.println("Check Attendance");
             for(String stu : listStudent ){
-                System.out.println("ID : "+ stu);
+                System.out.println("ID : "+ stu +" - "+listStudentName.get(stu));
                 Attendent atten = new Attendent(term);
                 atten.tick();
                 attendentStu.get(stu).add(atten);
@@ -202,13 +248,22 @@ public class CourseInstance {
         }
     }
 
+    private void attendaceHeader(){
+        System.out.printf("%-5s ", "Session");
+        for(int i=1;i<=attendentStu.get(listStudent.get(0)).size();i++){
+            System.out.printf("%-10s ",String.valueOf(i));
+        }
+
+    }
     public void listAttendance(){
+        attendaceHeader();
+        System.out.println(); 
         for (String id : listStudent) {
-            System.out.print(id + " ");
+            System.out.printf("%-5s ",id);
             ArrayList<Attendent> attendents = attendentStu.get(id);
             if (attendents != null) {
                 for (Attendent attendent : attendents) {
-                    System.out.print(attendent + " ");
+                    System.out.printf("%-10s ",attendent);
                 }
             } else {
                 System.out.print("No attendents found");
@@ -216,46 +271,46 @@ public class CourseInstance {
             System.out.println(); 
         }
     }
-    public void attempQuizz(Quizz q,User user){
-        if(user instanceof Student){
-            if(LocalDate.now().isBefore(q.getDue())){
-                float score = q.attemp(user.getId());
-                q.addStudentScore(user.getId(), score);
-            }
-        }else{
-            System.out.println("Permission denie : ");
-        }
-    }
+    // public void attempQuizz(Quizz q,User user){
+    //     if(user instanceof Student){
+    //         if(LocalDate.now().isBefore(q.getDue())){
+    //             float score = q.attemp(user.getId());
+    //             q.addStudentScore(user.getId(), score);
+    //         }
+    //     }else{
+    //         System.out.println("Permission denie : ");
+    //     }
+    // }
     public void stuReport(String stuId){
         System.out.println("------------ Academic Report ------------");
 
         System.out.println("Grade      : " );
         System.out.println("Average    : " );
 
-        System.out.print("\nQuizz         : " ); 
-        stuQuizzScore(stuId);
+        // System.out.print("\nQuizz         : " ); 
+        // stuQuizzScore(stuId);
 
-        System.out.print("\nAssignment     : " );
-        stuAssScore(stuId);
+        // System.out.print("\nAssignment     : " );
+        // stuAssScore(stuId);
 
         System.out.print("\nActivity Score : " );
 
         System.out.println("Total Attendance : ");
     }
-    private String stuQuizzScore(String stuId){
-        String score = " ";
-        for(Quizz q : quizzes){
-            score +=(q.studentScore.get(stuId)+" ,");
-        }
-        return score;
-    }
-    private String stuAssScore(String stuId){
-        String score = " ";
-        for(Assessment ass : assignments){
-            score +=(ass.studentScore.get(stuId)+" ,");
-        }
-        return score;
-    }
+    // private String stuQuizzScore(String stuId){
+    //     String score = " ";
+    //     for(Quizz q : quizzes){
+    //         score +=(q.studentScore.get(stuId)+" ,");
+    //     }
+    //     return score;
+    // }
+    // private String stuAssScore(String stuId){
+    //     String score = " ";
+    //     for(Assessment ass : assignments){
+    //         score +=(ass.studentScore.get(stuId)+" ,");
+    //     }
+    //     return score;
+    // }
 
     // private String stuActivityScore(String stuId){
     //     String score = " ";

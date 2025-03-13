@@ -90,7 +90,7 @@ public class Feature {
         }
         return option;
     }
-    public void clearScreen(){
+    static public void clearScreen(){
         System.out.print("\033[H\033[2J");  
         System.out.flush();  
     }

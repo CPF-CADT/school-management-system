@@ -24,9 +24,7 @@ public class MySQLConnection {
             try {
                 connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
             }
-            catch (SQLException e) {
-                System.out.println("Connection failed!");
-                
+            catch (SQLException e) {                
             }
         }
         return connection;

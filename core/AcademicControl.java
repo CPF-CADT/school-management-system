@@ -65,9 +65,10 @@ public class AcademicControl {
         System.out.println(" 1 .  List Student ");
         System.out.println(" 2 .  Grading ");
         System.out.println(" 3 .  View Student Grade ");
-        System.out.println(" 4 .  Create Assignment");
-        System.out.println(" 5 .  Create Quizz");
-        System.out.println(" 6 .  Atendance (Optional)");
+        System.out.println(" 4 .  Create Assignment -NOT");
+        System.out.println(" 5 .  Create Quizz - IN DECIDE");
+        System.out.println(" 6 .  Attendance ");
+        System.out.println(" 7 .  View Attendacne ");
         System.out.println(" 0 .  Exit ");
         int option = Form.inputInteger();
         switch (option) {
@@ -108,16 +109,46 @@ public class AcademicControl {
                 }
                 break;
             case 3:
-                //show grading
+                //show gradingNumberRangeExceptionHandling
+                System.out.println("Student Grade ");
+                classLearn.showStuGrade();
                 break;
             case 4:
-                
+                //
                 break;
             case 5:
                 
                 break;
+            case 6: //attendance student
+                System.out.println("Check Attendance");
+                classLearn.checkAttendance(teach);
+                break;
+            case 7:
+                System.out.println("View attendacne");
+                classLearn.listAttendance();
+                break;
             default:
                 break;
+        }
+    }
+
+    public static void courseInterfacceForStudent(Student stu,CourseInstance classLearn){
+        System.out.println("------------- "+ classLearn.course.name  +"------------- ");
+        System.out.println(" -  "+classLearn.course.description);
+        System.out.println(" 1 .  View Grade ");
+        System.out.println(" 2 .  View Attendance");
+        System.out.println(" 0 .  Exit ");
+        int option = Form.inputInteger();
+        switch (option) {
+            case 1:
+                classLearn.myGeade(stu.getId());
+            break;
+            case 2:
+                classLearn.myAttendace(stu.getId());
+            break;
+            case 0:
+                System.out.println("Logout");
+            break;
         }
     }
 
