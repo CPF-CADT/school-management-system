@@ -6,13 +6,16 @@ package user;
 public class Admin extends User {
     final static String EMAIL_FORMAT = "@adm.kdc.edu";
     static int numberOfAdmin = 0;
-    public String role;
     public String id = "A";
 
-    public Admin(String firstName, String lastName, String address, String phoneNumber, String role) {
+    public Admin(String firstName, String lastName, String address, String phoneNumber) {
         super(firstName, lastName, address, phoneNumber, EMAIL_FORMAT);
-        this.role = role;
         id +=(String.valueOf(++numberOfAdmin));
+        User.listUser.put(this.id, this);
+    }
+    public Admin(String id,String firstName, String lastName, String address, String phoneNumber,String email,String password) {
+        super(firstName, lastName, address, phoneNumber, email, password);
+        this.id = id;
         User.listUser.put(this.id, this);
     }
 
@@ -22,31 +25,7 @@ public class Admin extends User {
 
     @Override
     public String toString() {
-        return super.toString() +"ID : " + id +  "  Role : " + this.role +"\n";
+        return super.toString() +"ID : " + id +  "  Role : " +"\n";
     }
-
-    public static Admin selectAdmin() {
-    if (!User.listUser.isEmpty()) {
-    System.out.println("List Admin ");
-    for (User ad : User.listUser.values()) {
-    System.out.println(ad);
-    }
-    System.out.print("Enter ID : ");
-    String select=input.nextLine();
-    User findAdmin=  User.listUser.get(select);
-    if(findAdmin instanceof Student){
-        return (Admin) findAdmin;
-    }else {
-        return null;
-    }
-    } else {
-    System.out.println("No Admin in list");
-    return null;
-    }
-
-    }
-
-    
-
 
 }

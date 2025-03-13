@@ -1,6 +1,8 @@
 package academic;
 import java.util.HashMap;
 import java.util.Scanner;
+
+import exception.StringFilterException;
 import user.Teacher;
 
 public class Question {
@@ -36,6 +38,7 @@ public class Question {
     //     return "Question [ question=" + question + ", marks=" + marks + ", correctAnswer="
     //             + correctAnswer + ", choices=" + Arrays.toString(choices) + "]";
     // }
+
     public void createQuestion(Object user){
         if(user instanceof Teacher){
             System.out.print("Enter Question : ");
@@ -59,9 +62,22 @@ public class Question {
         for(int i=0;i<4;i++){
             System.out.print(option[i]+" . "+ choices.get(option[i])+"\n");
         }
-        System.out.print("Enter : ");
-        if(correctAnswer == input.next().charAt(0)){
-            return marks;
+        try{
+            char ans = ' ';
+            while (true) {
+                System.out.print("Enter : ");
+                ans = input.next().charAt(0);
+                StringFilterException answ = new StringFilterException(String.valueOf(ans), "^[A-D]$", "Answer A to D");
+                break;
+            }
+            if(correctAnswer == ans ){
+                System.out.println("Yeyy you're right !"+ans);
+                return marks;
+            }else{
+                System.out.println("Nope try again it's wrong !");
+            }
+        }catch (IllegalArgumentException a){
+            System.out.println(a.getMessage());
         }
         return 0.0f;
     }

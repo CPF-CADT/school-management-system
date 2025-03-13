@@ -30,7 +30,7 @@ public abstract class User {
         this.firstName = firstName;
         this.address = address;
         this.phoneNumber = phoneNumber;
-        dob = LocalDate.of(2025, 1, 1); // need to input later
+        this.dob = LocalDate.now(); // need to input later
         this.email = email;
         this.password = password;
     }
@@ -47,7 +47,7 @@ public abstract class User {
         this.firstName = firstName;
         this.address = address;
         this.phoneNumber = phoneNumber;
-        dob = LocalDate.of(2025, 1, 1); // need to input later
+        this.dob = LocalDate.now(); // need to input later
         this.email = generateEmail(emailFormat).toLowerCase();
         this.password = "kdc2025"; // defult password
     }
@@ -70,7 +70,6 @@ public abstract class User {
     public static User login(User log) {
         for (User user : User.listUser.values()) {
             if (log.equals(user)) {
-                System.out.println("True");
                 return user;
             }
         }
@@ -238,5 +237,13 @@ public abstract class User {
             return false;
         }
 
+    }
+
+    public void resetPassword(User user){
+        if(user instanceof Admin){
+            this.password = "kdc2025";
+        }else{
+            System.out.println("Permission Denie");
+        }
     }
 }

@@ -1,6 +1,8 @@
 package academic;
 
 import core.MySQLConnection;
+
+import java.time.LocalDate;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import user.Teacher;
@@ -11,7 +13,7 @@ public class Assignment extends Assessment {
     Scanner scanner = new Scanner(System.in);
     
     public Assignment(int courseId, String title, Teacher teacher, float score,String description) {
-        super(courseId, title, teacher,score,description);
+        super(courseId, title, teacher,score,description,LocalDate.now());
         this.description = description;
     }
 

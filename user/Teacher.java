@@ -129,4 +129,28 @@ public class Teacher extends User {
     public String[] toCSVFormat() {
         return Stream.concat(Arrays.stream(super.toCSVFormat()), Stream.of(new String[]{major,String.valueOf(status)})).toArray(String[]::new);
     }
+    static public void loadAllTeacher(){
+        String query = "SELECT * FROM User AS u JOIN Teachers AS t ON u.id = t.user_id;";
+        ResultSet result = MySQLConnection.executeQuery(query);
+        if(result!=null){
+            try{
+                while (result.next()) { 
+                    String userId = result.getString("id"); 
+                    String userEmail = result.getString("email");
+                    String phone = result.getString("phone_number"); 
+                    String userPassword = result.getString("password");
+                    String firstName = result.getString("first_name");
+                    String lastName = result.getString("last_name");
+                    String address = result.getString("address");
+                    boolean status = result.getBoolean("status");
+                    String major = result.getString("role_major");
+                    Teacher user = new Teacher( userId, firstName,lastName,  address,  phone, userEmail, userPassword, major,status);              
+                } 
+            }catch(SQLException s){
+                
+            }
+        }else{
+            System.out.println("Fail to Load Data ");
+        }
+    }
 }

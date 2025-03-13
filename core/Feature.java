@@ -12,7 +12,11 @@ public class Feature {
         "Create Course",
         "Create Course Instance",
         "Assign Teacher",
-        "Save User to Cloud"
+        "Save User to Cloud",
+        "Reset User Password",
+        "Display All user",
+        "Display All Student",
+        "Display All Teacher"
     };
     static String[] studentList = {
         "View Course",

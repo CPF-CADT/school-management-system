@@ -2,14 +2,13 @@ package academic;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
 import core.Form;
 import core.MySQLConnection;
-import exception.NumberRangeExceptionHandling;
-import java.sql.Date;
 import user.Admin;
 import user.Student;
 import user.Teacher;
@@ -19,18 +18,17 @@ public class CourseInstance {
     static Scanner input = new Scanner(System.in);
     public static HashMap<String, CourseInstance> listCourseInstace = new HashMap<String, CourseInstance>();
     protected String teacherID;
-
     public Course course;
     public int year;
     public int term;
     public String group;
-    ArrayList<String> listStudent = new ArrayList<>(30); //future will store referenece of student
+    protected ArrayList<String> listStudent = new ArrayList<>(30); //future will store referenece of student
     private ArrayList<Quizz> quizzes = new ArrayList<Quizz>();
     private ArrayList<Assignment> assignments = new ArrayList<>();
-    private HashMap<String, ArrayList<Attendent>> attendents = new HashMap<>();
+    public HashMap<String, ArrayList<Attendent>> attendentStu = new HashMap<>();
     private String keyIdentical;
     
-    private HashMap<String,ArrayList<Grading>> stuGrade =  new HashMap<String,ArrayList<Grading>>();
+    private HashMap<String,ArrayList<Grading>> activityScore =  new HashMap<String,ArrayList<Grading>>();
     public CourseInstance(Course course, String teacherID, int year, int term, String group,ArrayList<String> listStudent) {
         this.teacherID = teacherID;
         this.course = course;
@@ -92,17 +90,29 @@ public class CourseInstance {
                 listStudent.add(stuID);
                 Student s = (Student)User.listUser.get(stuID);
                 s.addCourseStudy(user,this.keyIdentical);
+
                 ArrayList<Grading> g = new ArrayList<Grading>();
-                stuGrade.put(stuID,g);
+                activityScore.put(stuID,g);
+
+                ArrayList<Attendent> a = new ArrayList<Attendent>();
+                attendentStu.put(stuID, a);
+
                 return true;
             }
         }
         return false;
     }
 
+    private void allocateScoreForStudnet( HashMap<String, Float> listStu){
+        for(String id : this.listStudent){
+            listStu.put(id, 0.0f);
+        }
+    }
+
     public void setQuizzes(Object user, Quizz quizzes) {
         if (user instanceof Teacher) {
             this.quizzes.add(quizzes);
+            allocateScoreForStudnet(quizzes.studentScore);
         } else {
             System.out.println("Access denied: You don't have permission!");
         }
@@ -115,6 +125,7 @@ public class CourseInstance {
     public void setAssignments(Object user, Assignment ass) {
         if (user instanceof Teacher) {
             this.assignments.add(ass);
+            allocateScoreForStudnet(ass.studentScore);
         } else {
             System.out.println("Access denied: You don't have permission!");
         }
@@ -126,7 +137,7 @@ public class CourseInstance {
     public void setStuGrade(User user,String stuID, String assessmentType,int ses_number,float socre) {
         if(user instanceof Teacher){
             Grading grade = new Grading(assessmentType, ses_number, socre);
-            stuGrade.get(stuID).add(grade);
+            activityScore.get(stuID).add(grade);
         }else{
             System.out.println("Access Denied : teacherID Only");
         }
@@ -177,65 +188,84 @@ public class CourseInstance {
         return list;
     }
 
-        public class Attendent {
-        
-        Scanner input = new Scanner(System.in);
-        private boolean present;
-        private boolean late;
-        private boolean absent;
-        private boolean permission;
-        private Date date;
-        private int session;
-        public Attendent() {
-        }
-
-        public void tick() {
-            System.out.println("1. Present");
-            System.out.println("2. Late");
-            System.out.println("3. Absent");
-            System.out.println("4. Permission");
-            System.out.print("Choose: ");
-            int choice = input.nextInt();
-            try {
-                NumberRangeExceptionHandling stuOption = new NumberRangeExceptionHandling(1, 4, choice);
-                switch (choice) {
-                    case 1:
-                        present = true;
-                        late = absent = permission = false;
-                        break;
-                    case 2:
-                        late = true;
-                        present = absent = permission = false;
-                        break;
-                    case 3:
-                        absent = true;
-                        present = late = permission = false;
-                        break;
-                    case 4:
-                        permission = true;
-                        present = late = absent = false;
-                        break;
-                    default:
-                        System.out.println("Invalid choice");
-                        break;
-                }
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
+    public void checkAttendance(User user){
+        if(user instanceof Teacher){
+            System.out.println("Check Attendance");
+            for(String stu : listStudent ){
+                System.out.println("ID : "+ stu);
+                Attendent atten = new Attendent(term);
+                atten.tick();
+                attendentStu.get(stu).add(atten);
             }
-        }
-        
-        public void checkAttendance(Teacher teacher) {
-            if (teacher instanceof Teacher) {
-                for (String student : listStudent) {
-                    System.out.println("Enter attendance for student: " + student);
-                    tick();
-                }
-                System.out.println("Attendance checked successfully!");
-            } else {
-                System.out.println("Access denied: You don't have permission!");
-            }
+        }else{
+            System.out.println("Permission Denie");
         }
     }
 
+    public void listAttendance(){
+        for (String id : listStudent) {
+            System.out.print(id + " ");
+            ArrayList<Attendent> attendents = attendentStu.get(id);
+            if (attendents != null) {
+                for (Attendent attendent : attendents) {
+                    System.out.print(attendent + " ");
+                }
+            } else {
+                System.out.print("No attendents found");
+            }
+            System.out.println(); 
+        }
+    }
+    public void attempQuizz(Quizz q,User user){
+        if(user instanceof Student){
+            if(LocalDate.now().isBefore(q.getDue())){
+                float score = q.attemp(user.getId());
+                q.addStudentScore(user.getId(), score);
+            }
+        }else{
+            System.out.println("Permission denie : ");
+        }
+    }
+    public void stuReport(String stuId){
+        System.out.println("------------ Academic Report ------------");
 
+        System.out.println("Grade      : " );
+        System.out.println("Average    : " );
+
+        System.out.print("\nQuizz         : " ); 
+        stuQuizzScore(stuId);
+
+        System.out.print("\nAssignment     : " );
+        stuAssScore(stuId);
+
+        System.out.print("\nActivity Score : " );
+
+        System.out.println("Total Attendance : ");
+    }
+    private String stuQuizzScore(String stuId){
+        String score = " ";
+        for(Quizz q : quizzes){
+            score +=(q.studentScore.get(stuId)+" ,");
+        }
+        return score;
+    }
+    private String stuAssScore(String stuId){
+        String score = " ";
+        for(Assessment ass : assignments){
+            score +=(ass.studentScore.get(stuId)+" ,");
+        }
+        return score;
+    }
+
+    // private String stuActivityScore(String stuId){
+    //     String score = " ";
+    //     for(Assessment ass : assignments){
+    //         score +=(ass.studentScore.get(stuId)+" ,");
+    //     }
+    //     return score;
+    // }
+
+    public void getResultForStudent(){
+
+    }
 }
