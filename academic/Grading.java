@@ -1,12 +1,14 @@
 package academic;
 
+import java.time.LocalDate;
+
 import user.Teacher;
 import user.User;
 
 public class Grading {
     protected String assesmentType;
-    // protected Date date
-    protected  int sessionNumber; //will  auto
+    protected LocalDate date;
+    protected  int sessionNumber;
     protected float score;
 
     public Grading(){
@@ -17,21 +19,25 @@ public class Grading {
         this.assesmentType = assesmentType;
         this.sessionNumber = sessionNumber;
         this.score = score;
+        date = LocalDate.now();
     }
+
     public void setScore(User user,float score) {
         if(user instanceof Teacher){
             this.score = score;
         }else{
             System.out.println("Access denied : Only Teacher");
         }
-
     }
+
     public String getAssesmentType() {
         return assesmentType;
     }
+
     public int getSessionNumber() {
         return sessionNumber;
     }
+
     public float getScore() {
         return score;
     }

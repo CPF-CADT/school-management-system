@@ -1,5 +1,6 @@
 package academic;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Scanner;
 import user.Teacher;
@@ -13,12 +14,13 @@ public abstract class Assessment{
     public float totalScore; 
     public Teacher teacher;
     public String description;
+    private LocalDate due;
 
     //id key and value score
     public HashMap<String, Float> studentScore = new HashMap<String, Float>();
 
     // Constructor
-    public Assessment(int courseId, String title, Teacher teacher,float score, String description) {
+    public Assessment(int courseId, String title, Teacher teacher,float score, String description,LocalDate deu) {
         numberAssessments+=1;
         this.no = numberAssessments;
         this.courseId = courseId;
@@ -26,6 +28,11 @@ public abstract class Assessment{
         this.teacher = teacher;
         this.totalScore =  score;
         this.description = description;
+        this.due = deu;
+    }
+
+      public LocalDate getDue() {
+        return due;
     }
 
     //add student score

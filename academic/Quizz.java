@@ -1,18 +1,24 @@
 package academic;
 
 import core.MySQLConnection;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import user.Teacher;
 
 public class Quizz extends Assessment{
+
     private ArrayList<Question> tasks = new ArrayList<Question>(); 
+
     public Quizz(int courseId, String title, Teacher teacher, float score, String description) {
-        super(courseId, title, teacher, score, description);
+        super(courseId, title, teacher, score, description,LocalDate.now());
         
     }
+    
     public Question getTask(int index) {
         return tasks.get(index);
     }
+
     public void addTask(Object user,Question task){
         if(user instanceof Teacher){
             this.tasks.add(task);
@@ -20,6 +26,7 @@ public class Quizz extends Assessment{
             System.out.println("Access denied: You Dont have permission!");
         }
     }
+
     public float attemp(String studentId){
         float total =0.0f;
         int numberOfQuestion =0;
@@ -30,16 +37,22 @@ public class Quizz extends Assessment{
         }
         return total; 
     }
-    // @Override
+    // @Override`
     //add student score
 
     public void addStudentScore(String studentId, float score) {
-        totalScore = attemp(studentId);
-        System.out.println("Student ID: " + studentId + " Totalscore: " + totalScore);
-        studentScore.put(studentId, totalScore);
+        try {
+            if (score < 0 || score > 100) {
+                throw new IllegalArgumentException("Score must be between 0 and " + 100 + ".");
+            }
+            System.out.println("Score of " + score + " added for student ID: " + studentId);
+            studentScore.put(studentId, score);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
     }
     
-        public boolean updateQuizzData(){
+    public boolean updateQuizzData(){
         String query = "UPDATE quizz SET description = '" + description + "' , title = '"+title+"' WHERE quizz_id = " + no;
         MySQLConnection.executeUpdate(query);
         return true;
@@ -65,6 +78,7 @@ public class Quizz extends Assessment{
     //     // TODO Auto-generated method stub
     //     throw new UnsupportedOperationException("Unimplemented method 'addStudentScore'");
     // }
+    //     // TODO Auto-generated method stub
 
     // public  void createQuiz(){
         

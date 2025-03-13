@@ -18,24 +18,23 @@ public class Form implements Authentication{
     @Override
     public User login() {
 
-        System.out.print("Email address : ");
-        String email = input.next();
-        System.out.print("Password      : ");
-        String passsword = input.next();
+        // System.out.print("Email address : ");
+        // String email = input.next();
+        // System.out.print("Password      : ");
+        // String passsword = input.next();
 
-        // //TEST LOGIN
-        // String email = "charlie.williams@tch.kdc.edu";
-        // String passsword = "password789";
+        //TEST LOGIN
+        String email = "admin@adm.kdc.edu";
+        String passsword = "kdc2025";
 
         
         User user = null;   
         if (loadData(email,passsword)!=null) {
-            System.out.println("Welcome to Khode");
             if(email.endsWith("@tch.kdc.edu")) {
                 user = new Teacher(email, passsword);
             }else if(email.endsWith("@stu.kdc.edu")){
                 user = new Student(email, passsword);
-            }else{
+            }else if(email.endsWith("@adm.kdc.edu")){
                 user = new Admin(email, passsword);
             }
             return User.login(user);
@@ -54,9 +53,8 @@ public class Form implements Authentication{
             System.out.println("      USER REGISTRATION FORM       ");
             System.out.println("====================================");
             System.out.println("Choose Type User :");
-            System.out.println("1 . Staff");
-            System.out.println("2 . Teacher");
-            System.out.println("3 . Student");
+            System.out.println("1 . Teacher");
+            System.out.println("2 . Student");
             System.out.print("Choose : ");
             try{
                 typeOfAccount = inputInteger();
@@ -80,20 +78,13 @@ public class Form implements Authentication{
 
                 switch (typeOfAccount) {
                     case 1:
-                        // Admin Dont Have Database
-                        System.out.print("Role         : ");
-                        role_major = input.next();
-                        StringFilterException role = new StringFilterException(role_major, "^[A-Za-z]+([\\s-&][A-Za-z]+)*$", "Spcial character is not Allowed");
-                        Admin adm = new Admin(firstName, lastName, address, phoneNumber, role_major);
-                        break;
-                    case 2:
                         // Teacher
                         System.out.print("Major        : ");
                         role_major = input.next();
                         StringFilterException major = new StringFilterException(role_major, "^[A-Za-z]+([ -&][A-Za-z]+)*$", "Spcial character is not Allowed");
                         Teacher teach = new Teacher(firstName, lastName, address, phoneNumber, role_major);
                         break;
-                    case 3:
+                    case 2:
                         // Student
                         Student stu = new Student(firstName, lastName, address, phoneNumber);
                         System.out.println("Student registered successfully!");
@@ -145,15 +136,30 @@ public class Form implements Authentication{
                 input.endsWith("@tch.kdc.edu") ||
                 input.endsWith("@stu.kdc.edu");
     }
+    public User loadData(String userID,User user){
+        String query = " ";
+        if(user instanceof Admin){
+            if(userID.contains("S")){
+                query = "SELECT u.id, u.first_name, u.last_name, u.dob, u.address, u.email, u.phone_number, u.password, s.status FROM User AS u JOIN Students AS s ON u.id = s.user_id WHERE u.id = '"+userID+"';"; //NOT READY 
+            }else if(userID.contains("T")){
+                query = "SELECT u.id, u.first_name, u.last_name, u.dob, u.address, u.email, u.phone_number, u.password, t.role_major,t.status FROM User AS u JOIN Teachers AS t ON u.id = t.user_id WHERE u.id = '"+userID+"';"; //NOT READY 
+            }
+            return getUsr(query);
+        }
+        return null;
+    }
     public User loadData(String email,String password){
-        String query;
+        String query = " ";
         if (email.endsWith("@stu.kdc.edu")){
             query = "SELECT u.id,u.first_name,u.last_name,u.dob,u.address,u.email,u.phone_number,u.password,s.status FROM User AS u JOIN Students AS s ON u.id = s.user_id WHERE email = '"+email+"' AND password = '"+password+"';";
         }else if(email.endsWith("@tch.kdc.edu")){
             query = "SELECT u.id, u.first_name, u.last_name, u.dob, u.address, u.email, u.phone_number, u.password, t.role_major,t.status FROM User AS u JOIN Teachers AS t ON u.id = t.user_id WHERE u.email = '"+email+"' AND u.password = '"+password+"';";
-        }else {
-            query = "SELECT u.id,u.first_name,u.last_name,u.dob,u.address,u.email,u.phone_number,u.password,role_major,t. FROM User AS u JOIN Admin AS s ON u.id = s.user_id "+ "WHERE email = '" + email + "' AND password = '" + password + "';"; //NOT READY 
+        }else if(email.endsWith("@adm.kdc.edu")) {
+            query = "SELECT u.id, u.first_name, u.last_name, u.dob, u.address, u.email, u.phone_number, u.password FROM User AS u WHERE u.email = '"+email+"' AND u.password = '"+password+"';"; //NOT READY 
         }
+        return getUsr(query);
+    }
+    private User getUsr(String query){
         ResultSet result = MySQLConnection.executeQuery(query);
         if(result!=null){
             try{
@@ -165,15 +171,18 @@ public class Form implements Authentication{
                     String firstName = result.getString("first_name");
                     String lastName = result.getString("last_name");
                     String address = result.getString("address");
-                    boolean status = result.getBoolean("status");
-
-                    if (email.endsWith("@stu.kdc.edu")){
-                        Student user = new Student(userId, firstName, lastName, address, phone, userEmail, userPassword,status);
+                    if (userEmail.endsWith("@stu.kdc.edu")){
+                        boolean status = result.getBoolean("status");
+                        Student user = new Student(userId, firstName,lastName, address, phone, userEmail, userPassword,status);
                         return user;
-                    }else if(email.endsWith("@tch.kdc.edu")){
+                    }else if(userEmail.endsWith("@tch.kdc.edu")){
+                        boolean status = result.getBoolean("status");
                         String major = result.getString("role_major");
-                        Teacher user = new Teacher( userId, firstName,  lastName,  address,  phone, email, password, major,status);
+                        Teacher user = new Teacher( userId, firstName,lastName,  address,  phone, userEmail, userPassword, major,status);
                         return user;
+                    }else if(userEmail.endsWith("@adm.kdc.edu")){
+                        Admin adm = new Admin(userId,firstName,lastName,address,phone,userEmail,userPassword);
+                        return adm;
                     }
                 } else {
                     System.out.println("Invalid email or password.");
@@ -184,8 +193,8 @@ public class Form implements Authentication{
             }
         }else{
             System.out.println("Fail");
+            return null;
         }
         return null;
     }
-    
 }

@@ -1,4 +1,5 @@
 import java.sql.SQLException;
+import java.util.Scanner;
 
 import academic.CourseInstance;
 import core.*;
@@ -7,26 +8,20 @@ import user.*;
 public class Main {
     @SuppressWarnings("unused")
     public static void main(String[] args) {
-        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++");
-        System.out.println("+             KHMER DEGITAL CENTER           +");
-        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++");
-
+        headerProgram();
+        Scanner input = new Scanner(System.in);
         int incorrectLoginCount = 3;
-        Admin adm = new Admin(
-                "John",
-                "Doe",
-                "123 Main St, NY",
-                "1234567890",
-                "Administrator");
         Form form = new Form();
-        
-        //check internet connection
-        // if(MySQLConnection.getConnection()!=null){
-            
-        // }else{
-        //     //use local session
-        // }
-        System.out.println(User.listUser);
+        System.out.println("No Internet Connection ");
+        while (!MySQLConnection.testConnection()) {
+            try{
+                Thread.sleep(100);
+            }catch(Exception e){
+                System.out.println(e.getMessage());
+            }
+        }
+        Feature.clearScreen();
+        headerProgram();
         do {
             System.out.println("Login\n");
             User user = form.login();
@@ -36,7 +31,6 @@ public class Main {
                     Admin admin = (Admin) user;
                     int option = 0 ;
                     do{
-        
                         switch (Feature.admin()) {
                             case 1:
                                 System.out.println("------------------ Create User Account ------------------ ");
@@ -78,6 +72,35 @@ public class Main {
                                     }
                                 }
                                 break;
+                            case 6:
+                                System.out.println("------------------ Reset User Password ------------------ ");
+                                System.out.print("User ID : ");
+                                String userID = input.next();
+                                try{
+                                    User usr = form.loadData(userID, admin);
+                                    System.out.println(usr);
+                                    System.out.println("Pleace Check");
+                                    System.out.println("1 . Reset Password");
+                                    System.out.println("0 . Exit");
+                                    System.out.print("Choise : ");
+                                    int op = Form.inputInteger();
+                                    if(op==1){
+                                        usr.resetPassword(admin);
+                                        usr.updateData();
+                                    };
+                                }catch(NullPointerException e){
+                                    System.out.println("User Not found");
+                                }   
+                                break;
+                            case 7:
+                                System.out.println("------------------ Show All User ------------------ ");
+                                System.out.println("");
+                                Student.loadAllStudent();
+                                Teacher.loadAllTeacher();
+                                for(User u:User.listUser.values()){
+                                    System.out.println(u.getEmail());
+                                }
+                                break;
                             case 0:
                                 System.exit(1);;
                                 break;
@@ -92,8 +115,14 @@ public class Main {
                     switch (Feature.teacher()) {
                         case 1:
                             System.out.println( "-------------- Teaching Course -------------- ");
-                            teacher.selectCourseTeaching();
+                            CourseInstance teachingClass =  teacher.selectCourseTeaching();
+                            AcademicControl.courseInterfacceForTeacher(teacher, teachingClass);
                             break;
+                        case 2:
+                            System.out.println( "-------------- Update Information -------------- ");
+                        case 3:
+                            System.out.println( "-------------- Show Information -------------- ");
+                            System.out.println(teacher);
                         case 0:
                             System.exit(1);;
                             break;
@@ -108,12 +137,15 @@ public class Main {
                     switch (Feature.student()) {
                         case 1:
                             System.out.println(" - Your Course ");
-                            studentLogin.selectCourseStudy();
-                            ///
+                            CourseInstance c =studentLogin.selectCourseStudy();
+                            AcademicControl.courseInterfacceForStudent(studentLogin, c);
                             break;
                         case 2:
-                            break;
+                            System.out.println( "-------------- Update Information -------------- ");
+                        case 3:
+                            System.out.println( "-------------- Show Information -------------- ");
                         case 0:
+                            System.out.println(studentLogin);
                             System.exit(1);;
                             break;
                         default:
@@ -126,5 +158,10 @@ public class Main {
                 if(incorrectLoginCount==0) break;
             }
         } while (true);
+    }
+    static void headerProgram(){
+        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++");
+        System.out.println( "+             KHMER DEGITAL CENTER           +");
+        System.out.println(" ++++++++++++++++++++++++++++++++++++++++++++++");
     }
 }
