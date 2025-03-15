@@ -144,6 +144,7 @@ public class Teacher extends User {
                     String address = result.getString("address");
                     boolean status = result.getBoolean("status");
                     String major = result.getString("role_major");
+                    @SuppressWarnings("unused")
                     Teacher user = new Teacher( userId, firstName,lastName,  address,  phone, userEmail, userPassword, major,status);              
                 } 
             }catch(SQLException s){
