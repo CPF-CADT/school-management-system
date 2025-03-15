@@ -57,6 +57,7 @@ public class Question {
             System.out.println("Access denied: You Dont have permission!");
         }
     }
+    @SuppressWarnings("unused")
     public float answerQuestion(){
         System.out.println("Question : "+question);
         for(int i=0;i<4;i++){

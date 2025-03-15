@@ -201,6 +201,7 @@ public class Student  extends User{
                     String lastName = result.getString("last_name");
                     String address = result.getString("address");
                     boolean status = result.getBoolean("status");
+                    @SuppressWarnings("unused")
                     Student user = new Student(userId, firstName,lastName, address, phone, userEmail, userPassword,status);
                 }   
             }catch(SQLException s){

@@ -6,7 +6,6 @@ import core.*;
 import user.*;
 
 public class Main {
-    @SuppressWarnings("unused")
     public static void main(String[] args) {
         headerProgram();
         Scanner input = new Scanner(System.in);
@@ -158,6 +157,7 @@ public class Main {
                 if(incorrectLoginCount==0) break;
             }
         } while (true);
+        input.close();
     }
     static void headerProgram(){
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++++");
